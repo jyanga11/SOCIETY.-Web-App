@@ -1,6 +1,106 @@
+'use client';
+
 import Image from "next/image";
+import { useState, useEffect } from "react";
 
 export default function Home() {
+  const [showLoading, setShowLoading] = useState(true);
+  const [displayText, setDisplayText] = useState("");
+  const [showCursor, setShowCursor] = useState(true);
+  const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
+  const [isTyping, setIsTyping] = useState(true);
+  const staticText = "is a ";
+  const phrases = [
+    "creative collective.",
+    "design agency.",
+    "lifestyle brand.",
+    "record label.",
+    "production house.",
+    "multi-media hub."
+  ];
+  const currentPhrase = phrases[currentPhraseIndex];
+
+  useEffect(() => {
+    let typeInterval: NodeJS.Timeout;
+    let backspaceInterval: NodeJS.Timeout;
+    let pauseTimer: NodeJS.Timeout;
+
+    if (isTyping) {
+      // Typing effect
+      let currentIndex = 0;
+      typeInterval = setInterval(() => {
+        if (currentIndex <= currentPhrase.length) {
+          setDisplayText(currentPhrase.slice(0, currentIndex));
+          currentIndex++;
+        } else {
+          clearInterval(typeInterval);
+          // Pause before backspacing
+          pauseTimer = setTimeout(() => {
+            setIsTyping(false);
+          }, 1500); // Wait 1 second before backspacing
+        }
+      }, 90); // Speed of typing
+    } else {
+      // Backspacing effect
+      let currentIndex = currentPhrase.length;
+      backspaceInterval = setInterval(() => {
+        if (currentIndex >= 0) {
+          setDisplayText(currentPhrase.slice(0, currentIndex));
+          currentIndex--;
+        } else {
+          clearInterval(backspaceInterval);
+          // Move to next phrase
+          setCurrentPhraseIndex((prev) => (prev + 1) % phrases.length);
+          setIsTyping(true);
+        }
+      }, 60); // Faster backspacing
+    }
+
+    return () => {
+      clearInterval(typeInterval);
+      clearInterval(backspaceInterval);
+      clearTimeout(pauseTimer);
+    };
+  }, [isTyping, currentPhrase, currentPhraseIndex, phrases.length]);
+
+  // Hide loading screen after 5 seconds
+  useEffect(() => {
+    const hideTimer = setTimeout(() => {
+      setShowLoading(false);
+    }, 20000);
+
+    return () => clearTimeout(hideTimer);
+  }, []);
+
+  // Blinking cursor effect
+  useEffect(() => {
+    const cursorInterval = setInterval(() => {
+      setShowCursor(prev => !prev);
+    }, 500);
+
+    return () => clearInterval(cursorInterval);
+  }, []);
+
+  if (showLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-black text-white fixed inset-0 z-50">
+        <div className="text-center">
+          <h1 className="font-semibold mb-4">
+            <span className="font-arts-crafts-regular text-6xl">SoCIETY.</span>
+            <span className="font-sans text-4xl"> {staticText}</span>
+            <span className="font-sans text-4xl inline-block w-96 text-left">
+              {displayText}
+              <span className={`ml-1 ${showCursor ? 'opacity-100' : 'opacity-0'} transition-opacity duration-100`}>
+                <div className="inline-block w-3 h-7 bg-white"></div>
+              </span>
+            </span>
+          </h1>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto"></div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">

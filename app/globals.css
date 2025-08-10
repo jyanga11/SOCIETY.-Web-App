@@ -1,5 +1,110 @@
 @import "tailwindcss";
 
+/* Custom Font Definitions */
+@font-face {
+  font-family: "p22-arts-and-crafts";
+  src: url("/fonts/p22-arts-and-crafts.woff2") format("woff2"),
+       url("/fonts/p22-arts-and-crafts.woff") format("woff"),
+       url("/fonts/p22-arts-and-crafts.ttf") format("truetype");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "p22-arts-and-crafts";
+  src: url("/fonts/p22-arts-and-crafts.woff2") format("woff2"),
+       url("/fonts/p22-arts-and-crafts.woff") format("woff"),
+       url("/fonts/p22-arts-and-crafts.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "p22-arts-and-crafts";
+  src: url("/fonts/p22-arts-and-crafts.woff2") format("woff2"),
+       url("/fonts/p22-arts-and-crafts.woff") format("woff"),
+       url("/fonts/p22-arts-and-crafts.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "p22-arts-and-crafts";
+  src: url("/fonts/p22-arts-and-crafts.woff2") format("woff2"),
+       url("/fonts/p22-arts-and-crafts.woff") format("woff"),
+       url("/fonts/p22-arts-and-crafts.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "p22-arts-and-crafts";
+  src: url("/fonts/p22-arts-and-crafts.woff2") format("woff2"),
+       url("/fonts/p22-arts-and-crafts.woff") format("woff"),
+       url("/fonts/p22-arts-and-crafts.ttf") format("truetype");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "p22-arts-and-crafts-tall";
+  src: url("/fonts/p22-arts-and-crafts-tall.woff2") format("woff2"),
+       url("/fonts/p22-arts-and-crafts-tall.woff") format("woff"),
+       url("/fonts/p22-arts-and-crafts-tall.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Custom CSS Classes */
+.font-arts-crafts-extra-light {
+  font-family: "p22-arts-and-crafts", sans-serif;
+  font-weight: 200;
+  font-style: normal;
+}
+
+.font-arts-crafts-light {
+  font-family: "p22-arts-and-crafts", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.font-arts-crafts-regular {
+  font-family: "p22-arts-and-crafts", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.font-arts-crafts-bold {
+  font-family: "p22-arts-and-crafts", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.font-arts-crafts-extra-bold {
+  font-family: "p22-arts-and-crafts", sans-serif;
+  font-weight: 800;
+  font-style: normal;
+}
+
+.font-arts-crafts-tall {
+  font-family: "p22-arts-and-crafts-tall", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* Legacy class for backward compatibility */
+.font-arts-crafts {
+  font-family: "p22-arts-and-crafts", sans-serif;
+  font-weight: 800;
+  font-style: normal;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
