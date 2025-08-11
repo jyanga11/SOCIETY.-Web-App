@@ -114,7 +114,7 @@ export default function Home() {
       return () => {
         tl.kill();
       };
-    }, 15000);
+    }, 20000);
 
     return () => clearTimeout(hideTimer);
   }, []);
