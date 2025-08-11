@@ -1,26 +1,54 @@
 'use client';
 
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { gsap } from "gsap";
 
 export default function Home() {
   const [showLoading, setShowLoading] = useState(true);
   const [displayText, setDisplayText] = useState("");
-  const [showCursor, setShowCursor] = useState(true);
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
   const [isTyping, setIsTyping] = useState(true);
+  const [fadeInComplete, setFadeInComplete] = useState(false);
+  const [showCursor, setShowCursor] = useState(false);
   const staticText = "is a ";
   const phrases = [
     "creative collective.",
     "design agency.",
-    "lifestyle brand.",
-    "record label.",
+    "apparel brand.",
+    "artist label.",
     "production house.",
     "multi-media hub."
   ];
   const currentPhrase = phrases[currentPhraseIndex];
 
+  // Refs for GSAP animations
+  const societyTitleRef = useRef(null);
+  const staticTextRef = useRef(null);
+  const typingTextRef = useRef(null);
+  const cursorRef = useRef(null);
+
   useEffect(() => {
+    // GSAP fade in animation
+    const tl = gsap.timeline();
+    
+    tl.fromTo([societyTitleRef.current, staticTextRef.current], 
+      { opacity: 0, y: -30 }, 
+      { opacity: 1, y: 0, duration: 1, ease: "power2.out", onComplete: () => {
+        setFadeInComplete(true);
+        setShowCursor(true);
+      }}
+    );
+
+    return () => {
+      tl.kill();
+    };
+  }, []);
+
+  useEffect(() => {
+    // Only start typing after fade in is complete
+    if (!fadeInComplete) return;
+
     let typeInterval: NodeJS.Timeout;
     let backspaceInterval: NodeJS.Timeout;
     let pauseTimer: NodeJS.Timeout;
@@ -61,13 +89,32 @@ export default function Home() {
       clearInterval(backspaceInterval);
       clearTimeout(pauseTimer);
     };
-  }, [isTyping, currentPhrase, currentPhraseIndex, phrases.length]);
+  }, [isTyping, currentPhrase, currentPhraseIndex, phrases.length, fadeInComplete]);
 
   // Hide loading screen after 5 seconds
   useEffect(() => {
     const hideTimer = setTimeout(() => {
-      setShowLoading(false);
-    }, 20000);
+      // GSAP fade out animation
+      const tl = gsap.timeline();
+      
+      tl.to([societyTitleRef.current, staticTextRef.current, typingTextRef.current, cursorRef.current], {
+        opacity: 0,
+        y: 30,
+        duration: 0.8,
+        ease: "power2.in",
+        stagger: 0.1
+      })
+      .to(".loading-container", {
+        opacity: 0,
+        duration: 0.5,
+        ease: "power2.in",
+        onComplete: () => setShowLoading(false)
+      });
+
+      return () => {
+        tl.kill();
+      };
+    }, 15000);
 
     return () => clearTimeout(hideTimer);
   }, []);
@@ -83,19 +130,19 @@ export default function Home() {
 
   if (showLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-black text-white fixed inset-0 z-50">
+      <div className="min-h-screen flex items-center justify-center bg-black text-white fixed inset-0 z-50 loading-container">
         <div className="text-center">
           <h1 className="font-semibold mb-4">
-            <span className="font-arts-crafts-regular text-2xl sm:text-4xl md:text-6xl">SoCIETY.</span>
-            <span className="font-sans text-xl sm:text-2xl md:text-4xl"> {staticText}</span>
-            <span className="font-sans text-xl sm:text-2xl md:text-4xl inline-block w-50 sm:w-80 md:w-96 text-left">
+            <span ref={societyTitleRef} className="font-arts-crafts-regular text-2xl sm:text-4xl md:text-6xl">SoCIETY.</span>
+            <span ref={staticTextRef} className="font-sans text-lg sm:text-4xl md:text-4xl"> {staticText}</span>
+            <span ref={typingTextRef} className="font-sans text-lg sm:text-4xl md:text-4xl inline-block w-48 sm:w-80 md:w-96 text-left">
               {displayText}
-              <span className={`ml-1 ${showCursor ? 'opacity-100' : 'opacity-0'} transition-opacity duration-100`}>
-                <div className="inline-block w-2 h-4 sm:w-3 sm:h-8 md:w-4 md:h-8 bg-white"></div>
+              <span ref={cursorRef} className={`ml-1 ${showCursor ? 'opacity-100' : 'opacity-0'} transition-opacity duration-100`}>
+                <div className="inline-block w-3 h-8 sm:w-4 sm:h-8 md:w-3 md:h-6 bg-white"></div>
               </span>
             </span>
           </h1>
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto"></div>
+          <div className="animate-ping h-12 w-12 mx-auto">. . .</div>
         </div>
       </div>
     );
