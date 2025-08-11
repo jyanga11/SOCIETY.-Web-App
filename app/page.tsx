@@ -15,8 +15,8 @@ export default function Home() {
   const phrases = [
     "creative collective.",
     "design agency.",
-    "apparel brand.",
-    "artist label.",
+    "clothing brand.",
+    "record label.",
     "production house.",
     "multi-media hub."
   ];
