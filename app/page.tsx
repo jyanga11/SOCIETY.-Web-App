@@ -138,7 +138,7 @@ export default function Home() {
             <span ref={typingTextRef} className="font-sans text-lg sm:text-4xl md:text-4xl inline-block w-48 sm:w-80 md:w-96 text-left">
               {displayText}
               <span ref={cursorRef} className={`ml-1 ${showCursor ? 'opacity-100' : 'opacity-0'} transition-opacity duration-100`}>
-                <div className="inline-block w-3 h-8 sm:w-4 sm:h-8 md:w-3 md:h-6 bg-white"></div>
+                <div className="inline-block w-2 h-4 sm:w-4 sm:h-8 md:w-3 md:h-6 bg-white"></div>
               </span>
             </span>
           </h1>
