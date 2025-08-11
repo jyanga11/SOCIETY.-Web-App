@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export const useTypingEffect = (phrases: string[], isActive: boolean) => {
+export const useTypingEffect = (phrases: readonly string[], isActive: boolean) => {
   const [displayText, setDisplayText] = useState("");
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
   const [isTyping, setIsTyping] = useState(true);
