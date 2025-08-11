@@ -25,7 +25,7 @@ export const LoadingScreen = () => {
             </span>
           </span>
         </h1>
-        <div className="animate-pulse h-12 w-36 border-b-2 border-white mx-auto">...</div>
+        <div className="animate-pulse h-12 w-36 border-b-2 border-white mx-auto"></div>
       </div>
     </div>
   );
