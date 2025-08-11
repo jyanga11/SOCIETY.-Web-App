@@ -88,7 +88,7 @@ export default function Home() {
           <h1 className="font-semibold mb-4">
             <span className="font-arts-crafts-regular text-2xl sm:text-4xl md:text-6xl">SoCIETY.</span>
             <span className="font-sans text-xl sm:text-2xl md:text-4xl"> {staticText}</span>
-            <span className="font-sans text-xl sm:text-2xl md:text-4xl inline-block w-40 sm:w-80 md:w-96 text-left">
+            <span className="font-sans text-xl sm:text-2xl md:text-4xl inline-block w-48 sm:w-80 md:w-96 text-left">
               {displayText}
               <span className={`ml-1 ${showCursor ? 'opacity-100' : 'opacity-0'} transition-opacity duration-100`}>
                 <div className="inline-block w-2 h-4 sm:w-3 sm:h-8 md:w-4 md:h-8 bg-white"></div>
