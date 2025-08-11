@@ -86,12 +86,12 @@ export default function Home() {
       <div className="min-h-screen flex items-center justify-center bg-black text-white fixed inset-0 z-50">
         <div className="text-center">
           <h1 className="font-semibold mb-4">
-            <span className="font-arts-crafts-regular text-6xl">SoCIETY.</span>
-            <span className="font-sans text-4xl"> {staticText}</span>
-            <span className="font-sans text-4xl inline-block w-96 text-left">
+            <span className="font-arts-crafts-regular text-2xl sm:text-4xl md:text-6xl">SoCIETY.</span>
+            <span className="font-sans text-lg sm:text-2xl md:text-4xl"> {staticText}</span>
+            <span className="font-sans text-lg sm:text-2xl md:text-4xl inline-block w-48 sm:w-80 md:w-96 text-left">
               {displayText}
               <span className={`ml-1 ${showCursor ? 'opacity-100' : 'opacity-0'} transition-opacity duration-100`}>
-                <div className="inline-block w-3 h-7 bg-white"></div>
+                <div className="inline-block w-3 h-8 sm:w-4 sm:h-8 md:w-5 md:h-10 bg-white"></div>
               </span>
             </span>
           </h1>
