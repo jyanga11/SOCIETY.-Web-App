@@ -15,7 +15,7 @@ export const useLoadingScreen = (duration: number = 10000) => {
     // GSAP fade in animation
     const tl = gsap.timeline();
     
-    tl.fromTo([societyTitleRef.current, staticTextRef.current], 
+    tl.fromTo([societyTitleRef.current, staticTextRef.current, loadingRef.current], 
       { opacity: 0, y: -30 }, 
       { opacity: 1, y: 0, duration: 1, ease: "power2.out", onComplete: () => {
         setFadeInComplete(true);
