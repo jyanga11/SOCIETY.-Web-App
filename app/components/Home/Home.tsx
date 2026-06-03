@@ -4,16 +4,15 @@ export const Home = () => {
   return (
     <div className="flex justify-center">
       <main>
-        <div className="relative inline-block m-24">
+      <div className="relative m-24 w-full max-w-3xl aspect-[6/1]">
           <Image
-            className="dark:invert"
+            className="dark:invert object-contain"
             src="/Society_Logo_Earth_2.0 copy.png"
             alt="SOCIETY. Earth logo"
-            width={600}
-            height={100}
+            fill
             priority
           />
-          <h1 className="absolute inset-0 flex items-center justify-center text-8xl font-arts-crafts-regular pointer-events-none">
+          <h1 className="absolute inset-0 flex items-center justify-center text-8xl font-arts-crafts-regular">
             SoCIETY.
           </h1>
         </div>
