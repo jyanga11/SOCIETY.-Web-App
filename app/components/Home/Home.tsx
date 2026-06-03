@@ -22,7 +22,8 @@ export const Home = () => {
             <span className="pl-96">
               <span className="font-arts-crafts-regular text-purple-500 text-7xl">art</span>
               {" & "}
-              <span className="font-arts-crafts-regular text-purple-500 text-7xl">technology.</span>
+              <span className="font-arts-crafts-regular text-purple-500 text-7xl">technology</span>
+              {"."}
             </span>
           </h2>
       </div>
