@@ -10,7 +10,6 @@ export const Home = () => {
           alt="SOCIETY. Earth logo"
           fill
           priority
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 1152px"
         />
         <h1 className="pointer-events-none absolute inset-0 flex items-center justify-center text-6xl font-arts-crafts-regular sm:text-7xl md:text-8xl">
           SoCIETY.
