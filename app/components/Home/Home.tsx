@@ -15,11 +15,11 @@ export const Home = () => {
           SoCIETY.
         </h1>
       </div>
-      <div className="mt-24 w-full max-w-6xl text-center">
+      <div className="mt-48 w-full max-w-6xl text-center">
           <h2 className="flex flex-col text-6xl">
             <span className="pl-0">Uplifting <span className="font-arts-crafts-regular text-orange-500">culture</span> </span>
-            <span className="pl-24">through </span>
-            <span className="pl-48 font-arts-crafts-regular text-purple-500">art & technology.</span>
+            <span className="pl-16">through </span>
+            <span className="pl-96 font-arts-crafts-regular text-purple-500">art & technology.</span>
           </h2>
       </div>
     </main>
