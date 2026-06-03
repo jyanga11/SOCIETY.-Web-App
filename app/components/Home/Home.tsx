@@ -16,9 +16,19 @@ export const Home = () => {
       </div>
 
       <main className="relative z-10">
-        <section className="flex min-h-screen w-full items-center justify-center px-6">
-          <h1 className="text-9xl font-arts-crafts-regular bg-gradient-to-r from-orange-500 to-purple-800 bg-clip-text text-transparent">SoCIETY.</h1>
-        </section>
+        <div className="relative">
+          <h1 className="absolute left-4 top-4 text-9xl font-arts-crafts-regular text-orange-500">
+            SoCIETY.
+          </h1>
+
+          <h1 className="absolute left-2 top-2 text-9xl font-arts-crafts-regular text-pink-500">
+            SoCIETY.
+          </h1>
+
+          <h1 className="relative text-9xl font-arts-crafts-regular text-purple-500">
+            SoCIETY.
+          </h1>
+        </div>
 
         <section className="px-6 py-16">
           <div className="mx-auto w-full max-w-6xl">
