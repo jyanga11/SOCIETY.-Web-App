@@ -16,7 +16,7 @@ export const LoadingScreen = () => {
     <div ref={refs.loadingRef} className="min-h-screen flex items-center justify-center bg-black text-white fixed inset-0 z-50 loading-container">
       <div className="text-center">
         <h1 className="font-semibold mb-4">
-          <span ref={refs.societyTitleRef} className="font-arts-crafts-regular text-2xl sm:text-4xl md:text-6xl">society.</span>
+          <span ref={refs.societyTitleRef} className="font-arts-crafts-regular text-2xl sm:text-4xl md:text-6xl">SoCIETY.</span>
           <span ref={refs.staticTextRef} className="font-sans text-lg sm:text-4xl md:text-4xl"> {staticText}</span>
           <span ref={refs.typingTextRef} className="font-sans text-lg sm:text-4xl md:text-4xl inline-block w-48 sm:w-80 md:w-96 text-left">
             {displayText}
