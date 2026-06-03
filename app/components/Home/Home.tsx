@@ -4,7 +4,7 @@ export const Home = () => {
   return (
     <div className="flex justify-center">
       <main>
-      <div className="relative m-24 w-full max-w-3xl aspect-[6/1]">
+      <div className="relative m-24 w-full max-w-8xl aspect-[6/1]">
           <Image
             className="dark:invert object-contain"
             src="/Society_Logo_Earth_2.0 copy.png"
