@@ -3,7 +3,7 @@ export const Home = () => {
     <main className="flex min-h-screen w-full flex-col items-center justify-center px-6 py-16">
       <div className="relative aspect-[5252/3723] w-full max-w-xl m-24">
         <video
-          className="object-contain dark:invert"
+          className="object-contain"
           src="/3danimation.mp4"
           autoPlay
           loop
