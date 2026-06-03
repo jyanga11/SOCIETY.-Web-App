@@ -20,7 +20,7 @@ export const Home = () => {
           <h1 className="text-8xl font-arts-crafts-regular">SoCIETY.</h1>
         </section>
 
-        <section className="bg-background/80 px-6 py-16 backdrop-blur-sm">
+        <section className="px-6 py-16">
           <div className="mx-auto w-full max-w-6xl">
             <h2 className="flex flex-col text-6xl">
               <span className="pl-0">
