@@ -16,9 +16,9 @@ export const Home = () => {
         </h1>
       </div>
       <div className="mt-48 w-full max-w-6xl">
-          <h2 className="flex flex-col text-6xl">
+          <h2 className="flex flex-col text-8xl">
             <span className="pl-0">Uplifting <span className="font-arts-crafts-regular text-orange-500">culture</span> </span>
-            <span className="pl-8">through </span>
+            <span className="pl-48">through </span>
             <span className="pl-96 font-arts-crafts-regular text-purple-500">art & technology.</span>
           </h2>
       </div>
