@@ -19,9 +19,9 @@ export const Home = () => {
         </div>
         <div className="text-6xl m-24">
           <h2 className="flex flex-col">
-            <span className="pl-0">Uplifting <span className="font-arts-crafts-regular text-orange">culture</span> </span>
+            <span className="pl-0">Uplifting <span className="font-arts-crafts-regular text-orange-500">culture</span> </span>
             <span className="pl-24">through </span>
-            <span className="pl-48 font-arts-crafts-regular text-purple">art & technology.</span>
+            <span className="pl-48 font-arts-crafts-regular text-purple-500">art</span> & <span className="font-arts-crafts-regular text-purple-500">technology.</span>
           </h2>
         </div>
       </main>
