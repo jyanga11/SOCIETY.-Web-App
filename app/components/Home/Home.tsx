@@ -6,7 +6,7 @@ export const Home = () => {
       <div className="relative aspect-[5252/3723] w-full max-w-xl m-24">
         <Image
           className="object-contain dark:invert"
-          src="/Society_Logo_Earth_2.0 copy.png"
+          src="/3danimation.mp4"
           alt="SOCIETY. Earth logo"
           fill
           priority
