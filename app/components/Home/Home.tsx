@@ -16,19 +16,21 @@ export const Home = () => {
       </div>
 
       <main className="relative z-10">
-        <div className="flex min-h-screen w-full max-w-6xl items-center justify-center px-6">
-          <h1 className="absolute left-4 top-4 text-9xl font-arts-crafts-regular text-orange-500">
-            SoCIETY.
-          </h1>
+        <section className="flex min-h-screen items-center justify-center">
+          <div className="relative">
+            <h1 className="absolute left-4 top-4 text-9xl font-arts-crafts-regular text-orange-500">
+              SoCIETY.
+            </h1>
 
-          <h1 className="absolute left-2 top-2 text-9xl font-arts-crafts-regular text-pink-500">
-            SoCIETY.
-          </h1>
+            <h1 className="absolute left-2 top-2 text-9xl font-arts-crafts-regular text-pink-500">
+              SoCIETY.
+            </h1>
 
-          <h1 className="relative text-9xl font-arts-crafts-regular text-purple-500">
-            SoCIETY.
-          </h1>
-        </div>
+            <h1 className="relative text-9xl font-arts-crafts-regular text-purple-500">
+              SoCIETY.
+            </h1>
+          </div>
+        </section>
 
         <section className="px-6 py-16">
           <div className="mx-auto w-full max-w-6xl">
