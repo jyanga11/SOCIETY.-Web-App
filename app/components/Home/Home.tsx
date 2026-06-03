@@ -13,16 +13,16 @@ export const Home = () => {
             height={100}
             priority
           />
-          <h1 className="absolute inset-0 flex items-center justify-center text-8xl font-arts-crafts-regular pointer-events-none">
+          <h1 className="absolute inset-0 flex items-center justify-center text-12xl font-arts-crafts-regular pointer-events-none">
             SoCIETY.
           </h1>
         </div>
-        <div className="">
-          <p>
+        <div className="text-8xl font-arts-crafts-regular">
+          <h2>
             <span>Uplifting culture</span>
             <span>through</span>
             <span>art & technology.</span>
-          </p>
+          </h2>
         </div>
       </main>
     </div>
