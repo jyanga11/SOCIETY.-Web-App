@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 export const Home = () => {
   return (
     <main className="flex min-h-screen w-full flex-col items-center justify-center px-6 py-16">
