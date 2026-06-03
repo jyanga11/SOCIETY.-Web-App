@@ -13,11 +13,11 @@ export const Home = () => {
             height={100}
             priority
           />
-          <h1 className="absolute inset-0 flex items-center justify-center text-10xl font-arts-crafts-regular pointer-events-none">
+          <h1 className="absolute inset-0 flex items-center justify-center text-8xl font-arts-crafts-regular pointer-events-none">
             SoCIETY.
           </h1>
         </div>
-        <div className="text-8xl m-48">
+        <div className="text-6xl m-48">
           <h2 className="flex flex-col">
             <span className="pl-0">Uplifting <span className="font-arts-crafts-regular color-orange">culture</span> </span>
             <span className="pl-24">through </span>
