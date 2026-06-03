@@ -17,7 +17,7 @@ export const Home = () => {
             SoCIETY.
           </h1>
         </div>
-        <div className="text-4xl font-arts-crafts-regular m-12">
+        <div className="text-4xl font-arts-crafts-regular m-24">
           <h2 className="flex flex-col">
             <span className="pl-0">Uplifting culture </span>
             <span className="pl-24">through </span>

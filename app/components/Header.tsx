@@ -5,7 +5,7 @@ export default function Header() {
     <header className="w-full border-b border-white/10">
       <nav className="mx-auto max-w-6xl px-4 py-4 flex items-center justify-between">
         <Link href="/" className="text-xl font-arts-crafts-regular">SoCIETY.</Link>
-        <ul className="flex items-center gap-6 text-sm sm:text-base">
+        <ul className="flex items-center gap-6 text-sm sm:text-base font-arts-crafts-regular">
           <li><Link href="/projects">Projects</Link></li>
           <li><Link href="/services">Services</Link></li>
           <li><Link href="/shop">Shop</Link></li>
