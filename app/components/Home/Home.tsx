@@ -4,12 +4,13 @@ export const Home = () => {
   return (
     <main className="flex min-h-screen w-full flex-col items-center justify-center px-6 py-16">
       <div className="relative aspect-[5252/3723] w-full max-w-xl m-24">
-        <Image
+        <video
           className="object-contain dark:invert"
           src="/3danimation.mp4"
-          alt="SOCIETY. Earth logo"
-          fill
-          priority
+          autoPlay
+          loop
+          muted
+          playsInline
         />
         <h1 className="absolute inset-0 flex items-center justify-center text-8xl font-arts-crafts-regular">
           SoCIETY.
