@@ -4,7 +4,7 @@ export const Home = () => {
   return (
     <div className="flex justify-center">
       <main>
-        <div className="relative inline-block">
+        <div className="relative inline-block m-12">
           <Image
             className="dark:invert"
             src="/Society_Logo_Earth_2.0 copy.png"
@@ -17,7 +17,7 @@ export const Home = () => {
             SoCIETY.
           </h1>
         </div>
-        <div className="text-4xl font-arts-crafts-regular">
+        <div className="text-4xl font-arts-crafts-regular m-12">
           <h2 className="flex flex-col">
             <span className="pl-0">Uplifting culture </span>
             <span className="pl-24">through </span>
