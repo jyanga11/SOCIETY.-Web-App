@@ -6,7 +6,7 @@ export const Home = () => {
       <main>
         <div className="relative inline-block m-24">
           <Image
-            className="dark:invert"
+            className=""
             src="/Society_Logo_Earth_2.0 copy.png"
             alt="SOCIETY. Earth logo"
             width={600}
@@ -19,9 +19,9 @@ export const Home = () => {
         </div>
         <div className="text-6xl m-48">
           <h2 className="flex flex-col">
-            <span className="pl-0">Uplifting <span className="font-arts-crafts-regular color-orange">culture</span> </span>
+            <span className="pl-0">Uplifting <span className="font-arts-crafts-regular text-orange">culture</span> </span>
             <span className="pl-24">through </span>
-            <span className="pl-48 font-arts-crafts-regular color-purple">art & technology.</span>
+            <span className="pl-48 font-arts-crafts-regular text-purple">art & technology.</span>
           </h2>
         </div>
       </main>
