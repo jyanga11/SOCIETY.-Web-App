@@ -5,7 +5,7 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-20 w-full border-b border-foreground/10 bg-background/80 backdrop-blur-sm">
       <nav className="relative flex w-full items-center px-6 py-4">
-        <Link href="/" className="shrink-0 text-2xl font-arts-crafts-regular">
+        <Link href="/" className="shrink-0 text-2xl font-arts-crafts-regular text-orange-500">
           SoCIETY.
         </Link>
 
