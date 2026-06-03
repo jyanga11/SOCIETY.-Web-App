@@ -3,7 +3,7 @@ import { ThemeToggle } from "./ThemeToggle";
 
 export default function Header() {
   return (
-    <header className="relative z-10 w-full border-b border-foreground/10 bg-background/80 backdrop-blur-sm">
+    <header className="sticky top-0 z-20 w-full border-b border-foreground/10 bg-background/80 backdrop-blur-sm">
       <nav className="relative flex w-full items-center px-6 py-4">
         <Link href="/" className="shrink-0 text-2xl font-arts-crafts-regular">
           SoCIETY.
