@@ -6,7 +6,7 @@ export const Home = () => {
         aria-hidden
       >
         <video
-          className="h-full w-full object-contain grayscale invert"
+          className="h-full w-full object-contain grayscale dark:invert-0"
           src="/3danimation.mp4"
           autoPlay
           loop
