@@ -17,7 +17,7 @@ export const Home = () => {
 
       <main className="relative z-10">
         <section className="flex min-h-screen w-full items-center justify-center px-6">
-          <h1 className="text-8xl font-arts-crafts-regular">SoCIETY.</h1>
+          <h1 className="text-8xl font-arts-crafts-regular text-orange-500">SoCIETY.</h1>
         </section>
 
         <section className="px-6 py-16">
