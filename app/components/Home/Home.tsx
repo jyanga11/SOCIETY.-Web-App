@@ -8,8 +8,8 @@ export const Home = () => {
           className="dark:invert"
           src="/Society_Logo_Earth_2.0 copy.png"
           alt="SOCIETY. Earth logo"
-          width={180}
-          height={38}
+          width={600}
+          height={100}
           priority
         />
         <h1 className="text-4xl font-arts-crafts-regular">SoCIETY.</h1>
