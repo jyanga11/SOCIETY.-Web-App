@@ -16,13 +16,13 @@ export const Home = () => {
         </h1>
       </div>
       <div className="mt-48 w-full max-w-6xl">
-          <h2 className="flex flex-col text-7xl">
-            <span className="pl-0">Uplifting <span className="font-arts-crafts-regular text-orange-500">culture</span> </span>
+          <h2 className="flex flex-col text-6xl">
+            <span className="pl-0">Uplifting <span className="font-arts-crafts-regular text-orange-500 text-6xl">culture</span> </span>
             <span className="pl-48">through </span>
             <span className="pl-96">
-              <span className="font-arts-crafts-regular text-purple-500">art</span>
+              <span className="font-arts-crafts-regular text-purple-500 text-6xl">art</span>
               {" & "}
-              <span className="font-arts-crafts-regular text-purple-500">technology.</span>
+              <span className="font-arts-crafts-regular text-purple-500 text-6xl">technology.</span>
             </span>
           </h2>
       </div>
