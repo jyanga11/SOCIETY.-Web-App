@@ -16,7 +16,7 @@ export const Home = () => {
       </div>
 
       <main className="relative z-10">
-        <div className="relative">
+        <div className="flex min-h-screen w-full items-center justify-center px-6">
           <h1 className="absolute left-4 top-4 text-9xl font-arts-crafts-regular text-orange-500">
             SoCIETY.
           </h1>
