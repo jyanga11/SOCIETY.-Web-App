@@ -3,7 +3,7 @@ import Image from "next/image";
 export const Home = () => {
   return (
     <main className="flex min-h-screen w-full flex-col items-center justify-center px-6 py-16">
-      <div className="relative aspect-[5252/3723] w-full min-h-[min(60vh,800px)] max-w-6xl sm:max-w-7xl">
+      <div className="relative aspect-[5252/3723] w-full max-w-6xl sm:max-w-7xl">
         <Image
           className="object-contain dark:invert"
           src="/Society_Logo_Earth_2.0 copy.png"
