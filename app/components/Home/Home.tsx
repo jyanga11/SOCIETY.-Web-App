@@ -22,7 +22,7 @@ export const Home = () => {
               SoCIETY.
             </h1>
 
-            <h1 className="relative text-9xl font-arts-crafts-regular text-purple-500">
+            <h1 className="relative text-9xl font-arts-crafts-regular text-purple-700">
               SoCIETY.
             </h1>
           </div>
@@ -39,11 +39,11 @@ export const Home = () => {
               </span>
               <span className="pl-48">through </span>
               <span className="pl-96">
-                <span className="font-arts-crafts-regular text-7xl text-purple-500">
+                <span className="font-arts-crafts-regular text-7xl text-purple-700">
                   art
                 </span>
                 {" & "}
-                <span className="font-arts-crafts-regular text-7xl text-purple-500">
+                <span className="font-arts-crafts-regular text-7xl text-purple-700">
                   technology
                 </span>
                 {"."}
