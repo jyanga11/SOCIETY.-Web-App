@@ -1,8 +1,9 @@
 import Link from "next/link";
+import { ThemeToggle } from "./ThemeToggle";
 
 export default function Header() {
   return (
-    <header className="w-full border-b border-white/10">
+    <header className="w-full border-b border-foreground/10">
       <nav className="relative flex w-full items-center px-6 py-4">
         <Link href="/" className="shrink-0 text-2xl font-arts-crafts-regular">
           SoCIETY.
@@ -26,11 +27,7 @@ export default function Header() {
           </li>
         </ul>
 
-        <button
-          type="button"
-          className="absolute right-6 flex size-10 shrink-0 items-center justify-center rounded-full bg-white text-black transition-opacity hover:opacity-90"
-          aria-label="Color mode"
-        />
+        <ThemeToggle />
       </nav>
     </header>
   );
