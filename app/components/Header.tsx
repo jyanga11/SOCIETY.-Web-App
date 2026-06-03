@@ -25,24 +25,13 @@ export default function Header() {
               <Link href="/news">News</Link>
             </li>
           </ul>
-          <button
-            type="button"
-            className="flex size-10 shrink-0 items-center justify-center rounded-full border border-white/10 transition-colors hover:bg-white/10"
-            aria-label="Menu"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              className="size-5"
-              aria-hidden
-            >
-              <circle cx="5" cy="12" r="2" />
-              <circle cx="12" cy="12" r="2" />
-              <circle cx="19" cy="12" r="2" />
-            </svg>
-          </button>
         </div>
+        <button
+          type="button"
+          className="flex size-10 shrink-0 rounded-full border border-white/10"
+          aria-label="Color Mode"
+        >
+        </button>
       </nav>
     </header>
   );
