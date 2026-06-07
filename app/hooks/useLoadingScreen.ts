@@ -4,7 +4,7 @@ import { gsap } from 'gsap';
 // Module-scoped flag persists across client navigations, resets on hard reload
 let hasShownLoadingOnce = false;
 
-export const useLoadingScreen = (duration: number = 10000) => {
+export const useLoadingScreen = (duration: number = 12000) => {
   const [showLoading, setShowLoading] = useState(true);
   const [fadeInComplete, setFadeInComplete] = useState(false);
   const [showCursor, setShowCursor] = useState(false);
