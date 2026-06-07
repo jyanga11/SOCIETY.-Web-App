@@ -35,7 +35,7 @@ export default function Header() {
 
           {/* Mobile Menu Button - Kept inside the flow or right side */}
           <button
-            className="md:hidden mr-12 text-2xl"
+            className="md:hidden mr-12 text-4xl"
             onClick={() => setMenuOpen(!menuOpen)}
           >
             ☰
@@ -44,15 +44,26 @@ export default function Header() {
           <ThemeToggle />
         </div>
 
-        {/* Mobile Menu - Added 'w-full' so it spans the bottom when open */}
+        {/* Mobile Menu */}
         {menuOpen && (
-          <div className="w-full md:hidden mt-4 border-t border-foreground/10">
-            <ul className="flex flex-col pt-4 gap-4">
-              <li><Link href="/projects">Projects</Link></li>
-              <li><Link href="/services">Services</Link></li>
-              <li><Link href="/shop">Shop</Link></li>
-              <li><Link href="/about">About</Link></li>
-              <li><Link href="/news">News</Link></li>
+          <div className="fixed inset-0 z-50 bg-background flex flex-col justify-center items-center md:hidden">
+            
+            {/* Close Button (X) in the Top Right */}
+            <button
+              className="absolute top-4 right-6 text-5xl font-light"
+              onClick={() => setMenuOpen(false)}
+              aria-label="Close Menu"
+            >
+              ✕
+            </button>
+
+            {/* Centered Mobile Links */}
+            <ul className="flex flex-col items-center gap-8 text-2xl font-medium" onClick={() => setMenuOpen(false)}>
+              <li><Link href="/projects" className="hover:opacity-70 transition-opacity">Projects</Link></li>
+              <li><Link href="/services" className="hover:opacity-70 transition-opacity">Services</Link></li>
+              <li><Link href="/shop" className="hover:opacity-70 transition-opacity">Shop</Link></li>
+              <li><Link href="/about" className="hover:opacity-70 transition-opacity">About</Link></li>
+              <li><Link href="/news" className="hover:opacity-70 transition-opacity">News</Link></li>
             </ul>
           </div>
         )}
