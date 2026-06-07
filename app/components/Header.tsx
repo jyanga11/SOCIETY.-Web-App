@@ -33,15 +33,17 @@ export default function Header() {
             </li>
           </ul>
 
-          {/* Mobile Menu Button - Kept inside the flow or right side */}
+          {/* Mobile Menu Button */}
           <button
-            className="md:hidden mr-12 text-4xl"
+            className="md:hidden mr-12 text-3xl"
             onClick={() => setMenuOpen(!menuOpen)}
           >
             ☰
           </button>
 
+        {/* Dark/Light Toggle */}
           <ThemeToggle />
+          
         </div>
 
         {/* Mobile Menu */}
