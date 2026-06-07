@@ -18,17 +18,17 @@ export const Home = () => {
       <main className="relative z-10">
         <section className="flex min-h-screen items-center justify-center">
           <div className="relative">
-            <h1 className="absolute left-2 top-2 text-3xl sm:text-8xl md:text-9xl font-arts-crafts-regular text-orange-500">
+            <h1 className="absolute left-2 top-2 text-6xl sm:text-8xl md:text-9xl font-arts-crafts-regular text-orange-500">
               SoCIETY.
             </h1>
 
-            <h1 className="relative text-3xl sm:text-8xl md:text-9xl font-arts-crafts-regular text-purple-700">
+            <h1 className="relative text-6xl sm:text-8xl md:text-9xl font-arts-crafts-regular text-purple-700">
               SoCIETY.
             </h1>
           </div>
         </section>
 
-        <section className="px-6 py-16">
+        <section className="px-3 py-8 md:px-6 md:py-16">
           <div className="mx-auto w-full max-w-6xl">
             <h2 className="flex flex-col text-xl sm:text-5xl md:text-6xl">
               <span className="pl-0">
