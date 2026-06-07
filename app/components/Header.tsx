@@ -35,7 +35,7 @@ export default function Header() {
 
           {/* Mobile Menu Button - Kept inside the flow or right side */}
           <button
-            className="md:hidden text-2xl"
+            className="md:hidden mr-12 text-2xl"
             onClick={() => setMenuOpen(!menuOpen)}
           >
             ☰
