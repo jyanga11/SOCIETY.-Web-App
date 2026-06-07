@@ -31,13 +31,17 @@ export default function Header() {
           </li>
         </ul>
 
+        <div className="flex-row:">
         {/* Mobile Menu Button */}
-        <button
-          className="md:hidden text-2xl"
-          onClick={() => setMenuOpen(!menuOpen)}
-        >
-          ☰
-        </button>
+          <button
+            className="md:hidden text-2xl"
+            onClick={() => setMenuOpen(!menuOpen)}
+          >
+            ☰
+          </button>
+
+          <ThemeToggle />
+        </div>
 
         {/* Mobile Menu */}
         {menuOpen && (
@@ -51,7 +55,7 @@ export default function Header() {
             </ul>
           </div>
         )}
-        <ThemeToggle />
+
       </nav>
     </header>
   );
