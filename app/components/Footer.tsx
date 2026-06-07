@@ -29,10 +29,10 @@ export default function Footer() {
         
         {/* Brand & Copyright - Order 3 on mobile, Order 1 on desktop */}
         <div className="flex flex-col gap-2 order-3 md:order-1">
-          <Link href="/" className="text-xl font-arts-crafts-regular">
+          <Link href="/" className="text-md sm:text-xl font-arts-crafts-regular">
             SoCIETY.
           </Link>
-          <p className="text-sm text-muted-foreground/70">
+          <p className="text-xs sm:text-sm text-muted-foreground/70">
             &copy; {currentYear} SOCIETY. All rights reserved.
           </p>
         </div>
@@ -68,10 +68,10 @@ export default function Footer() {
           </ul>
         </div>
 
-        {/* Copy Email Button - Order 2 on mobile, Order 3 on desktop */}
+        {/* Copy Email Button */}
         <button 
           onClick={handleCopy}
-          className="order-2 md:order-3 hover:opacity-70 transition-opacity text-xl text-muted-foreground focus:outline-none"
+          className="order-2 md:order-3 hover:opacity-70 transition-opacity text-md sm:text-xl text-muted-foreground focus:outline-none"
           aria-label="Copy email address to clipboard"
         >
           {copied ? "Copied to clipboard" : "info@builtbysociety.io"}
