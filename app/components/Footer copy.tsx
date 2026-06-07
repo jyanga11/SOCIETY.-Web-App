@@ -24,11 +24,10 @@ export default function Footer() {
 
   return (
     <footer className="relative z-20 w-full border-t border-foreground/10 text-foreground">
-      {/* 1. Added flex-col items-center text-center for mobile layout */}
-      <div className="mx-auto max-w-7xl px-6 py-12 flex flex-col items-center text-center gap-8 md:flex-row md:items-center md:justify-between md:text-left md:gap-0 lg:px-8">
+      <div className="mx-auto max-w-7xl px-6 py-12 md:flex md:items-center md:justify-between lg:px-8">
         
-        {/* Brand & Copyright - Order 3 on mobile, Order 1 on desktop */}
-        <div className="flex flex-col gap-2 order-3 md:order-1">
+        {/* Brand & Copyright */}
+        <div className="flex flex-col gap-2 md:order-1 md:mt-0">
           <Link href="/" className="text-xl font-arts-crafts-regular">
             SoCIETY.
           </Link>
@@ -37,10 +36,9 @@ export default function Footer() {
           </p>
         </div>
 
-        {/* Footer Links & Icons - Order 1 on mobile, Order 2 on desktop */}
-        <div className="order-1 md:order-2">
-          {/* Changed gap-x-15 to a standard gap-x-8 and centered the row elements on mobile */}
-          <ul className="flex flex-wrap items-center justify-center gap-x-8 gap-y-4 font-medium">
+        {/* Footer Links & Icons */}
+        <div className="mt-8 md:order-2 md:mt-0">
+          <ul className="flex flex-wrap items-center gap-x-15 gap-y-4 font-medium">
             <li>
               <Link href="https://www.instagram.com/builtbysociety.io/" target="_blank" className="hover:opacity-70 transition-opacity" aria-label="Instagram">
                 <FontAwesomeIcon icon={faInstagram} className="text-lg sm:text-4xl" />
@@ -68,10 +66,10 @@ export default function Footer() {
           </ul>
         </div>
 
-        {/* Copy Email Button - Order 2 on mobile, Order 3 on desktop */}
+        {/* Copy Email Button */}
         <button 
           onClick={handleCopy}
-          className="order-2 md:order-3 hover:opacity-70 transition-opacity text-xl text-muted-foreground focus:outline-none"
+          className="md:order-3 hover:opacity-70 transition-opacity text-xl text-muted-foreground focus:outline-none"
           aria-label="Copy email address to clipboard"
         >
           {copied ? "Copied to clipboard" : "info@builtbysociety.io"}
