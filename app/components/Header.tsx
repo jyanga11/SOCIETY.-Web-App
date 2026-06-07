@@ -43,9 +43,9 @@ export default function Header() {
       {menuOpen && (
         <div className="fixed inset-0 z-50 bg-background flex flex-col justify-start items-center overflow-y-auto pt-24 md:hidden">
           
-          {/* Close Button (X) */}
+          {/* Close Button */}
           <button
-            className="absolute top-4 right-6 text-5xl font-light"
+            className="absolute top-4 right-6 text-xl font-light"
             onClick={() => setMenuOpen(false)}
             aria-label="Close Menu"
           >
@@ -53,7 +53,7 @@ export default function Header() {
           </button>
 
           {/* Centered Mobile Links */}
-          <ul className="flex flex-col items-center gap-8 text-2xl font-medium" onClick={() => setMenuOpen(false)}>
+          <ul className="flex flex-col items-center gap-8 text-3xl font-medium" onClick={() => setMenuOpen(false)}>
             <li><Link href="/projects" className="hover:opacity-70 transition-opacity">Projects</Link></li>
             <li><Link href="/services" className="hover:opacity-70 transition-opacity">Services</Link></li>
             <li><Link href="/shop" className="hover:opacity-70 transition-opacity">Shop</Link></li>
