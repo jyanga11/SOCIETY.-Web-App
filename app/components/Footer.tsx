@@ -41,25 +41,25 @@ export default function Footer() {
           <ul className="flex flex-wrap items-center gap-x-15 gap-y-4 font-medium">
             <li>
               <Link href="https://www.instagram.com/builtbysociety.io/" target="_blank" className="hover:opacity-70 transition-opacity" aria-label="Instagram">
-                <FontAwesomeIcon icon={faInstagram} size="2xl" className="" />
+                <FontAwesomeIcon icon={faInstagram} className="text-lg sm:text-4xl" />
                 <span className="sr-only">Instagram</span>
               </Link>
             </li>
             <li>
               <Link href="https://www.tiktok.com/@societyofficial__" target="_blank" className="hover:opacity-70 transition-opacity" aria-label="TikTok">
-                <FontAwesomeIcon icon={faTiktok} size="2xl" className="" />
+                <FontAwesomeIcon icon={faTiktok} className="text-lg sm:text-4xl" />
                 <span className="sr-only">TikTok</span>
               </Link>
             </li>
             <li>
               <Link href="https://www.youtube.com/@builtbysociety" target="_blank" className="hover:opacity-70 transition-opacity" aria-label="YouTube">
-                <FontAwesomeIcon icon={faYoutube} size="2xl" className="" />
+                <FontAwesomeIcon icon={faYoutube} className="text-lg sm:text-4xl" />
                 <span className="sr-only">YouTube</span>
               </Link>
             </li>
             <li>
               <Link href="https://www.facebook.com/people/Society-Media-Agency/61583672024114/" target="_blank" className="hover:opacity-70 transition-opacity" aria-label="Facebook">
-                <FontAwesomeIcon icon={faFacebookF} size="2xl" className="" />
+                <FontAwesomeIcon icon={faFacebookF} className="text-lg sm:text-4xl" />
                 <span className="sr-only">Facebook</span>
               </Link>
             </li>
