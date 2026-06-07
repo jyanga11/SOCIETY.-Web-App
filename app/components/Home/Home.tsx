@@ -31,7 +31,7 @@ export const Home = () => {
           </div>
         </section>
 
-        <section className="min-h-[30vh] px-3 sm:px-6">
+        <section className="sm:min-h-[30vh] min-h-[15vh] px-3 sm:px-6">
           <div className="mx-auto w-full max-w-6xl">
             <h2 className="flex flex-col text-xl sm:text-6xl">
               <span className="pl-0">
@@ -55,13 +55,13 @@ export const Home = () => {
           </div>
         </section>
 
-        <section className="flex flex-col sm:flex-row w-full sm:px-20 py-20">
+        <section className="flex flex-col gap-6 sm:flex-row w-full sm:px-20 px-10 py-10">
           
-          <div className="py:20 sm:px-20">
-            <h3 className="text-xl sm:text-3xl font-arts-crafts-regular">
+          <div className="sm:px-20">
+            <h3 className="text-2xl sm:text-3xl font-arts-crafts-regular">
               Skills
             </h3>
-            <ul className="text-3xl sm:text-6xl">
+            <ul className="text-4xl sm:text-6xl">
               <li>Brand Identity</li>
               <li>Creative Direction</li>
               <li>Content Strategy</li>
