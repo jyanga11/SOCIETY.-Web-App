@@ -18,7 +18,7 @@ export const Home = () => {
       <main className="relative z-10">
         <section className="flex min-h-screen pt-[30vh] sm:pt-[40vh] md:pt-[40vh] justify-center">
           <div className="relative">
-            <h1 className="absolute left-2 top-2 text-6xl sm:text-8xl md:text-9xl font-arts-crafts-regular text-orange-500">
+            <h1 className="absolute left-1 top-1 md:left-2 md:top-2 text-6xl sm:text-8xl md:text-9xl font-arts-crafts-regular text-orange-500">
               SoCIETY.
             </h1>
 
@@ -37,8 +37,8 @@ export const Home = () => {
                   culture
                 </span>{" "}
               </span>
-              <span className="pl-24 md:pl-48">through </span>
-              <span className="pl-48 md:pl-96">
+              <span className="pl-12 sm:pl-24 md:pl-48">through </span>
+              <span className="pl-24 sm:pl-48 md:pl-96">
                 <span className="font-arts-crafts-regular text-2xl sm:text-6xl md:text-7xl text-purple-700">
                   art
                 </span>
