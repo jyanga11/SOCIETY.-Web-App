@@ -1,3 +1,6 @@
+import { WordRotater } from "../WordRotater";
+import { PHRASES } from '../../constants/phrases';
+
 export const Home = () => {
   return (
     <>
@@ -28,28 +31,54 @@ export const Home = () => {
           </div>
         </section>
 
-        <section className="px-3 py-8 md:px-6 md:py-16">
+        <section className="min-h-[60vh] px-3 sm:px-6">
           <div className="mx-auto w-full max-w-6xl">
-            <h2 className="flex flex-col text-xl sm:text-5xl md:text-6xl">
+            <h2 className="flex flex-col text-xl sm:text-6xl">
               <span className="pl-0">
                 Uplifting{" "}
-                <span className="font-arts-crafts-regular text-2xl sm:text-6xl md:text-7xl text-orange-500">
+                <span className="font-arts-crafts-regular text-2xl sm:text-7xl text-orange-500">
                   culture
                 </span>{" "}
               </span>
-              <span className="pl-12 sm:pl-24 md:pl-48">through </span>
-              <span className="pl-24 sm:pl-48 md:pl-96">
-                <span className="font-arts-crafts-regular text-2xl sm:text-6xl md:text-7xl text-purple-700">
+              <span className="pl-12 sm:pl-48">through </span>
+              <span className="pl-24 sm:pl-96">
+                <span className="font-arts-crafts-regular text-2xl sm:text-7xl text-purple-700">
                   art
                 </span>
                 {" & "}
-                <span className="font-arts-crafts-regular text-2xl sm:text-6xl md:text-7xl text-purple-700">
+                <span className="font-arts-crafts-regular text-2xl sm:text-7xl text-purple-700">
                   technology
                 </span>
                 {"."}
               </span>
             </h2>
           </div>
+        </section>
+
+        <section className="flex flex-row w-full px-20 py-20">
+          
+          <div className="px-20">
+            <h3 className="text-3xl font-arts-crafts-regular">
+              Skills
+            </h3>
+            <ul className="text-6xl">
+              <li>Brand Identity</li>
+              <li>Creative Direction</li>
+              <li>Content Strategy</li>
+              <li>Web Development</li>
+              <li>E-Commerce</li>
+              <li>Videography</li>
+              <li>Audio Mixing</li>
+            </ul>
+          </div>
+
+          <div className="max-w-[40vw]">
+            <p className="text-xl sm:text-4xl">
+              <span className="font-arts-crafts-regular">SoCIETY.</span> is a <WordRotater phrases={PHRASES} /><br></br>
+              built from the ground up for and by those that never had a blueprint but always had a vision. Our mission is to equip traditionally under-represented creatives with the tools, knowledge, platform, and support to transform their raw ideas into cultural movements that reject the status quo.
+            </p>
+          </div>
+
         </section>
       </main>
     </>

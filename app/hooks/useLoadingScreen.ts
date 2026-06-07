@@ -4,7 +4,7 @@ import { gsap } from 'gsap';
 // Module-scoped flag persists across client navigations, resets on hard reload
 let hasShownLoadingOnce = false;
 
-export const useLoadingScreen = (duration: number = 12000) => {
+export const useLoadingScreen = (duration: number = 100) => {
   const [showLoading, setShowLoading] = useState(true);
   const [fadeInComplete, setFadeInComplete] = useState(false);
   const [showCursor, setShowCursor] = useState(false);
@@ -26,6 +26,9 @@ export const useLoadingScreen = (duration: number = 12000) => {
 
   useEffect(() => {
     if (!showLoading) return;
+
+    if (!societyTitleRef.current || !staticTextRef.current) return;
+
     // GSAP fade in animation
     const tl = gsap.timeline();
     
@@ -45,32 +48,29 @@ export const useLoadingScreen = (duration: number = 12000) => {
   // Hide loading screen after specified duration
   useEffect(() => {
     if (!showLoading) return;
+  
     const hideTimer = setTimeout(() => {
-      // GSAP fade out animation
+      // If this ref is null, the loading screen hangs forever!
+      if (!loadingRef.current) {
+        console.warn("Loading screen failed to hide because loadingRef is null.");
+        return;
+      }
+  
       const tl = gsap.timeline();
       
-      tl.to([societyTitleRef.current, staticTextRef.current, typingTextRef.current, cursorRef.current], {
-        opacity: 0,
-        y: 30,
-        duration: 0.8,
-        ease: "power2.in",
-        stagger: 0.1
-      })
-      .to(loadingRef.current, {
+      // Fade out the entire screen container
+      tl.to(loadingRef.current, {
         opacity: 0,
         duration: 0.5,
         ease: "power2.in",
         onComplete: () => {
-          hasShownLoadingOnce = true; // mark shown for this lifecycle (resets on hard reload)
-          setShowLoading(false);
+          hasShownLoadingOnce = true; // Mark as shown
+          setShowLoading(false);       // This removes it from the DOM
         }
       });
-
-      return () => {
-        tl.kill();
-      };
+  
     }, duration);
-
+  
     return () => clearTimeout(hideTimer);
   }, [duration, showLoading]);
 
