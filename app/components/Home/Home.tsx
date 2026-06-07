@@ -33,21 +33,21 @@ export const Home = () => {
 
         <section className="sm:min-h-[30vh] min-h-[15vh] px-3 sm:px-6">
           <div className="mx-auto w-full max-w-6xl">
-            <h2 className="flex flex-col text-xl sm:text-6xl">
+            <h2 className="flex flex-col text-3xl sm:text-6xl">
               <span className="pl-0">
                 Uplifting{" "}
-                <span className="font-arts-crafts-regular text-2xl sm:text-7xl text-orange-500">
+                <span className="font-arts-crafts-regular text-4xl sm:text-7xl text-orange-500">
                   culture
                 </span>{" "}
               </span>
               <span className="pl-12 sm:pl-48">through </span>
               <span className="pl-24 sm:pl-96">
-                <span className="font-arts-crafts-regular text-2xl sm:text-7xl text-purple-700">
+                <span className="font-arts-crafts-regular text-4xl sm:text-7xl text-purple-700">
                   art
                 </span>
                 {" & "}
-                <span className="font-arts-crafts-regular text-2xl sm:text-7xl text-purple-700">
-                  technology
+                <span className="font-arts-crafts-regular text-4xl sm:text-7xl text-purple-700">
+                  tech
                 </span>
                 {"."}
               </span>
