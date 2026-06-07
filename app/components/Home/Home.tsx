@@ -55,13 +55,13 @@ export const Home = () => {
           </div>
         </section>
 
-        <section className="flex flex-row w-full px-20 py-20">
+        <section className="flex flex-col sm:flex-row w-full sm:px-20 sm:py-20">
           
-          <div className="px-20">
-            <h3 className="text-3xl font-arts-crafts-regular">
+          <div className="sm:px-20">
+            <h3 className="text-xl sm:text-3xl font-arts-crafts-regular">
               Skills
             </h3>
-            <ul className="text-6xl">
+            <ul className="text-3xl sm:text-6xl">
               <li>Brand Identity</li>
               <li>Creative Direction</li>
               <li>Content Strategy</li>
@@ -72,7 +72,7 @@ export const Home = () => {
             </ul>
           </div>
 
-          <div className="max-w-[40vw]">
+          <div className="w-full sm:max-w-[40vw]">
             <p className="text-xl sm:text-4xl">
               <span className="font-arts-crafts-regular">SoCIETY.</span> is a <WordRotater phrases={PHRASES} /><br></br>
               built from the ground up for and by those that never had a blueprint but always had a vision. Our mission is to equip traditionally under-represented creatives with the tools, knowledge, platform, and support to transform their raw ideas into cultural movements that reject the status quo.
