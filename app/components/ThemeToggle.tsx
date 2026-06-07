@@ -22,7 +22,7 @@ export function ThemeToggle() {
     <button
       type="button"
       onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
-      className="absolute right-6 flex size-3 sm:size-6 shrink-0 items-center justify-center rounded-full bg-foreground text-background transition-opacity hover:opacity-90"
+      className="absolute right-6 flex size-6 shrink-0 items-center justify-center rounded-full bg-foreground text-background transition-opacity hover:opacity-90"
       aria-label={`Switch to ${resolvedTheme === "dark" ? "light" : "dark"} mode`}
     />
   );
