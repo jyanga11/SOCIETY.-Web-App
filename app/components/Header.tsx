@@ -26,7 +26,7 @@ export default function Header() {
 
             {/* Mobile Menu Button */}
             <button
-              className="md:hidden mr-12 text-3xl -mt-[30px]"
+              className="md:hidden mr-12 text-3xl -mt-[10px]"
               onClick={() => setMenuOpen(!menuOpen)}
               aria-label="Open Menu"
             >
