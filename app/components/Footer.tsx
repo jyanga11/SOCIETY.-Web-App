@@ -43,25 +43,25 @@ export default function Footer() {
           <ul className="flex flex-wrap items-center justify-center gap-x-8 gap-y-4 font-medium">
             <li>
               <Link href="https://www.instagram.com/builtbysociety.io/" target="_blank" className="hover:opacity-70 transition-opacity" aria-label="Instagram">
-                <FontAwesomeIcon icon={faInstagram} className="text-lg sm:text-4xl" />
+                <FontAwesomeIcon icon={faInstagram} className="text-2xl sm:text-4xl" />
                 <span className="sr-only">Instagram</span>
               </Link>
             </li>
             <li>
               <Link href="https://www.tiktok.com/@societyofficial__" target="_blank" className="hover:opacity-70 transition-opacity" aria-label="TikTok">
-                <FontAwesomeIcon icon={faTiktok} className="text-lg sm:text-4xl" />
+                <FontAwesomeIcon icon={faTiktok} className="text-2xl sm:text-4xl" />
                 <span className="sr-only">TikTok</span>
               </Link>
             </li>
             <li>
               <Link href="https://www.youtube.com/@builtbysociety" target="_blank" className="hover:opacity-70 transition-opacity" aria-label="YouTube">
-                <FontAwesomeIcon icon={faYoutube} className="text-lg sm:text-4xl" />
+                <FontAwesomeIcon icon={faYoutube} className="text-2xl sm:text-4xl" />
                 <span className="sr-only">YouTube</span>
               </Link>
             </li>
             <li>
               <Link href="https://www.facebook.com/people/Society-Media-Agency/61583672024114/" target="_blank" className="hover:opacity-70 transition-opacity" aria-label="Facebook">
-                <FontAwesomeIcon icon={faFacebookF} className="text-lg sm:text-4xl" />
+                <FontAwesomeIcon icon={faFacebookF} className="text-2xl sm:text-4xl" />
                 <span className="sr-only">Facebook</span>
               </Link>
             </li>
@@ -71,7 +71,7 @@ export default function Footer() {
         {/* Copy Email Button */}
         <button 
           onClick={handleCopy}
-          className="order-2 md:order-3 hover:opacity-70 transition-opacity text-md sm:text-xl text-muted-foreground focus:outline-none"
+          className="order-2 md:order-3 hover:opacity-70 transition-opacity text-xl sm:text-xl text-muted-foreground focus:outline-none"
           aria-label="Copy email address to clipboard"
         >
           {copied ? "Copied to clipboard" : "info@builtbysociety.io"}
