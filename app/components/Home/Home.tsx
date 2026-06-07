@@ -16,7 +16,7 @@ export const Home = () => {
       </div>
 
       <main className="relative z-10">
-        <section className="flex min-h-screen items-center justify-center">
+        <section className="flex min-h-screen pt-[40vh] justify-center">
           <div className="relative">
             <h1 className="absolute left-2 top-2 text-6xl sm:text-8xl md:text-9xl font-arts-crafts-regular text-orange-500">
               SoCIETY.
