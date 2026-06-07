@@ -31,7 +31,7 @@ export const Home = () => {
           </div>
         </section>
 
-        <section className="min-h-[60vh] px-3 sm:px-6">
+        <section className="min-h-[30vh] px-3 sm:px-6">
           <div className="mx-auto w-full max-w-6xl">
             <h2 className="flex flex-col text-xl sm:text-6xl">
               <span className="pl-0">
@@ -55,9 +55,9 @@ export const Home = () => {
           </div>
         </section>
 
-        <section className="flex flex-col sm:flex-row w-full sm:px-20 sm:py-20">
+        <section className="flex flex-col sm:flex-row w-full sm:px-20 py-20">
           
-          <div className="sm:px-20">
+          <div className="py:20 sm:px-20">
             <h3 className="text-xl sm:text-3xl font-arts-crafts-regular">
               Skills
             </h3>
