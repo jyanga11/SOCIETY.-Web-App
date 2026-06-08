@@ -28,7 +28,7 @@ export const WordRotater = ({
       <span className={`inline-block text-left relative ${textClassName}`}>
         {displayText}
         <span 
-          className={`ml-1 inline-block w-[15px] h-[0.9em] bg-current align-middle transition-opacity duration-100 ${
+          className={`inline-block w-[15px] h-[0.9em] bg-current align-middle transition-opacity duration-100 ${
             showCursor ? 'opacity-100' : 'opacity-0'
           }`}
           aria-hidden="true"
