@@ -55,7 +55,7 @@ export const Home = () => {
           </div>
         </section>
 
-        <section className="flex flex-col gap-6 sm:flex-row w-full sm:px-20 px-10 py-10">
+        <section className="flex flex-col gap-6 sm:flex-row w-full sm:px-20 px-7 py-10">
           
           <div className="sm:px-20">
             <h3 className="text-2xl sm:text-3xl font-arts-crafts-regular">
@@ -65,7 +65,7 @@ export const Home = () => {
               <li>Brand Identity</li>
               <li>Creative Direction</li>
               <li>Content Strategy</li>
-              <li>Web Development</li>
+              <li>Web Design</li>
               <li>E-Commerce</li>
               <li>Videography</li>
               <li>Audio Mixing</li>

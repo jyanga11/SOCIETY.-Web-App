@@ -7,7 +7,7 @@ import { PHRASES } from '../../constants/phrases';
 export const LoadingScreen = () => {
   // We pass a concrete duration here (e.g., 3000ms for 3 seconds)
   // If duration is too low or undefined, ensure it has a fallback in the hook
-  const { showLoading, fadeInComplete, refs } = useLoadingScreen(3000); 
+  const { showLoading, fadeInComplete, refs } = useLoadingScreen(300); 
 
   if (!showLoading) return null;
 
@@ -20,7 +20,7 @@ export const LoadingScreen = () => {
           {/* Left column: Right-aligned static text */}
           <span ref={refs.societyTitleRef} className="font-arts-crafts-regular text-2xl sm:text-6xl text-right whitespace-nowrap">
             SoCIETY.
-            <span className="text-xl sm:text-5xl font-sans pr-0.5 sm:pr-1">&nbsp;is a</span>
+            <span className="text-xl sm:text-5xl font-sans pr- sm:pr-1">&nbsp;is a</span>
           </span> 
           
           {/* Right column: Left-aligned typing text */}
