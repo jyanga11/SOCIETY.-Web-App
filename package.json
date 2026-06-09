@@ -12,7 +12,7 @@
     "@fortawesome/fontawesome-svg-core": "^7.2.0",
     "@fortawesome/free-brands-svg-icons": "^7.2.0",
     "@fortawesome/react-fontawesome": "^3.3.1",
-    "framer-motion": "^12.23.3",
+    "framer-motion": "^12.40.0",
     "gsap": "^3.13.0",
     "lucide-react": "^1.17.0",
     "next": "15.3.8",
