@@ -1,9 +1,19 @@
 import { WordRotater } from "../WordRotater";
 import { International } from "../International"
 import { PHRASES } from '../../constants/phrases';
+import MediaRow from "../MediaRow";
+
+const dummyMovies = [
+  { id: 1, title: 'Stranger Things', image: 'https://placehold.co/600x400/111/fff?text=Stranger+Things' },
+  { id: 2, title: 'The Witcher', image: 'https://placehold.co/600x400/222/fff?text=The+Witcher' },
+  { id: 3, title: 'Ozark', image: 'https://placehold.co/600x400/333/fff?text=Ozark' },
+  { id: 4, title: 'Wednesday', image: 'https://placehold.co/600x400/444/fff?text=Wednesday' },
+  { id: 5, title: 'The Crown', image: 'https://placehold.co/600x400/555/fff?text=The+Crown' },
+  { id: 6, title: 'Mindhunter', image: 'https://placehold.co/600x400/666/fff?text=Mindhunter' },
+  { id: 7, title: 'Black Mirror', image: 'https://placehold.co/600x400/777/fff?text=Black+Mirror' },
+];
 
 export const Home = () => {
-
   return (
     <>
       <div
@@ -84,6 +94,10 @@ export const Home = () => {
         </section>
 
         <International />
+
+        <MediaRow title="Projects" items={dummyMovies}/>
+        <MediaRow title="Shop" items={dummyMovies.reverse()} />
+        <MediaRow title="News" items={dummyMovies} />
 
       </main>
     </>
