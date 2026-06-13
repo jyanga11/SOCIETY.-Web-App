@@ -2,6 +2,7 @@ import { WordRotater } from "../WordRotater";
 import { International } from "../International"
 import { PHRASES } from '../../constants/phrases';
 import MediaRow from "../MediaRow";
+import Link from "next/link";
 
 const dummyMovies = [
   { id: 1, title: 'Stranger Things', image: 'https://placehold.co/600x400/111/fff?text=Stranger+Things' },
@@ -69,35 +70,39 @@ export const Home = () => {
 
         <section className="flex flex-col gap-6 sm:flex-row w-full sm:px-20 px-7 py-30">
           
-          <div className="sm:px-20">
-            <h3 className="text-2xl sm:text-3xl font-arts-crafts-regular">
-              Skills
-            </h3>
-            <ul className="text-4xl sm:text-6xl">
-              <li>Brand Identity</li>
-              <li>Creative Direction</li>
-              <li>Content Strategy</li>
-              <li>Web Design</li>
-              <li>E-Commerce</li>
-              <li>Videography</li>
-              <li>Audio Mixing</li>
-            </ul>
-          </div>
+          <Link href="/services">
+            <div className="sm:px-20">
+              <h3 className="text-2xl sm:text-3xl font-arts-crafts-regular">
+                Skills
+              </h3>
+              <ul className="text-4xl sm:text-6xl">
+                <li>Brand Identity</li>
+                <li>Creative Direction</li>
+                <li>Content Strategy</li>
+                <li>Web Design</li>
+                <li>E-Commerce</li>
+                <li>Videography</li>
+                <li>Audio Mixing</li>
+              </ul>
+            </div>
+          </Link>
 
-          <div className="w-full sm:max-w-[40vw]">
-            <p className="text-xl sm:text-4xl">
-              <span className="font-arts-crafts-regular">SoCIETY.</span> is a <WordRotater phrases={PHRASES} /><br></br>
-              built from the ground up for and by those that never had a blueprint but always had a vision. Our mission is to equip traditionally under-represented creatives with the tools, knowledge, platform, and support to transform their raw ideas into cultural movements that reject the status quo.
-            </p>
-          </div>
+          <Link href="/about">
+            <div className="w-full sm:max-w-[40vw]">
+              <p className="text-xl sm:text-4xl">
+                <span className="font-arts-crafts-regular">SoCIETY.</span> is a <WordRotater phrases={PHRASES} /><br></br>
+                built from the ground up for and by those that never had a blueprint but always had a vision. Our mission is to equip traditionally under-represented creatives with the tools, knowledge, platform, and support to transform their raw ideas into cultural movements that reject the status quo.
+              </p>
+            </div>
+          </Link>
 
         </section>
 
         <International />
 
-        <MediaRow title="Projects" items={dummyMovies}/>
-        <MediaRow title="Shop" items={dummyMovies.reverse()} />
-        <MediaRow title="News" items={dummyMovies} />
+        <MediaRow title="Projects" items={dummyMovies} variant="landscape"/>
+        <MediaRow title="Shop" items={dummyMovies.reverse()} variant="portrait" />
+        <MediaRow title="News" items={dummyMovies} variant="landscape" />
 
       </main>
     </>

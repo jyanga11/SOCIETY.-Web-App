@@ -12,14 +12,15 @@ interface MediaItem {
 interface MediaRowProps {
   title: string;
   items: MediaItem[];
+  variant?: 'landscape' | 'portrait'; // New parameter for tile orientation
 }
 
-export default function MediaRow({ title, items }: MediaRowProps) {
+export default function MediaRow({ title, items, variant = 'landscape' }: MediaRowProps) {
   const rowRef = useRef<HTMLDivElement>(null);
   const [showLeftArrow, setShowLeftArrow] = useState(false);
   const [showRightArrow, setShowRightArrow] = useState(true);
+
   // Check scroll position to dynamically show/hide navigation arrows
-  
   const updateArrows = () => {
     if (rowRef.current) {
       const { scrollLeft, scrollWidth, clientWidth } = rowRef.current;
@@ -54,6 +55,11 @@ export default function MediaRow({ title, items }: MediaRowProps) {
     }
   };
 
+  // Dynamic dimension classes based on the variant
+  const tileDimensions = variant === 'portrait' 
+    ? 'aspect-[3/4] max-w-3xs' // Vertically tall (similar to Netflix posters)
+    : 'aspect-[16/9] max-w-sm'; // Horizontally long (standard landscape)
+
   return (
     <div className="space-y-2 relative group mt-15 mb-15 md:-ml-4">
       {/* Row Title */}
@@ -76,23 +82,29 @@ export default function MediaRow({ title, items }: MediaRowProps) {
         {/* The Scrollable Track */}
         <div
           ref={rowRef}
-          className="flex items-center space-x-2 overflow-x-scroll scrollbar-none px-4 md:px-0"
+          className="flex items-start space-x-2 overflow-x-scroll scrollbar-none px-4 md:px-0 py-4"
           style={{ scrollbarWidth: 'none' }} // Firefox fallback to hide scrollbar
         >
           {items.map((item) => (
             <div
               key={item.id}
-              className="relative h-28 min-w-[180px] cursor-pointer transition duration-200 ease-out md:h-36 md:min-w-[260px] md:hover:scale-105 rounded-sm overflow-hidden bg-zinc-800 flex-shrink-0"
+              className={`flex flex-col space-y-2 cursor-pointer transition duration-200 ease-out md:hover:scale-105 flex-shrink-0 ${tileDimensions}`}
             >
-              <img
-                src={item.image}
-                alt={item.title}
-                className="rounded-sm object-cover h-full w-full"
-                loading="lazy"
-              />
-              {/* Optional Title Overlay on Hover */}
-              <div className="absolute inset-0 bg-black/40 opacity-0 hover:opacity-100 transition-opacity duration-200 flex items-end p-2">
-                <p className="text-white text-xs md:text-sm font-medium">{item.title}</p>
+              {/* Media Tile Image Container */}
+              <div className="h-full w-full rounded-sm overflow-hidden bg-zinc-800">
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  className="object-cover h-full w-full"
+                  loading="lazy"
+                />
+              </div>
+
+              {/* Title Beneath the Tile */}
+              <div className="px-1">
+                <p className="text-[#e5e5e5] hover:text-white text-sm md:text-2xl line-clamp-1 transition-colors duration-200">
+                  {item.title}
+                </p>
               </div>
             </div>
           ))}
