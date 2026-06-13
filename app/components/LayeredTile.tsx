@@ -1,8 +1,8 @@
 'use client';
 
-import React, { ComponentType, MouseEvent, useState } from 'react';
+import React, { MouseEvent } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { LucideProps } from 'lucide-react';
+
 
 export interface MediaItem {
   id: string | number;
@@ -10,23 +10,13 @@ export interface MediaItem {
   image: string;
 }
 
-export interface ServiceItem {
-  id: string | number;
-  title: string;
-  image: ComponentType<LucideProps>;
-  desc: string;
-  tags: Array<string>;
-}
-
 interface LayeredTileProps {
-  // item can now be either type, allowing this component to remain reusable
-  item: MediaItem | ServiceItem;
+  item: MediaItem;
   tileWidths: string;
   imageAspect: string;
 }
 
 export default function LayeredTile({ item, tileWidths, imageAspect }: LayeredTileProps) {
-  const [isHovered, setIsHovered] = useState(false);
 
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -47,15 +37,6 @@ export default function LayeredTile({ item, tileWidths, imageAspect }: LayeredTi
   const yellowX = useTransform(mouseX, [-150, 150], [-3, 3]);
   const yellowY = useTransform(mouseY, [-150, 150], [-3, 3]);
 
-  // Helper guard to safely check if item is a ServiceItem
-  const isServiceItem = (object: unknown): object is ServiceItem => {
-    return typeof object === 'object' && object !== null && 'desc' in object;
-  };
-
-  const handleMouseOver = () => {
-    setIsHovered(true);
-  };
-
   const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
     const mouseXPos = e.clientX - rect.left - rect.width / 2;
@@ -66,14 +47,12 @@ export default function LayeredTile({ item, tileWidths, imageAspect }: LayeredTi
   };
 
   const handleMouseLeave = () => {
-    setIsHovered(false);
     x.set(0);
     y.set(0);
   };
 
   return (
     <div
-      onMouseOver={handleMouseOver}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       className={`flex flex-col space-y-4 cursor-pointer flex-shrink-0 relative group/tile ${tileWidths}`}
@@ -115,30 +94,12 @@ export default function LayeredTile({ item, tileWidths, imageAspect }: LayeredTi
 
         {/* Base/Top Layer (True Visual Anchor) */}
         <div className="relative z-10 h-full w-full rounded-sm overflow-hidden bg-gradient-to-br from-orange-500 to-purple-700 shadow-xl flex items-center justify-center">
-          {isHovered && isServiceItem(item) ? (
-            <div className='h-full w-full bg-orange-500 p-4 justify-center text-center'>
-              <p className="text-sm sm:text-lg leading-relaxed text-center">
-                {item.desc}
-              </p>
-            </div>
-          ) : (
-            /* Render conditionally based on whether it's a component or an image string */
-            (() => {
-              if (isServiceItem(item)) {
-                const IconComponent = item.image;
-                return <IconComponent className="w-12 h-12 text-white stroke-[2.25]" />;
-              } else {
-                return (
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="absolute inset-0 object-cover h-full w-full"
-                    loading="lazy"
-                  />
-                );
-              }
-            })()
-          )}
+          <img
+            src={item.image}
+            alt={item.title}
+            className="absolute inset-0 object-cover h-full w-full"
+            loading="lazy"
+          />
         </div>
       </div>
 

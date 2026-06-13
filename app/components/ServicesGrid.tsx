@@ -1,31 +1,67 @@
 'use client';
 
-import React from 'react';
-import LayeredTile, { ServiceItem } from './LayeredTile'; // Adjust path if necessary
+import React, { ComponentType } from 'react';
+import { LucideProps } from 'lucide-react';
+import Link from 'next/link';
 
+interface ServiceItem {
+    id: string | number;
+    title: string;
+    image: ComponentType<LucideProps>;
+    desc: string;
+  }
 interface ServicesGridProps {
   items: ServiceItem[];
   variant?: 'landscape' | 'portrait';
 }
 
-export default function ServicesGrid({ items, variant = 'landscape' }: ServicesGridProps) {
-  // We drop the fixed pixel widths used in the carousel track 
-  // and let the grid dictate the width (`w-full`)
-  const tileWidths = 'w-full';
+interface ServiceTileProps {
+    item: ServiceItem;
+    tileWidths: string;
+    imageAspect: string;
+}
+  
+function ServiceTile({
+    item,
+    tileWidths,
+    imageAspect,
+} : ServiceTileProps) {
+    const Icon = item.image;
+    return (
+      <Link href={`services/${item.id}`}>
+        <div className={`${tileWidths} group overflow-hidden`}>
+            <div className={`${imageAspect} relative border-6 border-purple-700 rounded-xl`}>
+            {/* Icon — shown by default, hidden on hover */}
+            <div className="absolute inset-0 flex items-center justify-center transition-opacity duration-300 group-hover:opacity-0">
+                <Icon size={48} className="text-purple-700" />
+            </div>
+            {/* Desc — hidden by default, shown on hover */}
+            <div className="absolute inset-0 flex items-center justify-center bg-purple-700 px-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                <p className="text-orange-500 text-lg text-center font-medium">{item.desc}</p>
+            </div>
+            </div>
+            <div className="px-3 py-2">
+            <h3 className="text-lg">{item.title}</h3>
+            </div>
+        </div>
+      </Link>
+    );
+}
 
-  // Explicitly apply the aspect ratio helper to match your design system
+export default function ServicesGrid({ items, variant = 'landscape' }: ServicesGridProps) {
+  const tileWidths = 'w-full';
   const imageAspect = variant === 'portrait' ? 'aspect-[3/4]' : 'aspect-[16/9]';
 
   return (
     <div className="w-full px-4 md:px-0 py-6">
       <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-12">
-        {items.map((item) => (
-          <LayeredTile
+      {items.map((item) => (
+        <ServiceTile
             key={item.id}
             item={item}
             tileWidths={tileWidths}
             imageAspect={imageAspect}
-          />
+        />
         ))}
       </div>
     </div>
