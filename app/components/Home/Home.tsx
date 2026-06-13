@@ -72,8 +72,8 @@ export const Home = () => {
           
           <Link href="/services">
             <div className="sm:px-20">
-              <h3 className="text-2xl sm:text-3xl font-arts-crafts-regular">
-                Skills
+              <h3 className="text-2xl sm:text-3xl font-arts-crafts-regular flex items-center gap-2">
+                Skills <span className="text-sm"> &#5593; </span >
               </h3>
               <ul className="text-4xl sm:text-6xl">
                 <li>Brand Identity</li>
@@ -100,9 +100,26 @@ export const Home = () => {
 
         <International />
 
-        <MediaRow title="Projects" items={dummyMovies} variant="landscape"/>
-        <MediaRow title="Shop" items={dummyMovies.reverse()} variant="portrait" />
-        <MediaRow title="News" items={dummyMovies} variant="landscape" />
+        <Link href="/projects" >
+          <h2 className="flex items-center gap-2 text-2xl font-arts-crafts-regular text-[#e5e5e5] transition duration-200 hover:text-white md:text-4xl pl-4 md:pl-12">
+            Projects <span className="text-sm"> &#5593; </span >
+          </h2>
+        </Link>
+        <MediaRow items={dummyMovies} variant="landscape"/>
+
+        <Link href="/shop" >  
+          <h2 className="flex items-center gap-2 text-2xl font-arts-crafts-regular text-[#e5e5e5] transition duration-200 hover:text-white md:text-4xl pl-4 md:pl-12">
+            Shop <span className="text-sm"> &#5593; </span >
+          </h2>
+        </Link>
+        <MediaRow items={dummyMovies.reverse()} variant="portrait" />
+
+        <Link href="/news" >  
+        <h2 className="flex items-center gap-2 text-2xl font-arts-crafts-regular text-[#e5e5e5] transition duration-200 hover:text-white md:text-4xl pl-4 md:pl-12">
+          News <span className="text-sm"> &#5593; </span >
+        </h2>
+        </Link>
+        <MediaRow items={dummyMovies} variant="landscape" />
 
       </main>
     </>

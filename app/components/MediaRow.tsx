@@ -10,12 +10,11 @@ interface MediaItem {
 }
 
 interface MediaRowProps {
-  title: string;
   items: MediaItem[];
   variant?: 'landscape' | 'portrait'; // New parameter for tile orientation
 }
 
-export default function MediaRow({ title, items, variant = 'landscape' }: MediaRowProps) {
+export default function MediaRow({ items, variant = 'landscape' }: MediaRowProps) {
   const rowRef = useRef<HTMLDivElement>(null);
   const [showLeftArrow, setShowLeftArrow] = useState(false);
   const [showRightArrow, setShowRightArrow] = useState(true);
@@ -61,12 +60,7 @@ export default function MediaRow({ title, items, variant = 'landscape' }: MediaR
     : 'aspect-[16/9] md:max-w-sm max-w-2xs'; // Horizontally long (standard landscape)
 
   return (
-    <div className="space-y-2 relative group mt-15 mb-15 md:-ml-4">
-      {/* Row Title */}
-      <h2 className="md:text-lg text-2xl font-arts-crafts-regular text-[#e5e5e5] transition duration-200 hover:text-white md:text-4xl pl-4 md:pl-12">
-        {title}
-      </h2>
-
+    <div className="space-y-2 relative group mb-15 md:-ml-4">
       {/* Row Container */}
       <div className="relative md:px-12">
         {/* Left Arrow */}
