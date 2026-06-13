@@ -101,7 +101,7 @@ export default function MediaRow({ title, items, variant = 'landscape' }: MediaR
               </div>
 
               {/* Title Beneath the Tile */}
-              <div className="px-1">
+              <div className="px-3">
                 <p className="text-[#e5e5e5] hover:text-white text-lg md:text-2xl line-clamp-1 transition-colors duration-200">
                   {item.title}
                 </p>
