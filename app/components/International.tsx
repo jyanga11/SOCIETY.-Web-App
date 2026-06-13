@@ -49,7 +49,7 @@ export const International = () => {
     };
 
     return (
-        <div className="w-full overflow-hidden mb-40">
+        <div className="w-full overflow-hidden mb-30">
 
           {/* --- TOP BANNER (Panning Left) --- */}
           <div className="relative flex w-full overflow-hidden border-y border-orange-500 text-xl tracking-wider text-orange-500">
