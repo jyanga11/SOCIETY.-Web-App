@@ -57,8 +57,8 @@ export default function MediaRow({ title, items, variant = 'landscape' }: MediaR
 
   // Dynamic dimension classes based on the variant
   const tileDimensions = variant === 'portrait' 
-    ? 'aspect-[3/4] max-w-3xs' // Vertically tall (similar to Netflix posters)
-    : 'aspect-[16/9] max-w-sm'; // Horizontally long (standard landscape)
+    ? 'aspect-[3/4] md:max-w-3xs max-w-5xs' // Vertically tall (similar to Netflix posters)
+    : 'aspect-[16/9] md:max-w-sm max-w-2xs'; // Horizontally long (standard landscape)
 
   return (
     <div className="space-y-2 relative group mt-15 mb-15 md:-ml-4">
