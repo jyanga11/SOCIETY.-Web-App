@@ -18,7 +18,7 @@ export default function ServicesGrid({ items, variant = 'landscape' }: ServicesG
 
   return (
     <div className="w-full px-4 md:px-0 py-6">
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-x-6 gap-y-12">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-12">
         {items.map((item) => (
           <LayeredTile
             key={item.id}

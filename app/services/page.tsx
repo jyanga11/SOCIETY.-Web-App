@@ -92,7 +92,7 @@ const services = [
 
 export default function ServicesPage() {
   return (
-    <main className="mx-auto px-30 py-12">
+    <main className="mx-auto md:px-30 px-5 py-12">
       <h1 className="text-5xl sm:text-6xl font-arts-crafts-regular">Our Services</h1>
       <p className="mt-4 text-base sm:text-lg opacity-80">
         What can <span className="font-arts-crafts-regular">SOCIETY.</span> do for you?
