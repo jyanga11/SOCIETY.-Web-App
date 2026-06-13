@@ -51,9 +51,13 @@ export default function MediaRow({ items, variant = 'landscape' }: MediaRowProps
     }
   };
 
-  const tileDimensions = variant === 'portrait' 
-    ? 'aspect-[3/4] md:max-w-3xs max-w-[170px]' 
-    : 'aspect-[16/9] md:max-w-sm max-w-2xs';
+  // FIX 1: Remove aspect-ratio from here. Only control the width boundaries on the parent wrapper.
+  const tileWidths = variant === 'portrait' 
+    ? 'w-[170px] md:w-[240px] max-w-full' 
+    : 'w-[280px] md:w-[380px] max-w-full';
+
+  // FIX 2: Apply the aspect ratio helper explicitly to the inner image container box instead.
+  const imageAspect = variant === 'portrait' ? 'aspect-[3/4]' : 'aspect-[16/9]';
 
   return (
     <div className="space-y-2 relative group mb-15 md:-ml-4">
@@ -68,17 +72,18 @@ export default function MediaRow({ items, variant = 'landscape' }: MediaRowProps
           </button>
         )}
 
-        {/* The Scrollable Track */}
+        {/* The Scrollable Track - Added pb-10 so the 3D depth layer offsets have room to breathe */}
         <div
           ref={rowRef}
-          className="flex items-start space-x-6 overflow-x-scroll scrollbar-none px-4 md:px-0 py-6"
+          className="flex items-start space-x-6 overflow-x-scroll scrollbar-none px-4 md:px-0 pt-6 pb-10"
           style={{ scrollbarWidth: 'none' }}
         >
           {items.map((item) => (
             <LayeredTile 
               key={item.id} 
               item={item} 
-              tileDimensions={tileDimensions} 
+              tileWidths={tileWidths} 
+              imageAspect={imageAspect}
             />
           ))}
         </div>
@@ -97,10 +102,15 @@ export default function MediaRow({ items, variant = 'landscape' }: MediaRowProps
   );
 }
 
-// --- Subcomponent with permanent layered offsets that activate on hover ---
-function LayeredTile({ item, tileDimensions }: { item: MediaItem; tileDimensions: string }) {
-  // 1. Initialize motion values with the default static offsets (e.g., 12px, 8px, 4px)
-  // This prevents the layers from snapping to center before the mouse moves.
+function LayeredTile({ 
+  item, 
+  tileWidths, 
+  imageAspect 
+}: { 
+  item: MediaItem; 
+  tileWidths: string; 
+  imageAspect: string; 
+}) {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
@@ -108,7 +118,6 @@ function LayeredTile({ item, tileDimensions }: { item: MediaItem; tileDimensions
   const mouseX = useSpring(x, springConfig);
   const mouseY = useSpring(y, springConfig);
 
-  // 2. Map ranges for the fluid motion when tracked
   const purpleX = useTransform(mouseX, [-150, 150], [-12, 12]);
   const purpleY = useTransform(mouseY, [-150, 150], [-12, 12]);
 
@@ -131,7 +140,6 @@ function LayeredTile({ item, tileDimensions }: { item: MediaItem; tileDimensions
   };
 
   const handleMouseLeave = () => {
-    // Smoothly spring right back to the static resting position
     x.set(0);
     y.set(0);
   };
@@ -140,54 +148,45 @@ function LayeredTile({ item, tileDimensions }: { item: MediaItem; tileDimensions
     <div
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className={`flex flex-col space-y-4 cursor-pointer flex-shrink-0 relative group/tile ${tileDimensions}`}
+      className={`flex flex-col space-y-4 cursor-pointer flex-shrink-0 relative group/tile ${tileWidths}`}
     >
-      {/* Media Tile Image Stack Container */}
-      <div className="relative h-full w-full select-none items-center justify-center flex">
+      {/* Media Tile Image Stack Container - Aspect Ratio is explicitly applied here now */}
+      <div className={`relative w-full select-none items-center justify-center flex ${imageAspect}`}>
         
-        {/* Purple Layer - Permanently visible */}
+        {/* Purple Layer */}
         <motion.div
           style={{ x: purpleX, y: purpleY }}
           className="absolute inset-0 rounded-sm overflow-hidden bg-purple-900 translate-x-4 translate-y-4 pointer-events-none"
         >
-          <div 
-            className="object-cover h-full w-full mix-blend-multiply" 
-          />
+          <div className="object-cover h-full w-full mix-blend-multiply" />
         </motion.div>
 
-        {/* Fuchsia Layer - Permanently visible */}
+        {/* Fuchsia Layer */}
         <motion.div
           style={{ x: fuchsiaX, y: fuchsiaY }}
           className="absolute inset-0 rounded-sm overflow-hidden bg-fuchsia-700 translate-x-3 translate-y-3 pointer-events-none"
         >
-          <div 
-            className="object-cover h-full w-full mix-blend-multiply" 
-          />
+          <div className="object-cover h-full w-full mix-blend-multiply" />
         </motion.div>
 
-        {/* Orange Layer (Deepest Offset) - Permanently visible via translate utilities */}
+        {/* Orange Layer */}
         <motion.div
           style={{ x: orangeX, y: orangeY }}
           className="absolute inset-0 rounded-sm overflow-hidden bg-orange-500 translate-x-2 translate-y-2 pointer-events-none"
         >
-          <div 
-            className="object-cover h-full w-full mix-blend-multiply" 
-          />
+          <div className="object-cover h-full w-full mix-blend-multiply" />
         </motion.div>
 
-        {/* Yellow Layer (Deepest Offset) - Permanently visible via translate utilities */}
+        {/* Yellow Layer */}
         <motion.div
           style={{ x: yellowX, y: yellowY }}
           className="absolute inset-0 rounded-sm overflow-hidden bg-yellow-500 translate-x-1 translate-y-1 pointer-events-none"
         >
-          <div 
-            className="object-cover h-full w-full mix-blend-multiply" 
-          />
+          <div className="object-cover h-full w-full mix-blend-multiply" />
         </motion.div>
 
-
         {/* Base/Top Layer (True Visual Anchor) */}
-        <div className="relative z-10 h-full w-full rounded-sm overflow-hidden bg-yellow-500 shadow-xl">
+        <div className="relative z-10 h-full w-full rounded-sm overflow-hidden bg-zinc-800 shadow-xl">
           <img
             src={item.image}
             alt={item.title}
@@ -197,9 +196,9 @@ function LayeredTile({ item, tileDimensions }: { item: MediaItem; tileDimensions
         </div>
       </div>
 
-      {/* Title Beneath the Tile */}
+      {/* Title Beneath the Tile - Now has clean vertical layout separation */}
       <div className="px-1 z-20">
-        <p className="group-hover/tile:text-orange-500 text-lg md:text-2xl line-clamp-1 transition-colors duration-200">
+        <p className="group-hover/tile:text-orange-500 text-lg md:text-2xl line-clamp-1 transition-colors duration-200 text-[#e5e5e5]">
           {item.title}
         </p>
       </div>
