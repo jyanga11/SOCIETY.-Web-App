@@ -114,7 +114,7 @@ export default function LayeredTile({ item, tileWidths, imageAspect }: LayeredTi
         </motion.div>
 
         {/* Base/Top Layer (True Visual Anchor) */}
-        <div className="relative z-10 h-full w-full rounded-sm overflow-hidden bg-purple-700 shadow-xl flex items-center justify-center">
+        <div className="relative z-10 h-full w-full rounded-sm overflow-hidden bg-gradient-to-br from-orange-500 to-purple-700 shadow-xl flex items-center justify-center">
           {isHovered && isServiceItem(item) ? (
             <div className='h-full w-full bg-orange-500 p-4 justify-center text-center'>
               <p className="text-sm sm:text-lg leading-relaxed text-center">
@@ -144,7 +144,7 @@ export default function LayeredTile({ item, tileWidths, imageAspect }: LayeredTi
 
       {/* Title Beneath the Tile */}
       <div className="px-1 z-20">
-        <p className="group-hover/tile:text-orange-500 text-lg md:text-2xl line-clamp-1 transition-colors duration-200 text-[#e5e5e5]">
+        <p className="group-hover/tile:text-orange-500 text-lg md:text-2xl line-clamp-1 transition-colors duration-200">
           {item.title}
         </p>
       </div>
