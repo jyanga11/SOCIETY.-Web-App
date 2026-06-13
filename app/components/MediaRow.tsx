@@ -57,13 +57,13 @@ export default function MediaRow({ title, items, variant = 'landscape' }: MediaR
 
   // Dynamic dimension classes based on the variant
   const tileDimensions = variant === 'portrait' 
-    ? 'aspect-[3/4] md:max-w-3xs max-w-5xs' // Vertically tall (similar to Netflix posters)
+    ? 'aspect-[3/4] md:max-w-3xs max-w-4xs' // Vertically tall (similar to Netflix posters)
     : 'aspect-[16/9] md:max-w-sm max-w-2xs'; // Horizontally long (standard landscape)
 
   return (
     <div className="space-y-2 relative group mt-15 mb-15 md:-ml-4">
       {/* Row Title */}
-      <h2 className="text-lg font-arts-crafts-regular text-[#e5e5e5] transition duration-200 hover:text-white md:text-4xl pl-4 md:pl-12">
+      <h2 className="md:text-lg text-2xl font-arts-crafts-regular text-[#e5e5e5] transition duration-200 hover:text-white md:text-4xl pl-4 md:pl-12">
         {title}
       </h2>
 
@@ -102,7 +102,7 @@ export default function MediaRow({ title, items, variant = 'landscape' }: MediaR
 
               {/* Title Beneath the Tile */}
               <div className="px-1">
-                <p className="text-[#e5e5e5] hover:text-white text-sm md:text-2xl line-clamp-1 transition-colors duration-200">
+                <p className="text-[#e5e5e5] hover:text-white text-lg md:text-2xl line-clamp-1 transition-colors duration-200">
                   {item.title}
                 </p>
               </div>
