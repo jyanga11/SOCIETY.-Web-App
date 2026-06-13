@@ -55,9 +55,9 @@ export default function MediaRow({ title, items }: MediaRowProps) {
   };
 
   return (
-    <div className="space-y-2 relative group mt-9 mb-9 md:-ml-4 mb-8">
+    <div className="space-y-2 relative group mt-15 mb-15 md:-ml-4">
       {/* Row Title */}
-      <h2 className="text-lg font-semibold text-[#e5e5e5] transition duration-200 hover:text-white md:text-4xl pl-4 md:pl-12">
+      <h2 className="text-lg font-arts-crafts-regular text-[#e5e5e5] transition duration-200 hover:text-white md:text-4xl pl-4 md:pl-12">
         {title}
       </h2>
 
