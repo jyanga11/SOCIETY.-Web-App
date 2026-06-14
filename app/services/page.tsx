@@ -10,7 +10,7 @@ export default function ServicesPage() {
         {/* Changed to a vertical flex column */}
         <div className="py-10 flex flex-col gap-6">
           {/* Title stays naturally aligned to the left */}
-          <h1 className="text-4xl sm:text-8xl font-arts-crafts-regular">
+          <h1 className="text-5xl sm:text-7xl font-arts-crafts-regular">
             Services
           </h1>
           
