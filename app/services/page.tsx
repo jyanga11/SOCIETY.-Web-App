@@ -7,9 +7,15 @@ export default function ServicesPage() {
   return (
     <main className="mx-auto md:px-30 px-5 py-12">
       <div className="m-10">
-        <div className="py-10 flex justify-between">
-          <h1 className="text-5xl sm:text-8xl font-arts-crafts-regular pt-20">Services</h1>
-          <p className="mt-4 text-base sm:text-3xl opacity-80 max-w-[60vw] min-w-[50vw] pt-50">
+        {/* Changed to a vertical flex column */}
+        <div className="py-10 flex flex-col gap-6">
+          {/* Title stays naturally aligned to the left */}
+          <h1 className="text-4xl sm:text-8xl font-arts-crafts-regular">
+            Services
+          </h1>
+          
+          {/* Paragraph is pushed to the right, text is right-aligned, and width is constrained */}
+          <p className="text-base sm:text-3xl opacity-80 max-w-2xl self-end text-left">
             We give independent and under-represented artists access to the 
             services and platform to turn their ideas into fully realized projects. 
           </p>
