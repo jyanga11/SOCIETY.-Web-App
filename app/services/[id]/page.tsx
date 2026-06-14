@@ -20,7 +20,7 @@ export default async function ServicePage({ params }: { params: Promise<{ id: st
     const Icon = service.image;
   
     return (
-      <main className="min-w-screen items-center justify-center relative">
+      <main className="min-w-screen sm:mx-0 px-10 items-center justify-center relative">
         
         <div className="flex flex-row gap-3 justify-center items-center my-5">
 
@@ -29,7 +29,7 @@ export default async function ServicePage({ params }: { params: Promise<{ id: st
                 <div className="">
                     <Link 
                         href={`/services/${prevServiceId}`} 
-                        className="text-lg sm:text-5xl text-purple-700 hover:text-orange-500 transition-colors duration-200"
+                        className="text-lg sm:text-4xl text-purple-700 hover:text-orange-500 transition-colors duration-200"
                         aria-label="Previous service"
                     >
                         &#5595;
@@ -48,7 +48,7 @@ export default async function ServicePage({ params }: { params: Promise<{ id: st
                 <div className="">
                     <Link 
                         href={`/services/${nextServiceId}`} 
-                        className="text-lg sm:text-5xl ml-10 text-purple-700 hover:text-orange-500 transition-colors duration-200"
+                        className="text-lg sm:text-4xl ml-10 text-purple-700 hover:text-orange-500 transition-colors duration-200"
                         aria-label="Next service"
                     >
                         &#5592;
