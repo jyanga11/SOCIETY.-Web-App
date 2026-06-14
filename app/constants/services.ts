@@ -15,7 +15,7 @@ export const services = [
     },
     { 
       id: 3,
-      title: 'Photo/Video Editing',
+      title: 'Photo & Video Editing',
       image: Film,
       desc: 'make cool edits',
     },
@@ -33,7 +33,7 @@ export const services = [
     },
     { 
       id: 6,
-      title: 'Mixing/Mastering',
+      title: 'Mixing & Mastering',
       image: Headset,
       desc: 'for all your mixing and mastering needs',
     },
