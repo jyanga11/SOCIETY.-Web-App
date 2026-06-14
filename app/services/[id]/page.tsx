@@ -23,7 +23,7 @@ export default async function ServicePage({ params }: { params: Promise<{ id: st
     return (
       <main className="min-w-screen px-5 items-center justify-center relative">
         
-        <div className="flex flex-row gap-1 justify-center items-center my-5">
+        <div className="flex flex-row gap-2 justify-center items-center my-5">
 
             {/* Left (Previous) Arrow - Only renders if there is a previous service */}
             {hasPrevious && (
