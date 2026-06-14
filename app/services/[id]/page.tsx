@@ -1,3 +1,4 @@
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { services } from '../../constants/services';
 import Link from 'next/link';
 
@@ -22,17 +23,17 @@ export default async function ServicePage({ params }: { params: Promise<{ id: st
     return (
       <main className="min-w-screen px-5 items-center justify-center relative">
         
-        <div className="flex flex-row gap-3 justify-center items-center my-5">
+        <div className="flex flex-row gap-1 justify-center items-center my-5">
 
             {/* Left (Previous) Arrow - Only renders if there is a previous service */}
             {hasPrevious && (
                 <div className="">
                     <Link 
                         href={`/services/${prevServiceId}`} 
-                        className="text-lg sm:text-4xl text-purple-700 hover:text-orange-500 transition-colors duration-200"
+                        className="absolute left-50 text-purple-700 hover:text-orange-500 transition-colors duration-200"
                         aria-label="Previous service"
                     >
-                        &#5595;
+                        <ChevronLeft className="h-8 w-8 sm:h-16 sm:w-16" />
                     </Link>
                 </div>
             )}
@@ -48,10 +49,10 @@ export default async function ServicePage({ params }: { params: Promise<{ id: st
                 <div className="">
                     <Link 
                         href={`/services/${nextServiceId}`} 
-                        className="text-lg sm:text-4xl ml-10 text-purple-700 hover:text-orange-500 transition-colors duration-200"
+                        className="absolute right-50 text-purple-700 hover:text-orange-500 transition-colors duration-200"
                         aria-label="Next service"
                     >
-                        &#5592;
+                        <ChevronRight className="h-8 w-8 sm:h-16 sm:w-16" />
                     </Link>
                 </div>
             )}
