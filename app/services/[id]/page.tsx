@@ -20,7 +20,7 @@ export default async function ServicePage({ params }: { params: Promise<{ id: st
     const Icon = service.image;
   
     return (
-      <main className="min-h-screen min-w-screen items-center justify-center relative">
+      <main className="min-w-screen items-center justify-center relative">
         {/* Left (Previous) Arrow - Only renders if there is a previous service */}
         {hasPrevious && (
             <div className="absolute left-10 top-1/2 transform -translate-y-1/2">
