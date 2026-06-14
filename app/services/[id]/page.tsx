@@ -1,15 +1,39 @@
 import { services } from '../../constants/services';
+import Link from 'next/link';
 
 export default async function ServicePage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
-    const service = services.find(s => String(s.id) === id);
+    
+    // Find the current service index
+    const currentIdx = services.findIndex(s => String(s.id) === id);
+    const service = services[currentIdx];
   
     if (!service) return <p>Service not found.</p>;
   
+    // Determine previous and next items without looping
+    const hasPrevious = currentIdx > 0;
+    const hasNext = currentIdx < services.length - 1;
+
+    const prevServiceId = hasPrevious ? services[currentIdx - 1].id : null;
+    const nextServiceId = hasNext ? services[currentIdx + 1].id : null;
+
     const Icon = service.image;
   
     return (
-      <main className="min-h-screen min-w-screen items-center justify-center">
+      <main className="min-h-screen min-w-screen items-center justify-center relative">
+        {/* Left (Previous) Arrow - Only renders if there is a previous service */}
+        {hasPrevious && (
+            <div className="absolute left-10 top-1/2 transform -translate-y-1/2">
+                <Link 
+                    href={`/services/${prevServiceId}`} 
+                    className="text-5xl text-purple-700 hover:text-orange-500 transition-colors duration-200"
+                    aria-label="Previous service"
+                >
+                    &#5595;
+                </Link>
+            </div>
+        )}
+
         <div className="flex flex-row gap-3 justify-center items-center">
             <Icon size={256} className="text-purple-700 m-20" />
             <div className="flex flex-col gap-4">
@@ -17,16 +41,16 @@ export default async function ServicePage({ params }: { params: Promise<{ id: st
                 <p className="mt-4 text-2xl text-orange-500">{service.desc}</p>
             </div>
         </div>
+        
         <div className="w-full flex justify-center">
             <form action="/submit-endpoint" method="POST" className="w-full max-w-2xl flex flex-col gap-3">
-
                 <div>
                     <label htmlFor="user-email" className="text-2xl text-orange-500">Email:</label>
                     <input type="email" id="user-email" name="user-email" required  className="rounded-sm border-purple-700 border-b-2"/>
                 </div>
 
                 <div>
-                    <label htmlFor="note" className="text-2xl text-orange-500">Note:</label>
+                    <label htmlFor="note" className="text-2xl text-orange-500 ">Tell us what you&apos;re working on:</label>
                     <textarea id="note" name="note" rows={6} className="w-full border-2 border-purple-700 rounded-sm"/>
                 </div>
 
@@ -35,6 +59,19 @@ export default async function ServicePage({ params }: { params: Promise<{ id: st
                 </button>
             </form>
         </div>
+
+        {/* Right (Next) Arrow - Only renders if there is a next service */}
+        {hasNext && (
+            <div className="absolute right-10 top-1/2 transform -translate-y-1/2">
+                <Link 
+                    href={`/services/${nextServiceId}`} 
+                    className="text-5xl text-purple-700 hover:text-orange-500 transition-colors duration-200"
+                    aria-label="Next service"
+                >
+                    &#5592;
+                </Link>
+            </div>
+        )}
       </main>
     );
-  }
+}
