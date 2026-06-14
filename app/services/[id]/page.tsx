@@ -34,7 +34,7 @@ export default async function ServicePage({ params }: { params: Promise<{ id: st
             </div>
         )}
 
-        <div className="flex flex-row gap-3 justify-center items-center mb-5">
+        <div className="flex flex-row gap-3 justify-center items-center my-5">
             <Icon className="sm:w-50 sm:h-50 w-30 h-30 text-purple-700 m-5 sm:m-20" />
             <div className="flex flex-col sm:gap-4 gap-1">
                 <h1 className="sm:text-6xl text-3xl font-arts-crafts-regular text-purple-700">{service.title}</h1>
@@ -51,7 +51,7 @@ export default async function ServicePage({ params }: { params: Promise<{ id: st
 
                 <div>
                     <label htmlFor="note" className="sm:text-2xl text-lg text-orange-500 ">Tell us what you&apos;re working on:</label>
-                    <textarea id="note" name="note" rows={6} className="w-full border-2 border-purple-700 rounded-sm"/>
+                    <textarea id="note" name="note" rows={6} className="w-full h-40 border-2 border-purple-700 rounded-sm"/>
                 </div>
 
                 <button type="submit" className="text-xl self-end rounded-md px-6 py-2 border-orange-500 border-2 text-orange-500 hover:bg-orange-500 hover:text-white">
