@@ -39,7 +39,7 @@ export default async function ServicePage({ params }: { params: Promise<{ id: st
 
             <Icon className="sm:w-50 sm:h-50 w-30 h-30 text-purple-700 m-5 sm:m-20" />
             <div className="flex flex-col sm:gap-4 gap-1">
-                <h1 className="sm:text-6xl text-2xl font-arts-crafts-regular text-purple-700">{service.title}</h1>
+                <h1 className="sm:text-6xl text-2xl font-arts-crafts-regular">{service.title}</h1>
                 <p className="sm:mt-4 mt-1 sm:text-3xl text-lg text-orange-500">{service.desc}</p>
             </div>
 
