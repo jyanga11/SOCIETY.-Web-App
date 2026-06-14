@@ -42,7 +42,7 @@ export default async function ServicePage({ params }: { params: Promise<{ id: st
             </div>
         </div>
         
-        <div className="w-full flex justify-center">
+        <div className="w-full flex justify-center mb-5">
             <form action="/submit-endpoint" method="POST" className="w-full max-w-2xl flex flex-col gap-3">
                 <div>
                     <label htmlFor="user-email" className="sm:text-2xl text-lg text-orange-500">Email:</label>
