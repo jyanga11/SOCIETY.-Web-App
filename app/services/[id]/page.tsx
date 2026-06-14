@@ -48,7 +48,7 @@ export default async function ServicePage({ params }: { params: Promise<{ id: st
                 <div className="">
                     <Link 
                         href={`/services/${nextServiceId}`} 
-                        className="text-5xl ml-10 text-purple-700 hover:text-orange-500 transition-colors duration-200"
+                        className="text-lg sm:text-5xl ml-10 text-purple-700 hover:text-orange-500 transition-colors duration-200"
                         aria-label="Next service"
                     >
                         &#5592;
