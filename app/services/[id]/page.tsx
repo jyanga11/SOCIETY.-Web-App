@@ -21,25 +21,41 @@ export default async function ServicePage({ params }: { params: Promise<{ id: st
   
     return (
       <main className="min-w-screen items-center justify-center relative">
-        {/* Left (Previous) Arrow - Only renders if there is a previous service */}
-        {hasPrevious && (
-            <div className="absolute left-10 top-1/2 transform -translate-y-1/2">
-                <Link 
-                    href={`/services/${prevServiceId}`} 
-                    className="text-lg sm:text-5xl text-purple-700 hover:text-orange-500 transition-colors duration-200"
-                    aria-label="Previous service"
-                >
-                    &#5595;
-                </Link>
-            </div>
-        )}
-
+        
         <div className="flex flex-row gap-3 justify-center items-center my-5">
+
+            {/* Left (Previous) Arrow - Only renders if there is a previous service */}
+            {hasPrevious && (
+                <div className="">
+                    <Link 
+                        href={`/services/${prevServiceId}`} 
+                        className="text-lg sm:text-5xl text-purple-700 hover:text-orange-500 transition-colors duration-200"
+                        aria-label="Previous service"
+                    >
+                        &#5595;
+                    </Link>
+                </div>
+            )}
+
             <Icon className="sm:w-50 sm:h-50 w-30 h-30 text-purple-700 m-5 sm:m-20" />
             <div className="flex flex-col sm:gap-4 gap-1">
                 <h1 className="sm:text-6xl text-3xl font-arts-crafts-regular text-purple-700">{service.title}</h1>
                 <p className="sm:mt-4 mt-1 sm:text-3xl text-lg text-orange-500">{service.desc}</p>
             </div>
+
+            {/* Right (Next) Arrow - Only renders if there is a next service */}
+            {hasNext && (
+                <div className="">
+                    <Link 
+                        href={`/services/${nextServiceId}`} 
+                        className="text-5xl ml-10 text-purple-700 hover:text-orange-500 transition-colors duration-200"
+                        aria-label="Next service"
+                    >
+                        &#5592;
+                    </Link>
+                </div>
+            )}
+
         </div>
         
         <div className="w-full flex justify-center mb-5">
@@ -60,18 +76,6 @@ export default async function ServicePage({ params }: { params: Promise<{ id: st
             </form>
         </div>
 
-        {/* Right (Next) Arrow - Only renders if there is a next service */}
-        {hasNext && (
-            <div className="absolute right-10 top-1/2 transform -translate-y-1/2">
-                <Link 
-                    href={`/services/${nextServiceId}`} 
-                    className="text-5xl text-purple-700 hover:text-orange-500 transition-colors duration-200"
-                    aria-label="Next service"
-                >
-                    &#5592;
-                </Link>
-            </div>
-        )}
       </main>
     );
 }
