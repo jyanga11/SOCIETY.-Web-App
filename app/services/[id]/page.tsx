@@ -30,7 +30,7 @@ export default async function ServicePage({ params }: { params: Promise<{ id: st
                 <div className="">
                     <Link 
                         href={`/services/${prevServiceId}`} 
-                        className="absolute left-50 text-purple-700 hover:text-orange-500 transition-colors duration-200"
+                        className="absolute sm:left-50 left-3 text-purple-700 hover:text-orange-500 transition-colors duration-200"
                         aria-label="Previous service"
                     >
                         <ChevronLeft className="h-8 w-8 sm:h-16 sm:w-16" />
@@ -49,7 +49,7 @@ export default async function ServicePage({ params }: { params: Promise<{ id: st
                 <div className="">
                     <Link 
                         href={`/services/${nextServiceId}`} 
-                        className="absolute right-50 text-purple-700 hover:text-orange-500 transition-colors duration-200"
+                        className="absolute sm:right-50 right-3 text-purple-700 hover:text-orange-500 transition-colors duration-200"
                         aria-label="Next service"
                     >
                         <ChevronRight className="h-8 w-8 sm:h-16 sm:w-16" />
@@ -63,12 +63,12 @@ export default async function ServicePage({ params }: { params: Promise<{ id: st
             <form action="/submit-endpoint" method="POST" className="w-full max-w-2xl flex flex-col gap-3">
                 <div>
                     <label htmlFor="user-email" className="sm:text-2xl text-lg text-orange-500">Email:</label>
-                    <input type="email" id="user-email" name="user-email" required  className="rounded-sm border-b-2"/>
+                    <input type="email" id="user-email" name="user-email" required  className="rounded-sm border-b-2 border-purple-700"/>
                 </div>
 
                 <div>
                     <label htmlFor="note" className="sm:text-2xl text-lg text-orange-500 ">Tell us what you&apos;re working on:</label>
-                    <textarea id="note" name="note" rows={6} className="w-full h-40 border-2 rounded-sm"/>
+                    <textarea id="note" name="note" rows={6} className="w-full h-40 border-2 border-purple-700 rounded-sm"/>
                 </div>
 
                 <button type="submit" className="text-xl self-end rounded-md px-6 py-2 border-orange-500 border-2 text-orange-500 hover:bg-orange-500 hover:text-purple-700">
