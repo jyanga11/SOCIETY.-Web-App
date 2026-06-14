@@ -35,22 +35,22 @@ export default async function ServicePage({ params }: { params: Promise<{ id: st
         )}
 
         <div className="flex flex-row gap-3 justify-center items-center mb-5">
-            <Icon className="sm:w-60 sm:h-60 w-30 h-30 text-purple-700 m-5 sm:m-20" />
+            <Icon className="sm:w-50 sm:h-50 w-30 h-30 text-purple-700 m-5 sm:m-20" />
             <div className="flex flex-col sm:gap-4 gap-1">
-                <h1 className="sm:text-6xl text-4xl font-arts-crafts-regular text-purple-700">{service.title}</h1>
-                <p className="sm:mt-4 mt-1 sm:text-2xl text-lg text-orange-500">{service.desc}</p>
+                <h1 className="sm:text-6xl text-3xl font-arts-crafts-regular text-purple-700">{service.title}</h1>
+                <p className="sm:mt-4 mt-1 sm:text-3xl text-lg text-orange-500">{service.desc}</p>
             </div>
         </div>
         
         <div className="w-full flex justify-center">
             <form action="/submit-endpoint" method="POST" className="w-full max-w-2xl flex flex-col gap-3">
                 <div>
-                    <label htmlFor="user-email" className="text-2xl text-orange-500">Email:</label>
+                    <label htmlFor="user-email" className="sm:text-2xl text-lg text-orange-500">Email:</label>
                     <input type="email" id="user-email" name="user-email" required  className="rounded-sm border-purple-700 border-b-2"/>
                 </div>
 
                 <div>
-                    <label htmlFor="note" className="text-2xl text-orange-500 ">Tell us what you&apos;re working on:</label>
+                    <label htmlFor="note" className="sm:text-2xl text-lg text-orange-500 ">Tell us what you&apos;re working on:</label>
                     <textarea id="note" name="note" rows={6} className="w-full border-2 border-purple-700 rounded-sm"/>
                 </div>
 
