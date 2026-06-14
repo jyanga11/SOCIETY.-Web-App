@@ -30,10 +30,10 @@ export default async function ServicePage({ params }: { params: Promise<{ id: st
                 <div className="">
                     <Link 
                         href={`/services/${prevServiceId}`} 
-                        className="absolute sm:left-50 left-3 text-purple-700 hover:text-orange-500 transition-colors duration-200"
+                        className="absolute sm:left-50 left-1 text-purple-700 hover:text-orange-500 transition-colors duration-200"
                         aria-label="Previous service"
                     >
-                        <ChevronLeft className="h-8 w-8 sm:h-16 sm:w-16" />
+                        <ChevronLeft className="h-12 w-12 sm:h-20 sm:w-20" />
                     </Link>
                 </div>
             )}
@@ -49,10 +49,10 @@ export default async function ServicePage({ params }: { params: Promise<{ id: st
                 <div className="">
                     <Link 
                         href={`/services/${nextServiceId}`} 
-                        className="absolute sm:right-50 right-3 text-purple-700 hover:text-orange-500 transition-colors duration-200"
+                        className="absolute sm:right-50 right-1 text-purple-700 hover:text-orange-500 transition-colors duration-200"
                         aria-label="Next service"
                     >
-                        <ChevronRight className="h-8 w-8 sm:h-16 sm:w-16" />
+                        <ChevronRight className="h-12 w-12 sm:h-20 sm:w-20" />
                     </Link>
                 </div>
             )}
