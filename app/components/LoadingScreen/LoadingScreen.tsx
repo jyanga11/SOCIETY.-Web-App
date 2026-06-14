@@ -20,7 +20,7 @@ export const LoadingScreen = () => {
           {/* Left column: Right-aligned static text */}
           <span ref={refs.societyTitleRef} className="font-arts-crafts-regular text-2xl sm:text-6xl text-right whitespace-nowrap">
             SoCIETY.
-            <span className="text-xl sm:text-5xl font-sans pr- sm:pr-1">&nbsp;is a</span>
+            <span className="text-xl sm:text-5xl sm:pr-1">&nbsp;is a</span>
           </span> 
           
           {/* Right column: Left-aligned typing text */}
