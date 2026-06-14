@@ -35,10 +35,10 @@ export default async function ServicePage({ params }: { params: Promise<{ id: st
         )}
 
         <div className="flex flex-row gap-3 justify-center items-center mb-5">
-            <Icon className="sm:w-64 sm:h-64 w-24 h-24 text-purple-700 m-5 sm:m-20" />
+            <Icon className="sm:w-60 sm:h-60 w-30 h-30 text-purple-700 m-5 sm:m-20" />
             <div className="flex flex-col sm:gap-4 gap-1">
-                <h1 className="sm:text-5xl text-3xl font-arts-crafts-regular text-purple-700">{service.title}</h1>
-                <p className="mt-4 text-2xl text-orange-500">{service.desc}</p>
+                <h1 className="sm:text-6xl text-4xl font-arts-crafts-regular text-purple-700">{service.title}</h1>
+                <p className="sm:mt-4 mt-1 sm:text-2xl text-lg text-orange-500">{service.desc}</p>
             </div>
         </div>
         
