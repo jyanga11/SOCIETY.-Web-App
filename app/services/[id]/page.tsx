@@ -27,7 +27,7 @@ export default async function ServicePage({ params }: { params: Promise<{ id: st
 
             {/* Left (Previous) Arrow - Only renders if there is a previous service */}
             {hasPrevious && (
-                <div className="m-1">
+                <div className="m-2">
                     <Link 
                         href={`/services/${prevServiceId}`} 
                         className="absolute sm:left-50 left-1 text-purple-700 hover:text-orange-500 transition-colors duration-200"
@@ -46,7 +46,7 @@ export default async function ServicePage({ params }: { params: Promise<{ id: st
 
             {/* Right (Next) Arrow - Only renders if there is a next service */}
             {hasNext && (
-                <div className="m-1">
+                <div className="m-2">
                     <Link 
                         href={`/services/${nextServiceId}`} 
                         className="absolute sm:right-50 right-1 text-purple-700 hover:text-orange-500 transition-colors duration-200"
