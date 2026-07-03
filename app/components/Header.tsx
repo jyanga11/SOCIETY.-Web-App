@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { ThemeToggle } from "./ThemeToggle";
 import { useState } from "react";
 
@@ -11,9 +12,23 @@ export default function Header() {
     <>
       <header className="sticky top-0 z-20 w-full border-b border-foreground/10 bg-background/80 backdrop-blur-sm">
         <nav className="flex flex-wrap items-center justify-between px-6 py-4">
-          <Link href="/" className="text-xl sm:text-2xl md:text-3xl font-arts-crafts-regular">
+          
+        <Link
+          href="/"
+          className="flex items-center gap-3"
+        >
+          <Image
+            src="/pyramid.png"
+            alt="Society logo"
+            width={40}
+            height={40}
+            className="dark:invert light:invert-0"
+          />
+
+          <span className="text-xl sm:text-2xl md:text-3xl font-arts-crafts-regular">
             SoCIETY.
-          </Link>
+          </span>
+        </Link>
 
           <div className="flex items-center gap-6">
             <ul className="hidden md:flex items-center gap-6 mr-12 text-xl">
