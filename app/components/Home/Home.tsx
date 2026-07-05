@@ -13,6 +13,7 @@ export async function Home() {
     getProducts(),
     getNews(),
   ])
+  
   return (
     <>
       <div
