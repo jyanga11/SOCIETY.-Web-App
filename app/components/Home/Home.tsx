@@ -13,9 +13,6 @@ export async function Home() {
     getProducts(),
     getNews(),
   ])
-  console.log(projects)
-  console.log(products)
-  console.log(news)
   return (
     <>
       <div
