@@ -3,20 +3,19 @@ import { International } from "../International"
 import { PHRASES } from '../../constants/phrases';
 import MediaRow from "../MediaRow";
 import Link from "next/link";
+import { getProjects, getProducts, getNews } from '@/sanity/lib/queries'
 import { ChevronRight } from 'lucide-react'; // Install lucide-react for clean icons
 
-
-const dummyMovies = [
-  { id: 1, title: 'Stranger Things', image: 'https://placehold.co/600x400/111/fff?text=Stranger+Things' },
-  { id: 2, title: 'The Witcher', image: 'https://placehold.co/600x400/222/fff?text=The+Witcher' },
-  { id: 3, title: 'Ozark', image: 'https://placehold.co/600x400/333/fff?text=Ozark' },
-  { id: 4, title: 'Wednesday', image: 'https://placehold.co/600x400/444/fff?text=Wednesday' },
-  { id: 5, title: 'The Crown', image: 'https://placehold.co/600x400/555/fff?text=The+Crown' },
-  { id: 6, title: 'Mindhunter', image: 'https://placehold.co/600x400/666/fff?text=Mindhunter' },
-  { id: 7, title: 'Black Mirror', image: 'https://placehold.co/600x400/777/fff?text=Black+Mirror' },
-];
-
-export const Home = () => {
+export async function Home() {
+  
+  const [projects, products, news] = await Promise.all([
+    getProjects(),
+    getProducts(),
+    getNews(),
+  ])
+  console.log(projects)
+  console.log(products)
+  console.log(news)
   return (
     <>
       <div
@@ -107,21 +106,21 @@ export const Home = () => {
             Projects <ChevronRight className="h-6 w-6" />
           </h2>
         </Link>
-        <MediaRow items={dummyMovies} variant="landscape"/>
+        <MediaRow items={projects} variant="landscape"/>
 
         <Link href="/shop" >  
           <h2 className="flex items-center text-2xl font-arts-crafts-regular md:text-4xl pl-4 md:pl-12">
             Shop <ChevronRight className="h-6 w-6" />
           </h2>
         </Link>
-        <MediaRow items={dummyMovies.reverse()} variant="portrait" />
+        <MediaRow items={products} variant="portrait" />
 
         <Link href="/news" >  
         <h2 className="flex items-center text-2xl font-arts-crafts-regular md:text-4xl pl-4 md:pl-12">
           News <ChevronRight className="h-6 w-6" />
         </h2>
         </Link>
-        <MediaRow items={dummyMovies} variant="landscape" />
+        <MediaRow items={news} variant="landscape" />
 
       </main>
     </>
