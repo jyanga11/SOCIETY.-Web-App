@@ -1,8 +1,26 @@
-export default function ProjectsPage() {
+import { client } from '@/sanity/lib/client'
+
+import ProjectsGrid, { type Project } from '../components/ProjectsGrid'
+
+const PROJECTS_QUERY = `*[_type == "project"] | order(uploadDate desc){
+  _id,
+  title,
+  slug,
+  description,
+  category,
+  uploadDate,
+  coverImage
+}`
+
+// Revalidate periodically so new/edited Studio content shows up without a full redeploy.
+export const revalidate = 60
+
+export default async function ProjectsPage() {
+  const projects = await client.fetch<Project[]>(PROJECTS_QUERY)
+
   return (
     <main className="mx-auto max-w-6xl px-4 py-12">
-      <h1 className="text-3xl sm:text-4xl font-semibold">Projects</h1>
-      <p className="mt-4 text-base sm:text-lg opacity-80">Showcase of selected works coming soon.</p>
+      <ProjectsGrid projects={projects} />
     </main>
-  );
+  )
 }

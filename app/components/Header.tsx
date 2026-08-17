@@ -18,11 +18,10 @@ export default function Header() {
           className="flex items-center gap-3"
         >
           <Image
-            src="/pyramid.png"
-            alt="Society logo"
+            src="/pyramid2.png"
+            alt="Society Logo"
             width={40}
             height={40}
-            className="dark:invert light:invert-0"
           />
 
           <span className="text-xl sm:text-2xl md:text-3xl font-arts-crafts-regular">
