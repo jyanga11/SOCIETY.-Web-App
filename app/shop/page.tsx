@@ -18,7 +18,7 @@ export default async function ShopPage() {
   const products = await client.fetch<Product[]>(PRODUCTS_QUERY)
 
   return (
-    <main className="mx-auto max-w-6xl px-4 py-12">
+    <main className="relative z-20 mx-auto max-w-6xl px-4 py-12">
       <ProductsGrid products={products} />
     </main>
   )

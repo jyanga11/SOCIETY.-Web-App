@@ -82,8 +82,8 @@ export const International = () => {
             </motion.div>
           </div>
 
-          <section 
-            className={`flex justify-center pb-11 overflow-hidden font-${Object.values(translations)[currTrans]}`}
+          <section
+            className={`flex justify-center pb-11 overflow-hidden font-${Object.values(translations)[currTrans]} cursor-pointer`}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
             onClick={handleClick}

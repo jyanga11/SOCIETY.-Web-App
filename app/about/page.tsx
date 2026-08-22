@@ -3,7 +3,7 @@ import { ABOUT } from '../constants/about';
 
 export default function AboutPage() {
   return (
-    <main className="mx-auto max-w-6xl sm:px-4 py-12 px-8">
+    <main className="relative z-20 mx-auto max-w-6xl sm:px-4 py-12 px-8">
       <div className="flex flex-col sm:mb-40 mb-10">
         <div className="flex flex-row items-center">
           <div className="flex flex-col sm:w-[60vw] w-[90vw] sm:min-h-[25vh] sm:min-h-[50vh] min-h-[35vh]">

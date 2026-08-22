@@ -20,7 +20,7 @@ export default async function NewsPage() {
   const news = await client.fetch<NewsItem[]>(NEWS_QUERY)
 
   return (
-    <main className="mx-1 sm:mx-16 px-4 py-12">
+    <main className="relative z-20 mx-1 sm:mx-16 px-4 py-12">
       <h1 className="text-5xl sm:text-8xl font-arts-crafts-regular py-4 sm:py-12 mb-1 sm:mb-4">News</h1>
       <NewsList news={news} />
     </main>

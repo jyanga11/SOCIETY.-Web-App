@@ -3,8 +3,9 @@ import { gsap } from 'gsap';
 
 // Module-scoped flag persists across client navigations, resets on hard reload
 let hasShownLoadingOnce = false;
+export const getHasShownLoadingOnce = () => hasShownLoadingOnce;
 
-export const useLoadingScreen = (duration: number = 11000) => {
+export const useLoadingScreen = (duration: number = 100) => {
   const [showLoading, setShowLoading] = useState(true);
   const [fadeInComplete, setFadeInComplete] = useState(false);
   const [showCursor, setShowCursor] = useState(false);
@@ -24,55 +25,93 @@ export const useLoadingScreen = (duration: number = 11000) => {
     }
   }, []);
 
+
+  // GSAP Fade in
   useEffect(() => {
     if (!showLoading) return;
-
     if (!societyTitleRef.current || !staticTextRef.current) return;
-
-    // GSAP fade in animation
+  
     const tl = gsap.timeline();
-    
-    tl.fromTo([societyTitleRef.current, staticTextRef.current], 
-      { opacity: 0, y: -30 }, 
-      { opacity: 1, y: 0, duration: 1, ease: "power2.out", onComplete: () => {
-        setFadeInComplete(true);
-        setShowCursor(true);
-      }}
+  
+    tl.fromTo(
+      [societyTitleRef.current, staticTextRef.current],
+      { opacity: 0, y: -30 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: "power2.out",
+        onComplete: () => {
+          setFadeInComplete(true);
+          setShowCursor(true);
+        }
+      }
     );
-
-    return () => {
-      tl.kill();
-    };
+  
+    return () => { tl.kill(); };
   }, [showLoading]);
 
-  // Hide loading screen after specified duration
+
+
+
+  // GSAP fade out after specified duration
   useEffect(() => {
     if (!showLoading) return;
   
     const hideTimer = setTimeout(() => {
-      // If this ref is null, the loading screen hangs forever!
       if (!loadingRef.current) {
         console.warn("Loading screen failed to hide because loadingRef is null.");
         return;
       }
   
-      const tl = gsap.timeline();
-      
-      // Fade out the entire screen container
-      tl.to(loadingRef.current, {
-        opacity: 0,
-        duration: 0.5,
-        ease: "power2.in",
+      const el = loadingRef.current;
+      const displace = document.getElementById('liquid-displace');
+      const turbulence = document.getElementById('liquid-turbulence');
+  
+      const tl = gsap.timeline({
+        defaults: { ease: "power2.inOut" },
         onComplete: () => {
-          hasShownLoadingOnce = true; // Mark as shown
-          setShowLoading(false);       // This removes it from the DOM
+          hasShownLoadingOnce = true;
+          setShowLoading(false);
+          window.dispatchEvent(new Event('loading-screen-complete')); // add this
         }
       });
+  
+      // 1. Ramp up the liquid distortion right before the wipe starts,
+      //    so the edge is already rippling when it begins moving
+      if (displace) {
+        tl.to(displace, { attr: { scale: 45 }, duration: 0.6, ease: "power1.in" }, 0);
+      }
+  
+      // 2. Let the turbulence drift slowly for organic, non-repeating movement
+      if (turbulence) {
+        tl.to(turbulence, {
+          attr: { baseFrequency: "0.012 0.09" },
+          duration: 2.2,
+          ease: "sine.inOut",
+        }, 0);
+      }
+  
+      // 3. Fade out instead of a clip-path sweep
+      tl.to(el, {
+        opacity: 0,
+        duration: 1.8,
+        ease: "power2.inOut",
+      }, 0.3)
+  
+      // 4. Settle the distortion back down as the wipe finishes,
+      //    so it doesn't look chaotic right at the end
+      if (displace) {
+        tl.to(displace, { attr: { scale: 0 }, duration: 0.6, ease: "power2.out" }, "-=0.6");
+      }
   
     }, duration);
   
     return () => clearTimeout(hideTimer);
   }, [duration, showLoading]);
+
+
+
 
   // Blinking cursor effect
   useEffect(() => {

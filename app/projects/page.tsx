@@ -19,7 +19,7 @@ export default async function ProjectsPage() {
   const projects = await client.fetch<Project[]>(PROJECTS_QUERY)
 
   return (
-    <main className="mx-auto max-w-6xl px-4 py-12">
+    <main className="relative z-20 mx-auto max-w-6xl px-4 py-12">
       <ProjectsGrid projects={projects} />
     </main>
   )

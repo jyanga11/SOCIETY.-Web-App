@@ -128,5 +128,12 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Futura, Montserrat, Franklin Gothic;
+  font-family: Franklin Gothic, Futura;
+}
+
+.loading-container {
+  position: fixed;
+  inset: 0;
+  filter: url(#liquid-distort);
+  will-change: clip-path, filter;
 }
