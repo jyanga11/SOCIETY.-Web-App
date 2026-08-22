@@ -28,7 +28,7 @@ export const ManualWordRotater = ({
   }, []);
 
   return (
-    <div className="relative h-[260px]">
+    <div className="flex flex-col">
       <span className={`inline-block text-left relative ${textClassName}`}>
         {displayText}
         <span
@@ -38,7 +38,7 @@ export const ManualWordRotater = ({
           aria-hidden="true"
         />
       </span>
-      <div className="absolute bottom-0 left-0 flex flex-row">
+      <div className="flex flex-row mt-4">
         <button onClick={prev} aria-label="Previous phrase">
           <ChevronLeft size={30}/>
         </button>

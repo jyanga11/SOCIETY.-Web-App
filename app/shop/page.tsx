@@ -1,8 +1,25 @@
-export default function ShopPage() {
+import { client } from '@/sanity/lib/client'
+
+import ProductsGrid, { type Product } from '../components/ProductsGrid'
+
+const PRODUCTS_QUERY = `*[_type == "product"] | order(title asc){
+  _id,
+  title,
+  slug,
+  description,
+  category,
+  price,
+  coverImage
+}`
+
+export const revalidate = 60
+
+export default async function ShopPage() {
+  const products = await client.fetch<Product[]>(PRODUCTS_QUERY)
+
   return (
     <main className="mx-auto max-w-6xl px-4 py-12">
-      <h1 className="text-3xl sm:text-4xl font-semibold">Shop</h1>
-      <p className="mt-4 text-base sm:text-lg opacity-80">Merch and products coming soon.</p>
+      <ProductsGrid products={products} />
     </main>
-  );
+  )
 }

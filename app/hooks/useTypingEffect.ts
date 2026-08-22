@@ -22,12 +22,11 @@ export const useTypingEffect = (phrases: readonly string[], isActive: boolean) =
           currentIndex++;
         } else {
           clearInterval(typeInterval);
-          // Pause before backspacing
           pauseTimer = setTimeout(() => {
             setIsTyping(false);
-          }, 1000); // Wait 1 second before backspacing
+          }, 600); // Wait before backspacing
         }
-      }, 105); // Speed of typing
+      }, 80); // Speed of typing
     } else {
       // Backspacing effect
       let currentIndex = phrases[currentPhraseIndex].length;
@@ -41,7 +40,7 @@ export const useTypingEffect = (phrases: readonly string[], isActive: boolean) =
           setCurrentPhraseIndex((prev) => (prev + 1) % phrases.length);
           setIsTyping(true);
         }
-      }, 70); // Faster backspacing
+      }, 50); // Backspacing speed
     }
 
     return () => {

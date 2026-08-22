@@ -1,8 +1,8 @@
 export const PHRASES = [
-  "creative collective",
-  "design agency",
-  "clothing brand",
-  "record label",
-  "production house",
-  "multi-media hub"
+  "creative collective.",
+  "design agency.",
+  "clothing brand.",
+  "recording label.",
+  "production house.",
+  "multi-media hub."
 ] as const;
