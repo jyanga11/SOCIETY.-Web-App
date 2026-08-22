@@ -48,7 +48,11 @@ export default function NewsList({ news }: { news: NewsItem[] }) {
 
   return (
     <div className="mt-10">
-      <div className="flex flex-wrap gap-2 justify-center" role="group" aria-label="Filter news by category">
+      <div
+        className="flex gap-2 overflow-x-auto whitespace-nowrap px-4 -mx-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:flex-wrap sm:justify-center sm:overflow-visible sm:whitespace-normal sm:mx-0 sm:px-0"
+        role="group"
+        aria-label="Filter news by category"
+      >
         {FILTERS.map(({ value, label }) => (
           <FilterPill
             key={value ?? 'all'}
@@ -73,7 +77,7 @@ function FilterPill({ label, active, onClick }: { label: string; active: boolean
       type="button"
       onClick={onClick}
       aria-pressed={active}
-      className={`text-xl mx-2 transition-opacity focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current ${
+      className={`flex-none text-lg sm:text-xl mx-2 transition-opacity focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current ${
         active ? 'font-medium opacity-100' : 'opacity-50 hover:opacity-80'
       }`}
     >
@@ -90,29 +94,29 @@ function NewsRow({ item }: { item: NewsItem }) {
   return (
     <Link
       href={`/news/${item.slug.current}`}
-      className="group flex items-stretch gap-6 py-8 last:pb-0 border-t-2"
+      className="group flex flex-col items-stretch gap-4 py-8 last:pb-0 border-t-2 sm:flex-row sm:gap-6"
     >
       {imageUrl && (
-        <div className="relative hidden aspect-[16/9] w-100 flex-none self-center overflow-hidden bg-black/5 sm:block">
+        <div className="relative aspect-[16/9] w-full flex-none self-center overflow-hidden bg-black/5 sm:w-100">
           <Image
             src={imageUrl}
             alt={item.coverImage?.alt ?? item.title}
             fill
-            sizes="160px"
+            sizes="(max-width: 640px) 100vw, 400px"
             className="object-cover transition-transform duration-300 group-hover:scale-105"
           />
         </div>
       )}
       <div className="flex min-w-0 flex-1 flex-col justify-between">
         <div className="flex items-center justify-between">
-            <h2 className="text-5xl font-medium">{item.title}</h2>
+            <h2 className=" text-2xl sm:text-5xl font-medium">{item.title}</h2>
             <ArrowRight
                 className="size-10 flex-none self-center transition-transform duration-300 group-hover:translate-x-1"
                 aria-hidden="true"
             />
         </div>
           {item.uploadDate && (
-            <span className="text-xl opacity-60">
+            <span className="text-lg sm:text-xl opacity-60">
               {new Date(item.uploadDate).toLocaleDateString(undefined, {
                 year: 'numeric',
                 month: 'long',

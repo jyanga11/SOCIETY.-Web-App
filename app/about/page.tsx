@@ -6,10 +6,10 @@ export default function AboutPage() {
     <main className="mx-auto max-w-6xl sm:px-4 py-12 px-8">
       <div className="flex flex-col sm:mb-40 mb-10">
         <div className="flex flex-row items-center">
-          <div className="flex flex-col sm:w-[60vw] w-[90vw] sm:min-h-[25vh] min-h-[50vh]">
+          <div className="flex flex-col sm:w-[60vw] w-[90vw] sm:min-h-[25vh] sm:min-h-[50vh] min-h-[35vh]">
             <ManualWordRotater
               phrases={ABOUT}
-              textClassName="sm:text-4xl text-lg"
+              textClassName="sm:text-4xl text-2xl"
             />
           </div>
 
@@ -26,7 +26,7 @@ export default function AboutPage() {
         {/* Desktop 16/9 */}
         <div className="hidden sm:block aspect-[16/9] max-w-[40vw] bg-gray-200 mt-4" />
       </div>
-      <div className="sm:text-3xl text-lg flex flex-col sm:gap-20 gap-10">
+      <div className="sm:text-3xl text-2xl flex flex-col sm:gap-20 gap-10">
         <p className="sm:w-[65%] w-[85%] self-start">
           We didn&apos;t start with much.
         </p>

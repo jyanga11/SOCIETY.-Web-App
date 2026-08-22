@@ -47,7 +47,11 @@ export default function ProjectsGrid({ projects }: { projects: Project[] }) {
 
   return (
     <div className="mt-10">
-      <div className="flex flex-wrap gap-2 justify-center" role="group" aria-label="Filter projects by category">
+      <div
+        className="flex gap-2 overflow-x-auto whitespace-nowrap px-4 -mx-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:flex-wrap sm:justify-center sm:overflow-visible sm:whitespace-normal sm:mx-0 sm:px-0"
+        role="group"
+        aria-label="Filter projects by category"
+      >
         {FILTERS.map(({ value, label }) => (
           <FilterPill
             key={value ?? 'all'}
@@ -57,7 +61,7 @@ export default function ProjectsGrid({ projects }: { projects: Project[] }) {
           />
         ))}
       </div>
-        <div className="mt-8 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-8 grid gap-x-6 gap-y-10 grid-cols-2 sm:grid-cols-3">
             {filteredProjects.map((project) => (
             <ProjectCard key={project._id} project={project} />
             ))}
