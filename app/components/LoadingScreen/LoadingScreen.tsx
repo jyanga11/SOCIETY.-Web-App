@@ -13,7 +13,7 @@ export const LoadingScreen = () => {
 
   return (
     // Ensure ref={refs.loadingRef} is on this outer div!
-    <div ref={refs.loadingRef} className="min-h-screen flex items-center justify-center bg-black text-white fixed inset-0 z-50 loading-container">
+    <div ref={refs.loadingRef} className="relative z-100 min-h-screen flex items-center justify-center bg-black text-white fixed inset-0 z-50 loading-container">
       <svg width="0" height="0" style={{ position: 'absolute' }}>
         <defs>
           <filter id="liquid-distort" x="-20%" y="-20%" width="140%" height="140%">
