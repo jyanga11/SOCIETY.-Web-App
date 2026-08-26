@@ -40,7 +40,7 @@ export const LoadingScreen = () => {
       <h1 className="mb-4 flex flex-nowrap items-baseline justify-center text-center overflow-x-hidden">
         <span ref={refs.societyTitleRef} className="whitespace-nowrap shrink-0">
           <span className="font-arts-crafts-regular text-2xl sm:text-6xl">Society.</span>
-          <span className="font-[Futura,Montserrat,Franklin_Gothic] text-xl sm:text-5xl">&nbsp;is a&nbsp;</span>
+          <span className="font-[Syne Mono, Futura] text-xl sm:text-5xl">&nbsp;is a&nbsp;</span>
         </span>
 
         <span

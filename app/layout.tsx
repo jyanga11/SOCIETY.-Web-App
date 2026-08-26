@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Bodoni_Moda } from "next/font/google";
+import { Syne_Mono } from "next/font/google";
+import { Special_Elite } from "next/font/google";
 import "./globals.css";
 import Footer from "./components/Footer";
 import { ThemeProvider } from "./components/ThemeProvider";
@@ -7,14 +9,22 @@ import { HeaderFadeIn } from "./components/Header/HeaderFadeIn";
 import { BackgroundVideo } from "./components/Home/BackgroundVideo";
 //import Script from "next/script";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const special_elite = Special_Elite({
   subsets: ["latin"],
+  weight: ["400"],
+  variable: "--font-special_elite",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const syne_mono = Syne_Mono({
   subsets: ["latin"],
+  weight: ["400"],
+  variable: "--font-syne_mono",
+});
+
+const bodoni_moda = Bodoni_Moda({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-bodoni_moda",
 });
 
 export const metadata: Metadata = {
@@ -28,7 +38,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className={syne_mono.variable} suppressHydrationWarning>
       <head>
         <link rel="stylesheet" href="https://use.typekit.net/obq2ovg.css" />
         {/* Google Tag Manager */}
@@ -44,13 +54,10 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body>
         <noscript>
           <iframe
-            src={`https://www.googletagmanager.com/ns.html?id=GTM-PHGVNLN7
-`}
+            src={`https://www.googletagmanager.com/ns.html?id=GTM-PHGVNLN7`}
             height="0"
             width="0"
             style={{ display: "none", visibility: "hidden" }}

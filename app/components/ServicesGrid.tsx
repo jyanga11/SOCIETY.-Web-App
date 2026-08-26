@@ -31,11 +31,9 @@ function ServiceTile({
       <Link href={`services/${item.id}`}>
         <div className={`${tileWidths} group overflow-hidden`}>
             <div className={`${imageAspect} relative border-6 border-orange-500 rounded-xl`}>
-            {/* Icon — shown by default, hidden on hover */}
             <div className="absolute inset-0 flex items-center justify-center transition-opacity duration-300 group-hover:opacity-0">
                 <Icon size={48} className="text-orange-500" />
             </div>
-            {/* Desc — hidden by default, shown on hover */}
             <div className="absolute inset-0 flex items-center justify-center bg-orange-500 px-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                 <p className="text-purple-700 text-lg text-center font-medium">{item.desc}</p>
             </div>
