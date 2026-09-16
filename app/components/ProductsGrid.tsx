@@ -45,7 +45,7 @@ export default function ProductsGrid({ products }: { products: Product[] }) {
 
   return (
     <div className="mt-10">
-      <div
+      {/* <div
           className="flex gap-2 overflow-x-auto whitespace-nowrap px-4 -mx-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:flex-wrap sm:justify-center sm:overflow-visible sm:whitespace-normal sm:mx-0 sm:px-0"
           role="group"
           aria-label="Filter news by category"
@@ -58,7 +58,7 @@ export default function ProductsGrid({ products }: { products: Product[] }) {
             onClick={() => setActiveCategory(value)}
           />
         ))}
-      </div>
+      </div> */}
       <div className="mt-8 grid gap-x-6 gap-y-10 grid-cols-2 sm:grid-cols-3">
         {filteredProducts.map((product) => (
           <ProductCard key={product._id} product={product} />
@@ -89,7 +89,7 @@ function ProductCard({ product }: { product: Product }) {
     : undefined
 
   return (
-    <Link href={`/shop/${product.slug.current}`} className="group block">
+    <Link href={`/shop/${product.slug.current}`} className="group block hover:text-orange-500 transition-colors duration-200">
       <div className="relative aspect-[4/5] overflow-hidden bg-black/5">
         {imageUrl && (
           <Image
@@ -102,8 +102,7 @@ function ProductCard({ product }: { product: Product }) {
         )}
       </div>
       <div className="mt-3 flex items-baseline justify-between gap-3">
-        <h2 className="text-base font-medium">{product.title}</h2>
-        <span className="text-sm opacity-70">${product.price.toFixed(2)}</span>
+        <h2 className="text-base sm:text-xl text-md">{product.title}</h2>
       </div>
     </Link>
   )

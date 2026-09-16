@@ -1,6 +1,7 @@
 import { WordRotater } from "../WordRotater";
 import { International } from "../International"
 import { PHRASES } from '../../constants/phrases';
+import GlitchText from "../GlitchText";
 import MediaRow from "../MediaRow";
 import Link from "next/link";
 import { getProjects, getProducts, getNews } from '@/sanity/lib/queries'
@@ -14,7 +15,7 @@ export async function Home() {
     getProducts(),
     getNews(),
   ])
-
+  
   return (
     <>
       <main className="relative z-10">
@@ -63,7 +64,7 @@ export async function Home() {
           <FadeIn className="sm:px-20" delay={0}>
             <Link href="/services">
               <h3 className="text-2xl sm:text-3xl font-arts-crafts-regular flex items-center">
-                Skills <ChevronRight className="h-6 w-6" />
+                <GlitchText text="Skills"/> <ChevronRight className="h-6 w-6" />
               </h3>
               <ul className="text-4xl sm:text-6xl">
                 <li>Brand Identity</li>
@@ -77,10 +78,10 @@ export async function Home() {
             </Link>
           </FadeIn>
 
-          <FadeIn className="w-full sm:max-w-[40vw]" delay={0.15}>
+          <FadeIn className="w-full sm:max-w-[45vw]" delay={0.15}>
             <Link href="/about">
               <p className="text-xl sm:text-4xl">
-                <span className="font-arts-crafts-regular">SoCIETY.</span> is a <WordRotater phrases={PHRASES} /><br></br>
+                <span className="font-arts-crafts-regular"><GlitchText text="Society."/></span> is a <WordRotater phrases={PHRASES} /><br></br>
                 built from the ground up for and by those that never had a blueprint but always had a vision. Our mission is to equip traditionally under-represented creatives with the tools, knowledge, platform, and support to transform their raw ideas into cultural movements that reject the status quo.
               </p>
             </Link>
@@ -93,34 +94,34 @@ export async function Home() {
         <FadeIn>
           <Link href="/projects" >
             <h2 className="flex items-center text-2xl font-arts-crafts-regular md:text-4xl pl-4 md:pl-12">
-              Projects <ChevronRight className="h-6 w-6" />
+              <GlitchText text="Projects"/> <ChevronRight className="h-6 w-6" />
             </h2>
           </Link>
         </FadeIn>
         <FadeIn delay={0.1}>
-          <MediaRow items={projects} variant="landscape"/>
+          <MediaRow items={projects} type="projects" variant="landscape"/>
         </FadeIn>
 
         <FadeIn>
           <Link href="/shop" >  
             <h2 className="flex items-center text-2xl font-arts-crafts-regular md:text-4xl pl-4 md:pl-12">
-              Shop <ChevronRight className="h-6 w-6" />
+              <GlitchText text="Shop"/> <ChevronRight className="h-6 w-6" />
             </h2>
           </Link>
         </FadeIn>
         <FadeIn delay={0.1}>
-          <MediaRow items={products} variant="portrait" />
+          <MediaRow items={products} type="shop" variant="portrait" />
         </FadeIn>
 
         <FadeIn>
           <Link href="/news" >  
             <h2 className="flex items-center text-2xl font-arts-crafts-regular md:text-4xl pl-4 md:pl-12">
-              News <ChevronRight className="h-6 w-6" />
+              <GlitchText text="News"/> <ChevronRight className="h-6 w-6" />
             </h2>
           </Link>
         </FadeIn>
         <FadeIn delay={0.1}>
-          <MediaRow items={news} variant="landscape" />
+          <MediaRow items={news} type="news" variant="landscape" />
         </FadeIn>
 
       </main>

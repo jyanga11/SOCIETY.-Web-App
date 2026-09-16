@@ -8,6 +8,7 @@ export interface MediaItem {
   id: string | number;
   title: string;
   image: string;
+  slug: { current: string};
 }
 
 interface LayeredTileProps {

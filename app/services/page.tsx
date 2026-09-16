@@ -13,7 +13,7 @@ export default function ServicesPage() {
           </h1>
           
           <p className="text-base sm:text-3xl opacity-80 max-w-sm sm:max-w-2xl self-end text-left">
-            We give independent and under-represented artists access to the 
+            We give independent and under represented artists access to the 
             services and platform to turn their ideas into fully realized projects. 
           </p>
         </div>

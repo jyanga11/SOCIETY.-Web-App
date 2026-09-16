@@ -40,10 +40,10 @@ export const ManualWordRotater = ({
       </span>
       <div className="flex flex-row mt-4">
         <button onClick={prev} aria-label="Previous phrase">
-          <ChevronLeft size={30}/>
+          <ChevronLeft size={30} className="cursor-pointer hover:text-orange-500 hover:scale-110 transition-all duration-300"/>
         </button>
         <button onClick={next} aria-label="Next phrase">
-          <ChevronRight size={30}/>
+          <ChevronRight size={30} className="cursor-pointer hover:text-orange-500 hover:scale-110 transition-all duration-300"/>
         </button>
       </div>
     </div>

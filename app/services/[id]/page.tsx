@@ -62,12 +62,12 @@ export default async function ServicePage({ params }: { params: Promise<{ id: st
         <div className="w-full flex justify-center mb-5">
             <form action="/submit-endpoint" method="POST" className="w-full max-w-2xl flex flex-col gap-3">
                 <div>
-                    <label htmlFor="user-email" className="sm:text-2xl text-lg text-orange-500">Email:</label>
+                    <label htmlFor="user-email" className="sm:text-2xl text-lg">Email:</label>
                     <input type="email" id="user-email" name="user-email" required  className="rounded-sm border-b-2 border-purple-700"/>
                 </div>
 
                 <div>
-                    <label htmlFor="note" className="sm:text-2xl text-lg text-orange-500 ">Tell us what you&apos;re working on:</label>
+                    <label htmlFor="note" className="sm:text-2xl text-lg">Tell us what you&apos;re working on:</label>
                     <textarea id="note" name="note" rows={6} className="w-full h-40 border-2 border-purple-700 rounded-sm"/>
                 </div>
 

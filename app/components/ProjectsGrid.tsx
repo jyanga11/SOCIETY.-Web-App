@@ -47,7 +47,7 @@ export default function ProjectsGrid({ projects }: { projects: Project[] }) {
 
   return (
     <div className="mt-10">
-      <div
+      {/* <div
         className="flex gap-2 overflow-x-auto whitespace-nowrap px-4 -mx-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:flex-wrap sm:justify-center sm:overflow-visible sm:whitespace-normal sm:mx-0 sm:px-0"
         role="group"
         aria-label="Filter projects by category"
@@ -60,7 +60,7 @@ export default function ProjectsGrid({ projects }: { projects: Project[] }) {
             onClick={() => setActiveCategory(value)}
           />
         ))}
-      </div>
+      </div> */}
         <div className="mt-8 grid gap-x-6 gap-y-10 grid-cols-2 sm:grid-cols-3">
             {filteredProjects.map((project) => (
             <ProjectCard key={project._id} project={project} />
@@ -91,7 +91,7 @@ function ProjectCard({ project }: { project: Project }) {
     : undefined
 
   return (
-    <Link href={`/projects/${project.slug.current}`} className="group block">
+    <Link href={`/projects/${project.slug.current}`} className="group block hover:text-orange-500 transition-colors duration-200">
       <div className="relative aspect-[16/9] overflow-hidden bg-black/5">
         {imageUrl && (
           <Image
@@ -104,7 +104,9 @@ function ProjectCard({ project }: { project: Project }) {
         )}
       </div>
       <div className="mt-3 flex items-baseline justify-between gap-3">
-        <h2 className="text-base font-medium">{project.title}</h2>
+        <h2 className="text-base sm:text-xl text-md">
+          {project.title}
+        </h2>
       </div>
     </Link>
   )

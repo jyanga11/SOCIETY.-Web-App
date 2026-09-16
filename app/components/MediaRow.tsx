@@ -3,13 +3,15 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import LayeredTile, { MediaItem } from './LayeredTile'; // Adjust path if necessary
+import Link from 'next/link';
 
 interface MediaRowProps {
   items: MediaItem[];
+  type: string;
   variant?: 'landscape' | 'portrait';
 }
 
-export default function MediaRow({ items, variant = 'landscape' }: MediaRowProps) {
+export default function MediaRow({ items, type, variant = 'landscape' }: MediaRowProps) {
   const rowRef = useRef<HTMLDivElement>(null);
   const [showLeftArrow, setShowLeftArrow] = useState(false);
   const [showRightArrow, setShowRightArrow] = useState(true);
@@ -71,12 +73,14 @@ export default function MediaRow({ items, variant = 'landscape' }: MediaRowProps
           style={{ scrollbarWidth: 'none' }}
         >
           {items.map((item) => (
-            <LayeredTile 
-              key={item.id} 
-              item={item} 
-              tileWidths={tileWidths} 
-              imageAspect={imageAspect}
-            />
+            <Link href={`/${type}/${item.slug.current}`} key={item.id}>
+              <LayeredTile 
+                key={item.id} 
+                item={item} 
+                tileWidths={tileWidths} 
+                imageAspect={imageAspect}
+              />
+            </Link>
           ))}
         </div>
 

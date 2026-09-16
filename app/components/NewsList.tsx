@@ -48,7 +48,7 @@ export default function NewsList({ news }: { news: NewsItem[] }) {
 
   return (
     <div className="mt-10">
-      <div
+      {/* <div
         className="flex gap-2 overflow-x-auto whitespace-nowrap px-4 -mx-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:flex-wrap sm:justify-center sm:overflow-visible sm:whitespace-normal sm:mx-0 sm:px-0"
         role="group"
         aria-label="Filter news by category"
@@ -61,7 +61,7 @@ export default function NewsList({ news }: { news: NewsItem[] }) {
             onClick={() => setActiveCategory(value)}
           />
         ))}
-      </div>
+      </div> */}
       <div className="mt-8 divide-y divide-black/10">
         {filteredNews.map((item) => (
           <NewsRow key={item._id} item={item} />
@@ -109,14 +109,14 @@ function NewsRow({ item }: { item: NewsItem }) {
       )}
       <div className="flex min-w-0 flex-1 flex-col justify-between">
         <div className="flex items-center justify-between">
-            <h2 className=" text-2xl sm:text-5xl font-medium">{item.title}</h2>
+            <h2 className=" text-2xl sm:text-5xl group-hover:text-orange-500 transition-colors duration-200">{item.title}</h2>
             <ArrowRight
                 className="size-10 flex-none self-center transition-transform duration-300 group-hover:translate-x-1"
                 aria-hidden="true"
             />
         </div>
           {item.uploadDate && (
-            <span className="text-lg sm:text-xl opacity-60">
+            <span className="text-lg sm:text-xl opacity-60 group-hover:text-purple-700 transition-colors duration-200">
               {new Date(item.uploadDate).toLocaleDateString(undefined, {
                 year: 'numeric',
                 month: 'long',

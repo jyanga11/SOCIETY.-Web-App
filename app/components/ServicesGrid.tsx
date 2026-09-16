@@ -39,7 +39,7 @@ function ServiceTile({
             </div>
             </div>
             <div className="px-3 py-2">
-            <h3 className="text-lg">{item.title}</h3>
+            <h3 className="text-lg group-hover:text-purple-700 transition-colors duration-200">{item.title}</h3>
             </div>
         </div>
       </Link>

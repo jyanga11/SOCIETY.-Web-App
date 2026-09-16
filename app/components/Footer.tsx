@@ -5,6 +5,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInstagram, faTiktok, faYoutube, faFacebookF } from "@fortawesome/free-brands-svg-icons";
+import GlitchText from "./GlitchText";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -30,7 +31,7 @@ export default function Footer() {
         {/* Brand & Copyright - Order 3 on mobile, Order 1 on desktop */}
         <div className="flex flex-col gap-2 order-3 md:order-1">
           <Link href="/" className="text-md sm:text-xl font-arts-crafts-regular">
-            SoCIETY.
+            <GlitchText text="Society."/>
           </Link>
           <p className="text-xs sm:text-sm text-muted-foreground/70">
             &copy; {currentYear} SOCIETY. All rights reserved.
@@ -71,10 +72,10 @@ export default function Footer() {
         {/* Copy Email Button */}
         <button 
           onClick={handleCopy}
-          className="order-2 md:order-3 hover:opacity-70 transition-opacity text-xl sm:text-xl text-muted-foreground focus:outline-none"
+          className="order-2 md:order-3 cursor-pointer text-xl sm:text-xl text-muted-foreground focus:outline-none"
           aria-label="Copy email address to clipboard"
         >
-          {copied ? "Copied to clipboard" : "info@builtbysociety.io"}
+          {copied ? "Copied to clipboard" : <GlitchText text="info@builtbysociety.io"/>}
         </button>
 
       </div>

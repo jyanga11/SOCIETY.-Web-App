@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ThemeToggle } from "../ThemeToggle";
+import GlitchText from "../GlitchText";
 import { useState, forwardRef } from "react";
 
 const Header = forwardRef<HTMLElement>((_props, ref) => {
@@ -19,17 +20,41 @@ const Header = forwardRef<HTMLElement>((_props, ref) => {
         <Link href="/" className="flex items-center gap-3">
           <Image src="/pyramid2.png" alt="Society Logo" width={40} height={40} />
           <span className="text-xl sm:text-2xl md:text-3xl font-arts-crafts-regular">
-            SoCIETY.
+            <GlitchText text="Society." />
           </span>
         </Link>
 
           <div className="flex items-center gap-6">
             <ul className="hidden md:flex items-center gap-6 mr-12 text-xl">
-              <li><Link href="/projects">Projects</Link></li>
-              <li><Link href="/services">Services</Link></li>
-              <li><Link href="/shop">Shop</Link></li>
-              <li><Link href="/about">About</Link></li>
-              <li><Link href="/news">News</Link></li>
+              <li>
+                <Link href="/projects">
+                  <GlitchText text="Projects" />
+                </Link>
+              </li>
+
+              <li>
+                <Link href="/services">
+                  <GlitchText text="Services" />
+                </Link>
+              </li>
+
+              <li>
+                <Link href="/shop">
+                  <GlitchText text="Shop" />
+                </Link>
+              </li>
+
+              <li>
+                <Link href="/about">
+                  <GlitchText text="About" />
+                </Link>
+              </li>
+
+              <li>
+                <Link href="/news">
+                  <GlitchText text="News" />
+                </Link>
+              </li>
             </ul>
 
             <button
@@ -56,11 +81,35 @@ const Header = forwardRef<HTMLElement>((_props, ref) => {
           </button>
 
           <ul className="flex flex-col items-center gap-8 text-3xl font-medium" onClick={() => setMenuOpen(false)}>
-            <li><Link href="/projects" className="hover:opacity-70 transition-opacity">Projects</Link></li>
-            <li><Link href="/services" className="hover:opacity-70 transition-opacity">Services</Link></li>
-            <li><Link href="/shop" className="hover:opacity-70 transition-opacity">Shop</Link></li>
-            <li><Link href="/about" className="hover:opacity-70 transition-opacity">About</Link></li>
-            <li><Link href="/news" className="hover:opacity-70 transition-opacity">News</Link></li>
+          <li>
+              <Link href="/projects">
+                <GlitchText text="Projects" />
+              </Link>
+            </li>
+
+            <li>
+              <Link href="/services">
+                <GlitchText text="Services" />
+              </Link>
+            </li>
+
+            <li>
+              <Link href="/shop">
+                <GlitchText text="Shop" />
+              </Link>
+            </li>
+
+            <li>
+              <Link href="/about">
+                <GlitchText text="About" />
+              </Link>
+            </li>
+
+            <li>
+              <Link href="/news">
+                <GlitchText text="News" />
+              </Link>
+            </li>
           </ul>
         </div>
       )}

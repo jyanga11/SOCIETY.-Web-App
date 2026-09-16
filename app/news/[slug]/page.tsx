@@ -53,12 +53,12 @@ export default async function NewsArticlePage({ params }: { params: Promise<{ sl
 
   return (
     <main className="mx-auto max-w-4xl px-4 py-12">
-      <Link href="/news" className="text-sm opacity-70 hover:opacity-100">
-        ← Back to news
+      <Link href="/news" className="text-sm sm:text-lg opacity-70 hover:text-orange-500 transition-colors duration-200">
+        ← Back to News
       </Link>
 
       <header className="mt-8">
-        <div className="flex flex-wrap items-center gap-3 text-sm opacity-70">
+        <div className="flex flex-wrap items-center gap-3 text-sm sm:text-lg opacity-70">
           <span>{CATEGORY_LABELS[article.category] ?? article.category}</span>
           <span aria-hidden="true">·</span>
           <time dateTime={article.uploadDate}>
@@ -69,7 +69,7 @@ export default async function NewsArticlePage({ params }: { params: Promise<{ sl
             })}
           </time>
         </div>
-        <h1 className="mt-4 text-4xl font-semibold sm:text-5xl">{article.title}</h1>
+        <h1 className="mt-4 text-lg sm:text-xl">{article.title}</h1>
       </header>
 
       <div className="relative mt-8 aspect-[16/9] overflow-hidden bg-black/5">
