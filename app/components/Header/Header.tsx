@@ -17,8 +17,8 @@ const Header = forwardRef<HTMLElement>((_props, ref) => {
       >
         <nav className="flex flex-wrap items-center justify-between px-6 py-4">
 
-        <Link href="/" className="flex items-center gap-3">
-          <Image src="/pyramid2.png" alt="Society Logo" width={40} height={40} />
+        <Link href="/" className="flex items-center gap-0">
+          <Image src="/Motif_Logo.PNG" alt="Society Logo" width={50} height={50} className="dark:invert light:invert-0"/>
           <span className="text-xl sm:text-2xl md:text-3xl font-arts-crafts-regular">
             <GlitchText text="Society." />
           </span>

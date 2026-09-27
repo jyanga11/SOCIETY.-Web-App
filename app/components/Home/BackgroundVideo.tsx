@@ -7,7 +7,7 @@ export const BackgroundVideo = () => {
       aria-hidden
     >
       <video
-        className="h-full w-full object-contain grayscale dark:invert-0 light:invert"
+        className="h-full w-full object-cover object-right-top grayscale dark:invert-0 light:invert"
         src="/3danimation.mp4"
         autoPlay
         loop
