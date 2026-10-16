@@ -1,4 +1,5 @@
-import Image from 'next/image'
+import ImageCarousel from '@/app/components/ImageCarousel'
+import ProductActions from '@/app/components/ProductActions'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
@@ -50,52 +51,32 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
     notFound()
   }
 
-  const coverUrl = urlFor(product.coverImage).width(1200).height(1500).fit('crop').url()
+  const slides = [
+    {
+      src: urlFor(product.coverImage).width(1200).height(1500).fit('crop').url(),
+      alt: product.coverImage.alt ?? product.title,
+    },
+    ...(product.gallery ?? []).map((item, i) => ({
+      src: urlFor(item).width(1200).height(1500).fit('crop').url(),
+      alt: item.alt ?? `${product.title} gallery image ${i + 1}`,
+    })),
+  ]
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-12">
-      <Link href="/shop" className="text-sm opacity-70 hover:opacity-100">
+      <Link href="/shop" className="text-sm opacity-70 hover:opacity-99">
         ← Back to shop
       </Link>
 
-      <div className="mt-8 grid grid-cols-1 gap-10 lg:grid-cols-2">
-        <div className="relative aspect-[4/5] overflow-hidden bg-black/5">
-          <Image
-            src={coverUrl}
-            alt={product.coverImage.alt ?? product.title}
-            fill
-            priority
-            sizes="(min-width: 1024px) 50vw, 100vw"
-            className="object-cover"
-          />
-        </div>
-
-        <div className="flex flex-col gap-4">
-          <h1 className="text-3xl font-semibold sm:text-4xl">{product.title}</h1>
-          <p className="text-xl opacity-80">${product.price.toFixed(2)}</p>
-          {product.description && <p className="text-base opacity-80">{product.description}</p>}
+      <div className="mt-8 grid grid-cols-1 gap-20 lg:grid-cols-2">
+        <ImageCarousel slides={slides} />
+        <div className="flex flex-col items-end gap-4 text-right">
+          <h1 className="text-3xl font-semibold sm:text-4xl opacity-99">{product.title}</h1>
+          {product.description && <p className="text-xl opacity-80">{product.description}</p>}
+          <p className="text-xl opacity-80">${product.price.toFixed(0)}</p>
+          <ProductActions productId={product._id} title={product.title} price={product.price} />
         </div>
       </div>
-
-      {product.gallery && product.gallery.length > 0 && (
-        <div className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-3">
-          {product.gallery.map((item, index) => {
-            const imageUrl = urlFor(item).width(600).height(750).fit('crop').url()
-
-            return (
-              <div key={`${item.asset._ref}-${index}`} className="relative aspect-[4/5] overflow-hidden bg-black/5">
-                <Image
-                  src={imageUrl}
-                  alt={item.alt ?? `${product.title} gallery image ${index + 1}`}
-                  fill
-                  sizes="(min-width: 640px) 33vw, 50vw"
-                  className="object-cover"
-                />
-              </div>
-            )
-          })}
-        </div>
-      )}
     </main>
   )
 }
