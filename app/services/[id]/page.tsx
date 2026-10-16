@@ -25,7 +25,6 @@ export default async function ServicePage({ params }: { params: Promise<{ id: st
         
         <div className="flex flex-row gap-2 justify-center items-center my-5">
 
-            {/* Left (Previous) Arrow - Only renders if there is a previous service */}
             {hasPrevious && (
                 <div className="m-2">
                     <Link 
@@ -44,7 +43,6 @@ export default async function ServicePage({ params }: { params: Promise<{ id: st
                 <p className="sm:mt-4 mt-1 sm:text-3xl text-lg text-orange-500">{service.desc}</p>
             </div>
 
-            {/* Right (Next) Arrow - Only renders if there is a next service */}
             {hasNext && (
                 <div className="m-2">
                     <Link 

@@ -32,6 +32,14 @@ export async function getProducts() {
   }))
 }
 
+export async function getProduct(id: string) {
+  return client.fetch<{ _id: string; title: string; price: number } | null>(
+    `*[_type == "product" && _id == $id][0]{ _id, title, price }`,
+    { id },
+    { cache: 'no-store' }
+  )
+}
+
 export async function getNews() {
   const posts = await client.fetch(
     `*[_type == "blogContent"] | order(uploadDate desc){
