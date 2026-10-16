@@ -9,7 +9,7 @@ export async function POST(req: Request) {
   
     if (event.type === 'checkout.session.completed') {
       const session = event.data.object
-      // session.metadata.productId / size -> mark order paid, decrement stock, send email
+      // session.metadata.productId / size -> mark order paid, decrement stock, send email 
     }
     return new Response(null, { status: 200 })
   }
