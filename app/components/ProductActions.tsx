@@ -61,17 +61,17 @@ export default function ProductActions({ productId, title, price }: Props) {
       </button>
       {checkoutOpen && (
         <div
-          className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-black/60 p-4"
+          className="fixed inset-0 z-50 pt-20 flex items-start justify-center overflow-y-auto bg-black/60 p-4"
           onClick={() => setCheckoutOpen(false)}
         >
           <div
-            className="relative my-8 w-full max-w-lg rounded-2xl bg-black/60 p-4"
+            className="relative my-8 pb-8 w-full max-w-lg rounded-2xl bg-black/60 p-4"
             onClick={(e) => e.stopPropagation()}
           >
             <button
               type="button"
               onClick={() => setCheckoutOpen(false)}
-              className="mb-2 ml-auto block text-sm text-gray-600 hover:text-black"
+              className="mb-2 ml-auto block text-sm text-gray-600 hover:text-white"
             >
               Close
             </button>

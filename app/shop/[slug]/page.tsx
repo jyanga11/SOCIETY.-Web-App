@@ -65,7 +65,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
   return (
     <main className="mx-auto max-w-6xl px-4 py-12">
       <Link href="/shop" className="text-sm opacity-70 hover:opacity-99">
-        ← Back to shop
+        ← Back to Shop
       </Link>
 
       <div className="mt-8 grid grid-cols-1 gap-20 lg:grid-cols-2">
