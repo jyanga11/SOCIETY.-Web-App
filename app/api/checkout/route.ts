@@ -13,7 +13,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'Invalid request' }, { status: 400 })
   }
 
-  try {
+  try { 
     const session = await stripe.checkout.sessions.create({
         ui_mode: 'embedded_page',
         mode: 'payment',
