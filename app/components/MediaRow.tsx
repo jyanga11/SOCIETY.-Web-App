@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import LayeredTile, { MediaItem } from './LayeredTile'; // Adjust path if necessary
 import Link from 'next/link';

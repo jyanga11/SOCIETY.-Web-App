@@ -20,6 +20,9 @@ export default async function ProjectsPage() {
 
   return (
     <main className="relative z-20 mx-auto max-w-6xl px-4 py-12">
+      <h1 className="text-3xl sm:text-8xl font-arts-crafts-regular">
+            Projects
+      </h1>
       <ProjectsGrid projects={projects} />
     </main>
   )

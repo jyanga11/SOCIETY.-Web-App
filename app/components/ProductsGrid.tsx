@@ -6,6 +6,9 @@ import { useMemo, useState } from 'react'
 
 import { urlFor } from '@/sanity/lib/image'
 
+// Sales status of the product's drop excluding drafts and cancelled drops
+export type ProductStatus = 'scheduled' | 'open' | 'closed'
+
 export type Product = {
   _id: string
   title: string
@@ -13,30 +16,39 @@ export type Product = {
   description?: string
   category: string
   price: number
+  status: ProductStatus
   coverImage: {
     asset: { _ref: string; _type: string }
     alt?: string
   }
 }
 
-const CATEGORY_LABELS: Record<string, string> = {
-  apparel: 'Apparel',
-  accessories: 'Accessories',
-  artwork: 'Artwork',
-  home: 'Home',
+const STATUS_LABELS: Record<ProductStatus, string> = {
+  open: 'On Sale',
+  scheduled: 'Upcoming',
+  closed: 'Closed',
 }
 
-const FILTERS: { value: string | null; label: string }[] = [
-  { value: null, label: 'All' },
-  ...Object.entries(CATEGORY_LABELS).map(([value, label]) => ({ value, label })),
-]
+const STATUS_ORDER: ProductStatus[] = ['open', 'scheduled', 'closed']
 
 export default function ProductsGrid({ products }: { products: Product[] }) {
-  const [activeCategory, setActiveCategory] = useState<string | null>(null)
+  const [activeStatus, setActiveStatus] = useState<ProductStatus | null>(null)
+
+  // Only offer filters for statuses that actually have products.
+  const filters = useMemo(() => {
+    const present = new Set(products.map((p) => p.status))
+    return [
+      { value: null as ProductStatus | null, label: 'All' },
+      ...STATUS_ORDER.filter((s) => present.has(s)).map((s) => ({
+        value: s as ProductStatus | null,
+        label: STATUS_LABELS[s],
+      })),
+    ]
+  }, [products])
 
   const filteredProducts = useMemo(
-    () => (activeCategory ? products.filter((p) => p.category === activeCategory) : products),
-    [products, activeCategory],
+    () => (activeStatus ? products.filter((p) => p.status === activeStatus) : products),
+    [products, activeStatus],
   )
 
   if (products.length === 0) {
@@ -45,20 +57,20 @@ export default function ProductsGrid({ products }: { products: Product[] }) {
 
   return (
     <div className="mt-10">
-      {/* <div
-          className="flex gap-2 overflow-x-auto whitespace-nowrap px-4 -mx-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:flex-wrap sm:justify-center sm:overflow-visible sm:whitespace-normal sm:mx-0 sm:px-0"
-          role="group"
-          aria-label="Filter news by category"
+      <div
+        className="flex gap-2 overflow-x-auto whitespace-nowrap px-4 -mx-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:flex-wrap sm:justify-center sm:overflow-visible sm:whitespace-normal sm:mx-0 sm:px-0"
+        role="group"
+        aria-label="Filter products by status"
       >
-        {FILTERS.map(({ value, label }) => (
+        {filters.map(({ value, label }) => (
           <FilterPill
             key={value ?? 'all'}
             label={label}
-            active={activeCategory === value}
-            onClick={() => setActiveCategory(value)}
+            active={activeStatus === value}
+            onClick={() => setActiveStatus(value)}
           />
         ))}
-      </div> */}
+      </div>
       <div className="mt-8 grid gap-x-6 gap-y-10 grid-cols-2 sm:grid-cols-3">
         {filteredProducts.map((product) => (
           <ProductCard key={product._id} product={product} />

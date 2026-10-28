@@ -20,21 +20,17 @@ export async function getProjects() {
 export async function getProducts() {
   const products = await client.fetch(
     `*[_type == "product"] | order(title asc){
-      _id, title, slug, coverImage
+      _id, title, slug, coverImage, stage, price, category
     }`, {},
     { next: { revalidate : 60 } }
   )
-  return products.map((p: any) => ({
-    id: p._id,
-    title: p.title,
-    image: urlFor(p.coverImage).width(600).url(),
-    slug: p.slug,
-  }))
+
+  return products
 }
 
 export async function getProduct(id: string) {
   return client.fetch<{ _id: string; title: string; price: number } | null>(
-    `*[_type == "product" && _id == $id][0]{ _id, title, price }`,
+    `*[_type == "product" && _id == $id][0]{ _id, title, price, stage }`,
     { id },
     { cache: 'no-store' }
   )

@@ -4,9 +4,18 @@ import { PHRASES } from '../../constants/phrases';
 import GlitchText from "../GlitchText";
 import MediaRow from "../MediaRow";
 import Link from "next/link";
+import { urlFor } from "@/sanity/lib/image";
 import { getProjects, getProducts, getNews } from '@/sanity/lib/queries'
 import { ChevronRight } from 'lucide-react'; // Install lucide-react for clean icons
 import { FadeIn } from "../FadeIn";
+
+
+type HomeProduct = {
+  _id: string;
+  title: string;
+  slug: { current: string };
+  coverImage?: Parameters<typeof urlFor>[0] | null;
+};
 
 export async function Home() {
   
@@ -110,7 +119,18 @@ export async function Home() {
           </Link>
         </FadeIn>
         <FadeIn delay={0.1}>
-          <MediaRow items={products} type="shop" variant="portrait" />
+          <MediaRow
+            type="shop"
+            variant="portrait"
+            items={products.map((product: HomeProduct) => ({
+              id: product._id,
+              title: product.title,
+              slug: product.slug,
+              image: product.coverImage
+                ? urlFor(product.coverImage).width(600).url()
+                : "",
+            }))}
+          />
         </FadeIn>
 
         <FadeIn>

@@ -1,5 +1,6 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { services } from '../../constants/services';
+import InquiryForm from "@/app/components/InquiryForm";
 import Link from 'next/link';
 
 export default async function ServicePage({ params }: { params: Promise<{ id: string }> }) {
@@ -23,7 +24,7 @@ export default async function ServicePage({ params }: { params: Promise<{ id: st
     return (
       <main className="min-w-screen px-5 items-center justify-center relative">
         
-        <div className="flex flex-row gap-2 justify-center items-center my-5">
+        <div className="flex flex-row gap-2 justify-center items-center">
 
             {hasPrevious && (
                 <div className="m-2">
@@ -58,21 +59,9 @@ export default async function ServicePage({ params }: { params: Promise<{ id: st
         </div>
         
         <div className="w-full flex justify-center mb-5">
-            <form action="/submit-endpoint" method="POST" className="w-full max-w-2xl flex flex-col gap-3">
-                <div>
-                    <label htmlFor="user-email" className="sm:text-2xl text-lg">Email:</label>
-                    <input type="email" id="user-email" name="user-email" required  className="rounded-sm border-b-2 border-purple-700"/>
-                </div>
-
-                <div>
-                    <label htmlFor="note" className="sm:text-2xl text-lg">Tell us what you&apos;re working on:</label>
-                    <textarea id="note" name="note" rows={6} className="w-full h-40 border-2 border-purple-700 rounded-sm"/>
-                </div>
-
-                <button type="submit" className="text-xl self-end rounded-md px-6 py-2 border-orange-500 border-2 text-orange-500 hover:bg-orange-500 hover:text-purple-700">
-                    Send
-                </button>
-            </form>
+            <div className="mb-5 flex w-full justify-center">
+                <InquiryForm serviceType={service.title} />
+            </div>
         </div>
 
       </main>
