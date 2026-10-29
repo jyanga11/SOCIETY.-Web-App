@@ -80,8 +80,8 @@ export default function AboutPage() {
 
           {/* Mobile: 2/3 + 16/9 together */}
           <div className="flex flex-row items-start gap-2 sm:hidden mt-4">
-            <Image src={photos.portrait} alt="" className=""/>
-            <Image src={photos.landscape} alt="" className="min-w-[70dvh]"/>
+            <Image src={photos.portrait} alt="" className="max-w-[20dvh]"/>
+            <Image src={photos.landscape} alt="" className=""/>
           </div>
 
           {/* Desktop 16/9 */}
