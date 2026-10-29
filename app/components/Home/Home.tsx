@@ -27,7 +27,7 @@ export async function Home() {
   
   return (
     <>
-      <main className="relative z-10">
+      <main className="relative z-10 m-5">
         <section className="flex min-h-screen pt-[30vh] sm:pt-[40vh] justify-center">
           <FadeIn>
             <div className="relative">
