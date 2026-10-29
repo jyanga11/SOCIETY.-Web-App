@@ -42,7 +42,15 @@ export default function ProjectsGrid({ projects }: { projects: Project[] }) {
   )
 
   if (projects.length === 0) {
-    return null
+    return (
+      <div className="space-y-2 relative group mb-15 md:-ml-4">
+        <div className="px-4 pt-6 pb-10 md:px-12">
+          <div className="px-6 py-12 text-center">
+            <p className="text-2xl sm:text-4xl opacity-60">Stay tuned - more projects coming soon. </p>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   return (
