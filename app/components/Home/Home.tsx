@@ -89,7 +89,7 @@ export async function Home() {
 
           <FadeIn className="w-full sm:max-w-[45vw]" delay={0.15}>
             <Link href="/about">
-              <p className="text-lg sm:text-4xl">
+              <p className="text-xl sm:text-4xl">
                 <span className="font-arts-crafts-regular text-md"><GlitchText text="Society."/></span> is a <WordRotater phrases={PHRASES} /><br></br>
                 built from the ground up for and by those that never had a blueprint but always had a vision. Our mission is to equip traditionally under-represented creatives with the tools, knowledge, platform, and support to transform their raw ideas into cultural movements that reject the status quo.
               </p>
