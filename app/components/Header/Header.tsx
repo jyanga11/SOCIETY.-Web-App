@@ -100,14 +100,14 @@ const Header = forwardRef<HTMLElement>((_props, ref) => {
             </li>
 
             <li>
-              <Link href="/about">
-                <GlitchText text="About" />
+              <Link href="/news">
+                <GlitchText text="News" />
               </Link>
             </li>
 
             <li>
-              <Link href="/news">
-                <GlitchText text="News" />
+              <Link href="/about">
+                <GlitchText text="About" />
               </Link>
             </li>
           </ul>

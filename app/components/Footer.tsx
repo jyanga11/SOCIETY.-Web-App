@@ -55,7 +55,7 @@ export default function Footer() {
       <div className="mx-auto flex max-w-7xl flex-col items-center gap-9 px-6 py-12 text-center lg:px-8">
         <div className="flex w-full flex-col items-center justify-between gap-8 md:flex-row md:text-left">
           {/* Brand and copyright */}
-          <div className="flex flex-row gap-2">
+          <div className="flex flex-row items-center gap-2">
             <Link href="/" className="text-md font-arts-crafts-regular sm:text-xl">
               <div className="flex items-center gap-1">
                 <Image src="/Motif_Logo.PNG" alt="Society Logo" className="h-4 w-auto dark:invert light:invert-0"/>
