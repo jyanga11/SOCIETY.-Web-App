@@ -102,7 +102,7 @@ export async function Home() {
 
         <FadeIn>
           <Link href="/projects" >
-            <h2 className="flex items-center text-2xl font-arts-crafts-regular md:text-4xl pl-4 md:pl-12">
+            <h2 className="flex items-center text-2xl font-arts-crafts-regular md:text-4xl pl-4 md:pl-12 hover:text-orange-500 transition-colors duration-300">
               <GlitchText text="Projects"/> <ChevronRight className="h-6 w-6" />
             </h2>
           </Link>
@@ -113,7 +113,7 @@ export async function Home() {
 
         <FadeIn>
           <Link href="/shop" >  
-            <h2 className="flex items-center text-2xl font-arts-crafts-regular md:text-4xl pl-4 md:pl-12">
+            <h2 className="flex items-center text-2xl font-arts-crafts-regular md:text-4xl pl-4 md:pl-12 hover:text-orange-500 transition-colors duration-300">
               <GlitchText text="Shop"/> <ChevronRight className="h-6 w-6" />
             </h2>
           </Link>
@@ -135,7 +135,7 @@ export async function Home() {
 
         <FadeIn>
           <Link href="/news" >  
-            <h2 className="flex items-center text-2xl font-arts-crafts-regular md:text-4xl pl-4 md:pl-12">
+            <h2 className="flex items-center text-2xl font-arts-crafts-regular md:text-4xl pl-4 md:pl-12 hover:text-orange-500 transition-colors duration-300">
               <GlitchText text="News"/> <ChevronRight className="h-6 w-6" />
             </h2>
           </Link>

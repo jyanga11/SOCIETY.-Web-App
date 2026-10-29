@@ -40,5 +40,12 @@ export const useManualTypingEffect = (
     setCurrentPhraseIndex((prev) => (prev - 1 + phrases.length) % phrases.length);
   }, [phrases.length]);
 
-  return { displayText, currentPhraseIndex, isTyping, next, prev };
+  return {
+    displayText,
+    currentPhraseIndex,
+    phraseIndex: currentPhraseIndex,
+    isTyping,
+    next,
+    prev,
+  };
 };

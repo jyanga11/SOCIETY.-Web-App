@@ -32,6 +32,7 @@ const STATUS_LABELS: Record<ProductStatus, string> = {
 const STATUS_ORDER: ProductStatus[] = ['open', 'scheduled', 'closed']
 
 export default function ProductsGrid({ products }: { products: Product[] }) {
+  products = [];
   const [activeStatus, setActiveStatus] = useState<ProductStatus | null>(null)
 
   // Only offer filters for statuses that actually have products.
@@ -52,7 +53,15 @@ export default function ProductsGrid({ products }: { products: Product[] }) {
   )
 
   if (products.length === 0) {
-    return null
+    return (
+      <div className="space-y-2 relative group mb-15 md:-ml-4">
+        <div className="px-4 pt-6 pb-10 md:px-12">
+          <div className="px-6 py-12 text-center">
+            <p className="text-2xl opacity-60">Stay tuned - more products coming soon. </p>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   return (

@@ -12,9 +12,12 @@ interface MediaRowProps {
 }
 
 export default function MediaRow({ items, type, variant = 'landscape' }: MediaRowProps) {
+  let label = type == 'projects' ? 'projects'
+           : type == 'shop' ? 'products'
+           : 'news';
   const rowRef = useRef<HTMLDivElement>(null);
   const [showLeftArrow, setShowLeftArrow] = useState(false);
-  const [showRightArrow, setShowRightArrow] = useState(true);
+  const [showRightArrow, setShowRightArrow] = useState(false);
 
   const updateArrows = () => {
     if (rowRef.current) {
@@ -52,6 +55,18 @@ export default function MediaRow({ items, type, variant = 'landscape' }: MediaRo
     : 'w-[280px] md:w-[380px] max-w-full';
 
   const imageAspect = variant === 'portrait' ? 'aspect-[3/4]' : 'aspect-[16/9]';
+
+  if (items.length === 0) {
+    return (
+      <div className="space-y-2 relative group mb-15 md:-ml-4">
+        <div className="px-4 pt-6 pb-10 md:px-12">
+          <div className="rounded-xl border border-current/10 border-purple-700 px-6 py-12 text-center">
+            <p className="text-lg opacity-60">Stay tuned - more {label} coming soon. </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-2 relative group mb-15 md:-ml-4">
