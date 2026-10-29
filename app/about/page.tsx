@@ -89,7 +89,7 @@ export default function AboutPage() {
         </div>
 
 
-        <div className="sm:text-3xl text-2xl flex flex-col sm:gap-40 gap-10">
+        <div className="sm:text-3xl text-xl flex flex-col sm:gap-40 gap-20">
           <p className="sm:w-[65%] w-[85%] self-start">
             We didn&apos;t start with much.
           </p>
