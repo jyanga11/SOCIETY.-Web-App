@@ -25,7 +25,19 @@ export const WordRotater = ({
   }, []);
 
   return (
-      <span className={`inline-block text-left relative ${textClassName}`}>
+      <span className={`inline-grid w-full min-w-0 text-left relative ${textClassName}`}>
+        {/* Overlapping full phrases reserve the tallest wrapped height. */}
+        {phrases.map((phrase, index) => (
+          <span
+            key={index}
+            aria-hidden="true"
+            className="invisible pointer-events-none col-start-1 row-start-1 min-w-0"
+          >
+            {phrase}
+            <span className="inline-block w-[10px] sm:w-[15px] h-[0.9em] align-middle" />
+          </span>
+        ))}
+        <span className="col-start-1 row-start-1 min-w-0 self-start">
         {displayText}
         <span 
           className={`inline-block w-[10px] sm:w-[15px] h-[0.9em] bg-current align-middle transition-opacity duration-100 ${
@@ -33,6 +45,7 @@ export const WordRotater = ({
           }`}
           aria-hidden="true"
         />
+        </span>
       </span>
   );
 };
