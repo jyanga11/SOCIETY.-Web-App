@@ -37,30 +37,31 @@ export const LoadingScreen = () => {
         </defs>
       </svg>
       <div className="w-full max-w-7xl mx-auto px-4">
-      <h1 className="mb-4 flex flex-nowrap items-baseline justify-center text-center items-center overflow-x-hidden">
-
-        <span ref={refs.societyTitleRef} className="whitespace-nowrap shrink-0">
-          <span className="font-arts-crafts-regular text-xl sm:text-6xl">Society.</span>
-          <span className="font-[Syne Mono, Futura] text-lg sm:text-5xl">&nbsp;is a&nbsp;</span>
-        </span>
-
-        <span
-          ref={refs.staticTextRef}
-          className="relative inline-block whitespace-nowrap text-left align-baseline text-lg sm:text-5xl leading-tight pb-3"
-        >
-        
-          <span className="invisible whitespace-nowrap" aria-hidden="true">
-            {PHRASES.reduce((a, b) => (a.length > b.length ? a : b))}
+        <h1 className="mb-4 flex flex-nowrap items-baseline justify-center overflow-x-hidden text-center">
+          <span
+            ref={refs.societyTitleRef}
+            className="shrink-0 whitespace-nowrap"
+          >
+            <span className="font-arts-crafts-regular text-xl sm:text-6xl">
+              Society.
+            </span>
+            <span className="font-[Syne_Mono,Futura] text-lg sm:text-5xl">
+              &nbsp;is a&nbsp;
+            </span>
           </span>
 
-          <span className="absolute inset-0 whitespace-nowrap text-left">
-            {fadeInComplete && (
-              <WordRotater phrases={PHRASES} textClassName="text-lg sm:text-5xl" />
-            )}
+          <span
+            ref={refs.staticTextRef}
+            className="inline-block whitespace-nowrap text-left text-lg sm:text-5xl"
+          >
+            <span className={fadeInComplete ? "visible" : "invisible"}>
+              <WordRotater
+                phrases={PHRASES}
+                textClassName="text-lg sm:text-5xl"
+              />
+            </span>
           </span>
-
-        </span>
-      </h1>
+        </h1>
       </div>
     </div>
   );
