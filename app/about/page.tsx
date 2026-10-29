@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { FadeIn } from "../components/FadeIn";
 import { ManualWordRotater } from "../components/ManualWordRotater";
 import { ABOUT } from '../constants/about';
 import Image from "next/image";
@@ -90,27 +91,41 @@ export default function AboutPage() {
 
 
         <div className="sm:text-3xl text-xl flex flex-col sm:gap-40 gap-20">
-          <p className="sm:w-[65%] w-[85%] self-start">
-            We didn&apos;t start with much.
-          </p>
-          <p className="sm:w-[65%] w-[85%] self-end -mt-6">
-            No blueprints, no big names, no industry connections.
-          </p>
-          <p className="sm:w-[65%] w-[85%] self-start -mt-6">
-            Just vision, ambition, and a relentless belief.
-          </p>
-          <p className="sm:w-[65%] w-[85%] self-end -mt-6">
-            <span className="font-arts-crafts-regular">Society.</span> was born in the margins. We took the long way when others chose the simple route.
-          </p>
-          <p className="sm:w-[65%] w-[85%] self-start -mt-6">
-            Through late nights and quiet doubts we taught ourselves how to create, design, code, and build one project at a time.
-          </p>
-          <p className="sm:w-[65%] w-[85%] self-end -mt-6">
-            We learned the rules just to rewrite them. We made our own lane and now we intend to turn it into a movement.
-          </p>
-          <p className="sm:w-[65%] w-[85%] self-start -mt-6">
-            Because culture doesn&apos;t come from the top down, it rises. From the streets. From the struggle. Built by you and me. Built by <span className="font-arts-crafts-regular">Society.</span>
-          </p>
+          <FadeIn className="sm:w-[65%] w-[85%] self-start">
+            <p>
+              We didn&apos;t start with much.
+            </p>
+          </FadeIn>
+          <FadeIn className="sm:w-[65%] w-[85%] self-end -mt-6">
+            <p>
+              No blueprints, no big names, no industry connections.
+            </p>
+          </FadeIn>
+          <FadeIn className="sm:w-[65%] w-[85%] self-start -mt-6">
+            <p>
+              Just vision, ambition, and a relentless belief.
+            </p>
+          </FadeIn>
+          <FadeIn className="sm:w-[65%] w-[85%] self-end -mt-6">
+            <p>
+              <span className="font-arts-crafts-regular">Society.</span> was born in the margins. We took the long way when others chose the simple route.
+            </p>
+          </FadeIn>
+          <FadeIn className="sm:w-[65%] w-[85%] self-start -mt-6">
+            <p>
+              Through late nights and quiet doubts we taught ourselves how to create, design, code, and build one project at a time.
+            </p>
+          </FadeIn>
+          <FadeIn className="sm:w-[65%] w-[85%] self-end -mt-6">
+            <p>
+              We learned the rules just to rewrite them. We made our own lane and now we intend to turn it into a movement.
+            </p>
+          </FadeIn>
+          <FadeIn className="sm:w-[65%] w-[85%] self-start -mt-6">
+            <p>
+              Because culture doesn&apos;t come from the top down, it rises. From the streets. From the struggle. Built by you and me. Built by <span className="font-arts-crafts-regular">Society.</span>
+            </p>
+          </FadeIn>
         </div>
       </div>
     </main>
