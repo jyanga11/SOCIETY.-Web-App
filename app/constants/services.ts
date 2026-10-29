@@ -15,7 +15,7 @@ export const services = [
     },
     { 
       id: 3,
-      title: 'Photo / Video Editing',
+      title: 'Photo/Video Editing',
       image: Film,
       desc: 'Transform your raw footage into a polished and cohesive product.',
     },
