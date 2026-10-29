@@ -73,7 +73,7 @@ export default function AboutPage() {
               />
             </div>
             {/* Portrait spans both rows within the available screen height. */}
-            <div className="contents sm:block sm:relative sm:col-start-2 sm:row-start-1 sm:row-span-2 sm:h-full sm:min-h-0">
+            <div className="hidden sm:block sm:relative sm:col-start-2 sm:row-start-1 sm:row-span-2 sm:h-full sm:min-h-0">
               <Image src={photos.portrait} alt="" width={800} height={1200} className="max-h-[40dvh] w-auto sm:absolute sm:inset-0 sm:h-full sm:max-h-none sm:w-full sm:object-contain sm:object-left-top"/>
             </div>
           </div>
@@ -85,7 +85,7 @@ export default function AboutPage() {
           </div>
 
           {/* Desktop 16/9 */}
-          <Image src={photos.landscape} alt="" className="sm:col-start-1 sm:row-start-2 sm:h-full sm:min-h-0 sm:w-full sm:max-w-none sm:object-contain sm:object-left-top"/>
+          <Image src={photos.landscape} alt="" className="hidden sm:block sm:col-start-1 sm:row-start-2 sm:h-full sm:min-h-0 sm:w-full sm:max-w-none sm:object-contain sm:object-left-top"/>
         </div>
 
 
