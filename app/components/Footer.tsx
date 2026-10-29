@@ -55,10 +55,10 @@ export default function Footer() {
       <div className="mx-auto flex max-w-7xl flex-col items-center gap-9 px-6 py-12 text-center lg:px-8">
         <div className="flex w-full flex-col items-center justify-between gap-8 md:flex-row md:text-left">
           {/* Brand and copyright */}
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-row gap-2">
             <Link href="/" className="text-md font-arts-crafts-regular sm:text-xl">
               <div className="flex items-center gap-1">
-                <Image src="/Motif_Logo.PNG" alt="Society Logo" className="h-5 w-auto dark:invert light:invert-0"/>
+                <Image src="/Motif_Logo.PNG" alt="Society Logo" className="h-4 w-auto dark:invert light:invert-0"/>
                 <GlitchText text="Society." />
               </div>
             </Link>
@@ -75,7 +75,7 @@ export default function Footer() {
             <li><Link href="https://www.facebook.com/people/Society-Media-Agency/61583672024114/" target="_blank" rel="noopener noreferrer" className="transition-opacity hover:opacity-70" aria-label="Facebook"><FontAwesomeIcon icon={faFacebookF} className="text-2xl sm:text-4xl" /></Link></li>
           </ul>
 
-          <button onClick={handleCopy} type="button" className="cursor-pointer text-xl text-muted-foreground focus:outline-none" aria-label="Copy email address to clipboard">
+          <button onClick={handleCopy} type="button" className="cursor-pointer sm:text-xl text-md text-muted-foreground focus:outline-none" aria-label="Copy email address to clipboard">
             {copied ? "Copied to clipboard" : <GlitchText text="info@builtbysociety.io" />}
           </button>
         </div>
