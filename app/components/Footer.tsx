@@ -52,8 +52,8 @@ export default function Footer() {
 
   return (
     <footer className="relative z-20 w-full border-t border-foreground/10 text-foreground">
-      <div className="mx-auto flex max-w-7xl flex-col items-center gap-9 px-6 py-12 text-center lg:px-8">
-        <div className="flex w-full flex-col items-center justify-between gap-8 md:flex-row md:text-left">
+      <div className="mx-auto flex max-w-7xl flex-col items-center sm:gap-9 gap-5 px-6 py-12 text-center lg:px-8">
+        <div className="flex w-full flex-col items-center justify-between sm:gap-8 gap-4 md:flex-row md:text-left">
           {/* Brand and copyright */}
           <div className="flex flex-row items-center gap-2">
             <Link href="/" className="text-md font-arts-crafts-regular sm:text-xl">
