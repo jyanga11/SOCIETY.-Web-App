@@ -74,14 +74,14 @@ export default function AboutPage() {
             </div>
             {/* Portrait spans both rows within the available screen height. */}
             <div className="hidden sm:block sm:relative sm:col-start-2 sm:row-start-1 sm:row-span-2 sm:h-full sm:min-h-0">
-              <Image src={photos.portrait} alt="" width={800} height={1200} className="max-h-[40dvh] w-auto sm:absolute sm:inset-0 sm:h-full sm:max-h-none sm:w-full sm:object-contain sm:object-left-top"/>
+              <Image src={photos.portrait} alt="" className="max-h-[40dvh] w-auto sm:absolute sm:inset-0 sm:h-full sm:max-h-none sm:w-full sm:object-contain sm:object-left-top"/>
             </div>
           </div>
 
           {/* Mobile: 2/3 + 16/9 together */}
           <div className="flex flex-row items-start gap-2 sm:hidden mt-4">
-            <Image src={photos.portrait} alt="" width={800} height={1200} className=""/>
-            <Image src={photos.landscape} alt="" width={1600} height={900} className=""/>
+            <Image src={photos.portrait} alt="" className=""/>
+            <Image src={photos.landscape} alt="" className=""/>
           </div>
 
           {/* Desktop 16/9 */}
