@@ -54,7 +54,7 @@ export const International = () => {
         <div className="w-full overflow-hidden mb-30">
 
           {/* --- TOP BANNER (Panning Left) --- */}
-          <div className="relative flex w-full overflow-hidden border-y border-orange-500 text-xl tracking-wider text-orange-500">
+          <div className="relative flex w-full overflow-hidden border-y border-orange-500 sm:text-xl text-lg tracking-wider text-orange-500">
             <motion.div 
               className="flex whitespace-nowrap gap-4 pr-4 flex-shrink-0"
               animate={{ x: [0, "-50%"] }}
@@ -128,7 +128,7 @@ export const International = () => {
           </section>
 
           {/* --- BOTTOM BANNER (Panning Right) --- */}
-          <div className="relative flex w-full overflow-hidden border-y border-orange-500 text-xl tracking-wider text-orange-500">
+          <div className="relative flex w-full overflow-hidden border-y border-orange-500 sm:text-xl text-lg tracking-wider text-orange-500">
             <motion.div 
               className="flex whitespace-nowrap gap-4 pr-4 flex-shrink-0"
               animate={{ x: ["-50%", 0] }}
