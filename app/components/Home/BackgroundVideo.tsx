@@ -15,7 +15,7 @@ export const BackgroundVideo = () => {
         playsInline
         preload="auto"
       />
-      <div className="absolute inset-0 bg-black/60" />
+      <div className="absolute inset-0 bg-black/40" />
     </div>
   );
 };
