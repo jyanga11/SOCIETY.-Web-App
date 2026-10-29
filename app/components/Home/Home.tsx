@@ -27,7 +27,7 @@ export async function Home() {
   
   return (
     <>
-      <main className="relative z-10 m-5">
+      <main className="relative z-10">
         <section className="flex min-h-screen pt-[30vh] sm:pt-[40vh] justify-center">
           <FadeIn>
             <div className="relative">
@@ -90,7 +90,7 @@ export async function Home() {
           <FadeIn className="w-full sm:max-w-[45vw]" delay={0.15}>
             <Link href="/about">
               <p className="text-lg sm:text-4xl">
-                <span className="font-arts-crafts-regular"><GlitchText text="Society."/></span> is a <WordRotater phrases={PHRASES} /><br></br>
+                <span className="font-arts-crafts-regular text-md"><GlitchText text="Society."/></span> is a <WordRotater phrases={PHRASES} /><br></br>
                 built from the ground up for and by those that never had a blueprint but always had a vision. Our mission is to equip traditionally under-represented creatives with the tools, knowledge, platform, and support to transform their raw ideas into cultural movements that reject the status quo.
               </p>
             </Link>

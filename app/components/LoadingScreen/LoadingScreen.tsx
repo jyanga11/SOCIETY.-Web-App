@@ -38,6 +38,7 @@ export const LoadingScreen = () => {
       </svg>
       <div className="w-full max-w-7xl mx-auto px-4">
       <h1 className="mb-4 flex flex-nowrap items-baseline justify-center text-center overflow-x-hidden">
+
         <span ref={refs.societyTitleRef} className="whitespace-nowrap shrink-0">
           <span className="font-arts-crafts-regular text-xl sm:text-6xl">Society.</span>
           <span className="font-[Syne Mono, Futura] text-lg sm:text-5xl">&nbsp;is a&nbsp;</span>
@@ -45,16 +46,19 @@ export const LoadingScreen = () => {
 
         <span
           ref={refs.staticTextRef}
-          className="relative inline-block whitespace-nowrap text-left align-baseline text-lg sm:text-5xl leading-tight pb-1"
+          className="relative inline-block whitespace-nowrap text-left align-baseline text-lg sm:text-5xl leading-tight pb-3"
         >
+        
           <span className="invisible whitespace-nowrap" aria-hidden="true">
             {PHRASES.reduce((a, b) => (a.length > b.length ? a : b))}
           </span>
+
           <span className="absolute inset-0 whitespace-nowrap text-left">
             {fadeInComplete && (
               <WordRotater phrases={PHRASES} textClassName="text-lg sm:text-5xl" />
             )}
           </span>
+
         </span>
       </h1>
       </div>
