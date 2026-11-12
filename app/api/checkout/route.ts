@@ -66,6 +66,16 @@ export async function POST(req: Request) {
     .filter(Boolean)
     .join(' · ')
 
+  const internalApiToken = process.env.INTERNAL_API_TOKEN
+
+  if (!internalApiToken?.trim()) {
+    console.error('Checkout configuration error: INTERNAL_API_TOKEN is missing')
+    return NextResponse.json(
+      { error: 'Could not start checkout. Please try again.' },
+      { status: 503 },
+    )
+  }
+
   try {
     const session = await stripe.checkout.sessions.create({
       ui_mode: 'embedded_page',
