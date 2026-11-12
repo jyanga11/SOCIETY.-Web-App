@@ -79,7 +79,7 @@ export default function ProductsGrid({ products }: { products: Product[] }) {
           />
         ))}
       </div>
-      <div className="mt-8 grid gap-x-6 gap-y-10 grid-cols-2 sm:grid-cols-3">
+      <div className="mt-8 grid gap-x-6 gap-y-10 grid-cols-2 sm:grid-cols-4">
         {filteredProducts.map((product) => (
           <ProductCard key={product._id} product={product} />
         ))}
