@@ -77,7 +77,6 @@ export async function Home() {
               </h3>
               <ul className="text-4xl sm:text-6xl">
                 <li>Brand Identity</li>
-                <li>Creative Direction</li>
                 <li>Content Strategy</li>
                 <li>Web Design</li>
                 <li>E-Commerce</li>
