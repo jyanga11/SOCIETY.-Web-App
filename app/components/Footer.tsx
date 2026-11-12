@@ -104,7 +104,6 @@ export default function Footer() {
               {isSubmitting ? "Joining…" : "Join"}
             </button>
           </form>
-          <p className="mt-2 text-xs text-muted-foreground">Monthly creative updates and drops. Unsubscribe anytime.</p>
           <p role="status" aria-live="polite" className={`mt-2 min-h-4 text-xs ${isError ? "text-red-500" : "text-muted-foreground"}`}>{message}</p>
         </div>
       </div>
