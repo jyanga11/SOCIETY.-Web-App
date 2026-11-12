@@ -110,18 +110,18 @@ function ProductCard({ product }: { product: Product }) {
 
   return (
     <Link href={`/shop/${product.slug.current}`} className="group block hover:text-orange-500 transition-colors duration-200">
-      <div className="relative aspect-[4/5] overflow-hidden bg-black/5">
+      <div className="relative mx-auto aspect-[4/5] w-4/5 max-w-[240px] overflow-hidden bg-black/5">
         {imageUrl && (
           <Image
             src={imageUrl}
             alt={product.coverImage.alt ?? product.title}
             fill
-            sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+            sizes="(min-width: 1024px) 240px, (min-width: 640px) 27vw, 40vw"
             className="object-cover transition-transform duration-300 group-hover:scale-105"
           />
         )}
       </div>
-      <div className="mt-3 flex items-baseline justify-between gap-3">
+      <div className="mx-auto mt-3 flex w-4/5 max-w-[240px] items-baseline justify-between gap-3">
         <h2 className="text-base sm:text-xl text-md">{product.title}</h2>
       </div>
     </Link>
