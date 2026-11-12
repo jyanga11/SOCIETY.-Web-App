@@ -37,7 +37,7 @@ export const LoadingScreen = () => {
         </defs>
       </svg>
       <div className="w-full max-w-7xl mx-auto px-4">
-        <h1 className="mb-4 flex flex-nowrap items-baseline justify-center overflow-x-hidden text-center">
+        <h1 className="mb-4 flex flex-nowrap items-baseline justify-center overflow-x-clip text-center">
           <span
             ref={refs.societyTitleRef}
             className="shrink-0 whitespace-nowrap"
