@@ -32,7 +32,6 @@ const STATUS_LABELS: Record<ProductStatus, string> = {
 const STATUS_ORDER: ProductStatus[] = ['open', 'scheduled', 'closed']
 
 export default function ProductsGrid({ products }: { products: Product[] }) {
-  products = [];
   const [activeStatus, setActiveStatus] = useState<ProductStatus | null>(null)
 
   // Only offer filters for statuses that actually have products.
