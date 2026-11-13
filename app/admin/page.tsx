@@ -94,21 +94,36 @@ type AdminSummary = {
           </h2>
 
           {summary.drops.length > 0 ? (
-            <div className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-2">
+            <div className="mt-4 grid gap-4">
               {summary.drops.map((drop) => (
-                <article key={drop.id} className="space-y-3 rounded-xl border bg-white p-6">
-                  <h3 className="text-xl">{drop.name}</h3>
+                <article key={drop.id} className="flex flex-col gap-6 rounded-xl border bg-white p-6 md:flex-row md:items-center md:justify-between">
+                  <div className="min-w-0 space-y-3">
+                    <h3 className="text-xl">{drop.name}</h3>
 
-                  <div className="flex flex-wrap gap-3 text-sm">
-                    <span className="rounded-full bg-neutral-100 px-3 py-1">
-                      Sales: {drop.status}
-                    </span>
-                    <span className="rounded-full bg-neutral-100 px-3 py-1">
-                      Production: {drop.production_status}
-                    </span>
+                    <div className="flex flex-wrap gap-3 text-sm">
+                      <span className="rounded-full bg-neutral-100 px-3 py-1">
+                        Sales: {drop.status}
+                      </span>
+                      <span className="rounded-full bg-neutral-100 px-3 py-1">
+                        Production: {drop.production_status}
+                      </span>
+                    </div>
+
+                    <p className="text-sm text-neutral-500">
+                      {drop.closes_at
+                        ? `Closes ${new Date(drop.closes_at).toLocaleString()}`
+                        : "No closing date set"}
+                    </p>
+
+                    <a
+                      href={`/admin/drops/${drop.id}`}
+                      className="inline-block text-sm underline"
+                    >
+                      Manage drop →
+                    </a>
                   </div>
 
-                  <dl className="grid grid-cols-2 gap-4">
+                  <dl className="grid grid-cols-2 gap-4 md:shrink-0 md:gap-8 md:text-right">
                     <div>
                       <dt className="text-sm text-neutral-500">Units Sold</dt>
                       <dd className="text-xl font-semibold">{drop.units_sold}</dd>
@@ -118,19 +133,6 @@ type AdminSummary = {
                       <dd className="text-xl font-semibold">{drop.awaiting_fulfillment}</dd>
                     </div>
                   </dl>
-
-                  <p className="text-sm text-neutral-500">
-                    {drop.closes_at
-                      ? `Closes ${new Date(drop.closes_at).toLocaleString()}`
-                      : "No closing date set"}
-                  </p>
-
-                  <a
-                    href={`/admin/drops/${drop.id}`}
-                    className="inline-block text-sm underline"
-                  >
-                    Manage drop →
-                  </a>
                 </article>
               ))}
             </div>
