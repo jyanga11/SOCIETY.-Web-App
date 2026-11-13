@@ -1,4 +1,4 @@
-import ServiceRevenueChart, { type ServiceRevenue } from "./ServiceRevenueChart";
+import ServiceRevenueChart, { type ServiceRevenue, type RevenueTimeline } from "./ServiceRevenueChart";
 import { requireAdmin } from "@/lib/requireAdmin";
 import { notFound, redirect } from "next/navigation";
 import { auth } from "@clerk/nextjs/server";
@@ -7,6 +7,8 @@ type AdminSummary = {
     active_drops: number;
     new_orders: number;
     service_revenue: ServiceRevenue[];
+    product_revenue: ServiceRevenue[];
+    revenue_over_time: RevenueTimeline;
     new_inquiries: number;
     unprocessed_inquiries: number;
     awaiting_fulfillment: number;
@@ -90,7 +92,11 @@ type AdminSummary = {
           <StatCard label="Unprocessed Inquiries" value={summary.unprocessed_inquiries} />
         </section>
 
-        <ServiceRevenueChart rows={summary.service_revenue ?? []} />
+        <ServiceRevenueChart
+          rows={summary.service_revenue ?? []}
+          products={summary.product_revenue ?? []}
+          timeline={summary.revenue_over_time ?? {}}
+        />
 
         <section aria-labelledby="active-drops-heading">
           <h2 id="active-drops-heading" className="text-lg font-semibold">
