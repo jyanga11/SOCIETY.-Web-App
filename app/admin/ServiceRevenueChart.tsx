@@ -69,18 +69,38 @@ export default function ServiceRevenueChart({
     <section aria-labelledby="service-revenue-heading" className="rounded-xl border bg-white p-6">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
-          <h2 id="service-revenue-heading" className="text-lg font-semibold">
-            <select
-              aria-label="Revenue chart"
-              className="rounded-md border bg-white px-3 py-2"
-              value={chart}
-              onChange={(event) => setChart(Number(event.target.value))}
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              aria-label="Previous chart"
+              className="grid h-11 w-11 shrink-0 place-items-center rounded-md border bg-white hover:bg-neutral-100 focus-visible:ring-2 focus-visible:ring-neutral-500"
+              onClick={() => moveChart(-1)}
             >
-              {charts.map(({ title }, index) => <option key={title} value={index}>{title}</option>)}
-            </select>
-            <button type="button" aria-label="Previous chart" className="ml-2 px-2 py-2" onClick={() => moveChart(-1)}>←</button>
-            <button type="button" aria-label="Next chart" className="px-2 py-2" onClick={() => moveChart(1)}>→</button>
-          </h2>
+              <svg aria-hidden="true" viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M15 18l-6-6 6-6" />
+              </svg>
+            </button>
+            <h2 id="service-revenue-heading" className="min-w-0 text-lg font-semibold">
+              <select
+                aria-label="Revenue chart"
+                className="min-w-0 w-full rounded-md border bg-white px-3 py-2"
+                value={chart}
+                onChange={(event) => setChart(Number(event.target.value))}
+              >
+                {charts.map(({ title }, index) => <option key={title} value={index}>{title}</option>)}
+              </select>
+            </h2>
+            <button
+              type="button"
+              aria-label="Next chart"
+              className="grid h-11 w-11 shrink-0 place-items-center rounded-md border bg-white hover:bg-neutral-100 focus-visible:ring-2 focus-visible:ring-neutral-500"
+              onClick={() => moveChart(1)}
+            >
+              <svg aria-hidden="true" viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M9 6l6 6-6 6" />
+              </svg>
+            </button>
+          </div>
           <p className="mt-1 text-sm text-neutral-500">{charts[chart].description}</p>
         </div>
         <label className="flex items-center gap-2 text-sm">
