@@ -4,16 +4,19 @@ import { auth } from "@clerk/nextjs/server";
 
 type AdminSummary = {
     active_drops: number;
-    paid_orders: number;
-    units_sold: number;
+    new_orders: number;
+    new_inquiries: number;
+    unprocessed_inquiries: number;
     awaiting_fulfillment: number;
-    current_drop: {
+    drops: {
       id: number;
       name: string;
       status: string;
       production_status: string;
       closes_at: string | null;
-    } | null;
+      units_sold: number;
+      awaiting_fulfillment: number;
+    }[];
     integration_errors: number;
   };
   
@@ -68,7 +71,6 @@ type AdminSummary = {
   
   export default async function AdminPage() {
     const summary = await getSummary();
-    const drop = summary.current_drop;
   
     return (
       <div className="space-y-8">
@@ -80,51 +82,63 @@ type AdminSummary = {
         </header>
   
         <section className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
-          <StatCard label="Active drops" value={summary.active_drops} />
-          <StatCard label="Paid orders" value={summary.paid_orders} />
-          <StatCard label="Units sold" value={summary.units_sold} />
-          <StatCard
-            label="Awaiting fulfillment"
-            value={summary.awaiting_fulfillment}
-          />
+          <StatCard label="New Orders" value={summary.new_orders} />
+          <StatCard label="New Inquiries" value={summary.new_inquiries} />
+          <StatCard label="Unfulfilled Orders" value={summary.awaiting_fulfillment} />
+          <StatCard label="Unprocessed Inquiries" value={summary.unprocessed_inquiries} />
         </section>
-  
-        <section className="rounded-xl border bg-white p-6">
-          <h2 className="text-lg font-semibold">Current drop</h2>
-  
-          {drop ? (
-            <div className="mt-4 space-y-3">
-              <h3 className="text-xl">{drop.name}</h3>
-  
-              <div className="flex flex-wrap gap-3 text-sm">
-                <span className="rounded-full bg-neutral-100 px-3 py-1">
-                  Sales: {drop.status}
-                </span>
-                <span className="rounded-full bg-neutral-100 px-3 py-1">
-                  Production: {drop.production_status}
-                </span>
-              </div>
-  
-              <p className="text-sm text-neutral-500">
-                {drop.closes_at
-                  ? `Closes ${new Date(drop.closes_at).toLocaleString()}`
-                  : "No closing date set"}
-              </p>
-  
-              <a
-                href={`/admin/drops/${drop.id}`}
-                className="inline-block text-sm underline"
-              >
-                Manage drop →
-              </a>
+
+        <section aria-labelledby="active-drops-heading">
+          <h2 id="active-drops-heading" className="text-lg font-semibold">
+            Active Drops ({summary.active_drops})
+          </h2>
+
+          {summary.drops.length > 0 ? (
+            <div className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-2">
+              {summary.drops.map((drop) => (
+                <article key={drop.id} className="space-y-3 rounded-xl border bg-white p-6">
+                  <h3 className="text-xl">{drop.name}</h3>
+
+                  <div className="flex flex-wrap gap-3 text-sm">
+                    <span className="rounded-full bg-neutral-100 px-3 py-1">
+                      Sales: {drop.status}
+                    </span>
+                    <span className="rounded-full bg-neutral-100 px-3 py-1">
+                      Production: {drop.production_status}
+                    </span>
+                  </div>
+
+                  <dl className="grid grid-cols-2 gap-4">
+                    <div>
+                      <dt className="text-sm text-neutral-500">Units Sold</dt>
+                      <dd className="text-xl font-semibold">{drop.units_sold}</dd>
+                    </div>
+                    <div>
+                      <dt className="text-sm text-neutral-500">Awaiting Fulfillment</dt>
+                      <dd className="text-xl font-semibold">{drop.awaiting_fulfillment}</dd>
+                    </div>
+                  </dl>
+
+                  <p className="text-sm text-neutral-500">
+                    {drop.closes_at
+                      ? `Closes ${new Date(drop.closes_at).toLocaleString()}`
+                      : "No closing date set"}
+                  </p>
+
+                  <a
+                    href={`/admin/drops/${drop.id}`}
+                    className="inline-block text-sm underline"
+                  >
+                    Manage drop →
+                  </a>
+                </article>
+              ))}
             </div>
           ) : (
-            <p className="mt-3 text-sm text-neutral-500">
-              No current drop. Create one to get started.
-            </p>
+            <p className="mt-3 text-sm text-neutral-500">No active drops.</p>
           )}
         </section>
-  
+
         {summary.integration_errors > 0 && (
           <section className="rounded-xl border border-amber-300 bg-amber-50 p-5">
             <h2 className="font-semibold">Integration issues</h2>
