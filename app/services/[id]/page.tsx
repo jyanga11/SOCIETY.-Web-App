@@ -2,6 +2,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { services } from '../../constants/services';
 import InquiryForm from "@/app/components/InquiryForm";
 import Link from 'next/link';
+import TrackAnalytics from '@/app/components/TrackAnalytics';
 
 export default async function ServicePage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
@@ -23,6 +24,10 @@ export default async function ServicePage({ params }: { params: Promise<{ id: st
   
     return (
       <main className="min-w-screen px-5 items-center justify-center relative">
+        <TrackAnalytics
+          eventKey={`service:${service.id}`}
+          event={{ event: "view_service", service_type: service.title }}
+        />
         
         <div className="flex flex-row gap-2 justify-center items-center">
 

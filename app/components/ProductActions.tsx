@@ -3,6 +3,7 @@
 import { useCallback, useState, type FormEvent } from 'react'
 import { loadStripe } from '@stripe/stripe-js'
 import { EmbeddedCheckoutProvider, EmbeddedCheckout } from '@stripe/react-stripe-js'
+import { trackEvent, type EcommerceDetails } from '@/lib/analytics'
 
 // Call loadStripe outside the component so it isn't recreated on every render
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
@@ -77,13 +78,21 @@ export default function ProductActions({ items }: Props) {
           newsletter_opt_in: newsletterOptIn,
         }),
       })
-      const data = await res.json().catch(() => null)
+      const data: {
+        clientSecret?: string | null
+        checkoutAnalytics?: EcommerceDetails
+        error?: string
+      } | null = await res.json().catch(() => null)
 
-      if (!res.ok || !data?.clientSecret) {
+      if (!res.ok || typeof data?.clientSecret !== 'string' || !data.clientSecret.trim()) {
         throw new Error(data?.error ?? 'Could not start checkout. Please try again.')
       }
 
-      return data.clientSecret as string
+      if (data.checkoutAnalytics) {
+        trackEvent({ event: 'begin_checkout', ecommerce: data.checkoutAnalytics })
+      }
+
+      return data.clientSecret
     } catch (err) {
       setCheckoutError((err as Error).message)
       setCheckoutOpen(false)
@@ -274,3 +283,6 @@ export default function ProductActions({ items }: Props) {
     </div>
   )
 }
+
+
+

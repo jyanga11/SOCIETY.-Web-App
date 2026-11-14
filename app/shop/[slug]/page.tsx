@@ -1,3 +1,4 @@
+import TrackAnalytics from '@/app/components/TrackAnalytics'
 import ImageCarousel from '@/app/components/ImageCarousel'
 import ProductActions, { type AvailableItem } from '@/app/components/ProductActions'
 import Link from 'next/link'
@@ -112,6 +113,10 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       ? `${varies ? 'From ' : ''}$${(lowest / 100).toFixed(0)}`
       : `$${product.price.toFixed(0)}`
 
+  const lowestPricedItem = items.find((item) => item.unit_amount === lowest)
+  const analyticsPrice = lowest === null ? product.price : lowest / 100
+  const analyticsCurrency = lowestPricedItem?.currency.toUpperCase() ?? 'USD'
+
   const availableItems: AvailableItem[] = items.map((i) => ({
     id: i.id,
     size: i.size,
@@ -131,6 +136,23 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-12">
+      <TrackAnalytics
+        eventKey={`product:${product._id}`}
+        event={{
+          event: 'view_item',
+          ecommerce: {
+            currency: analyticsCurrency,
+            value: analyticsPrice,
+            items: [{
+              // Match the product-name item ID used by the checkout route.
+              item_id: product.title,
+              item_name: product.title,
+              price: analyticsPrice,
+              quantity: 1,
+            }],
+          },
+        }}
+      />
       <Link href="/shop" className="text-sm opacity-70 hover:opacity-99">
         ← Back to Shop
       </Link>

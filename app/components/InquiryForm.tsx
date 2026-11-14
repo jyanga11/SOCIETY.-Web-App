@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
+import { trackEvent } from "@/lib/analytics"
 
 type InquiryFormProps = {
   serviceType: string;
@@ -53,17 +54,24 @@ export default function InquiryForm({ serviceType }: InquiryFormProps) {
 
       const result: InquirySubmissionResponse = await response.json();
 
+      if (!result.success || !result.inquiry) {
+        throw new Error("Unable to submit inquiry. Please try again.");
+      }
+
+      const submittedServiceType = result.inquiry.service_type ?? serviceType;
+
       sessionStorage.setItem(
         "society:last-inquiry",
         JSON.stringify({
           id: result.inquiry.id,
           name: result.inquiry.name,
-          service_type: result.inquiry.service_type ?? serviceType,
+          service_type: submittedServiceType,
           newsletter_opt_in: newsletterOptIn,
           submitted_at: Date.now(),
         })
       );
 
+      trackEvent({ event: "generate_lead", service_type: submittedServiceType });
       router.push("/thank-you");
     } catch (err) {
       setError(

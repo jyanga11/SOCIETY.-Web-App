@@ -1,5 +1,7 @@
 import Link from 'next/link'
 import Stripe from 'stripe'
+import TrackAnalytics from '@/app/components/TrackAnalytics'
+import type { EcommerceItem, PurchaseDetails } from '@/lib/analytics'
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!)
 
@@ -63,7 +65,7 @@ export default async function Success({
   let session: Stripe.Checkout.Session
   try {
     session = await stripe.checkout.sessions.retrieve(session_id, {
-      expand: ['line_items'],
+      expand: ['line_items.data.price.product'],
     })
   } catch {
     return (
@@ -85,13 +87,69 @@ export default async function Success({
     )
   }
 
+  if (session.payment_status === 'unpaid') {
+    return (
+      <Message
+        title="Payment pending"
+        body="We’re waiting for your payment to be confirmed. You can refresh this page to check again."
+        cta={{ href: '/shop/', label: 'Back to shop' }}
+      />
+    )
+  }
+
   const email = session.customer_details?.email
   const name = session.customer_details?.name
   const items = session.line_items?.data ?? []
   const orderRef = session.id.slice(-8).toUpperCase()
 
+  const analyticsItems = items.flatMap((item): EcommerceItem[] => {
+    const product = item.price?.product
+    const quantity = item.quantity
+    if (!product || typeof product === 'string' || product.deleted || !quantity) {
+      return []
+    }
+
+    const { analytics_item_id, analytics_item_name, analytics_item_variant } =
+      product.metadata
+    if (!analytics_item_id || !analytics_item_name) return []
+
+    return [{
+      item_id: analytics_item_id,
+      item_name: analytics_item_name,
+      ...(analytics_item_variant ? { item_variant: analytics_item_variant } : {}),
+      price: (item.amount_subtotal - item.amount_discount) / (100 * quantity),
+      quantity,
+    }]
+  })
+  const [firstItem, ...otherItems] = analyticsItems
+  const purchase: PurchaseDetails | null =
+    session.payment_status === 'paid' &&
+    session.currency &&
+    typeof session.payment_intent === 'string' &&
+    firstItem &&
+    analyticsItems.length === items.length &&
+    !session.line_items?.has_more
+      ? {
+          transaction_id: session.payment_intent,
+          currency: session.currency.toUpperCase(),
+          value: items.reduce(
+            (total, item) => total + item.amount_subtotal - item.amount_discount,
+            0,
+          ) / 100,
+          tax: (session.total_details?.amount_tax ?? 0) / 100,
+          shipping: (session.total_details?.amount_shipping ?? 0) / 100,
+          items: [firstItem, ...otherItems],
+        }
+      : null
+
   return (
     <Shell>
+      {purchase && (
+        <TrackAnalytics
+          eventKey={`purchase:${purchase.transaction_id}`}
+          event={{ event: 'purchase', ecommerce: purchase }}
+        />
+      )}
       <div className="flex flex-col items-center text-center">
         <div className="flex h-16 w-16 items-center justify-center rounded-full border-2 border-orange-500">
           <svg

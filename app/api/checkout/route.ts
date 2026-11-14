@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import Stripe from 'stripe'
+import type { EcommerceDetails } from '@/lib/analytics'
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!)
 
@@ -62,6 +63,22 @@ export async function POST(req: Request) {
   }
 
   const currency = item.currency.toLowerCase()
+  // Use the same catalog name as item_id on the product detail page.
+  const itemId = item.product_name
+  const variant = [item.variant_name, item.size].filter(Boolean).join(' · ')
+  const price = item.unit_amount / 100
+  const checkoutAnalytics: EcommerceDetails = {
+    currency: currency.toUpperCase(),
+    value: (item.unit_amount * quantity) / 100,
+    items: [{
+      item_id: itemId,
+      item_name: item.product_name,
+      ...(variant ? { item_variant: variant } : {}),
+      price,
+      quantity,
+    }],
+  }
+
   const displayName = [item.product_name, item.variant_name, item.size]
     .filter(Boolean)
     .join(' · ')
@@ -88,6 +105,11 @@ export async function POST(req: Request) {
             unit_amount: item.unit_amount,
             product_data: {
               name: displayName,
+              metadata: {
+                analytics_item_id: itemId,
+                analytics_item_name: item.product_name,
+                ...(variant ? { analytics_item_variant: variant } : {}),
+              },
             },
           },
         },
@@ -133,6 +155,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json({
       clientSecret: session.client_secret,
+      checkoutAnalytics,
     })
   } catch (err) {
     // Log the details, but don't leak internals to the browser.
