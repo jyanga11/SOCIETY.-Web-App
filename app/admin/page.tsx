@@ -9,7 +9,6 @@ type AdminSummary = {
     service_revenue: ServiceRevenue[];
     product_revenue: ServiceRevenue[];
     revenue_over_time: RevenueTimeline;
-    new_inquiries: number;
     unprocessed_inquiries: number;
     awaiting_fulfillment: number;
     drops: {
@@ -24,7 +23,7 @@ type AdminSummary = {
     integration_errors: number;
   };
   
-  async function getSummary(): Promise<AdminSummary> {
+  async function getAdminToken(): Promise<string> {
     const access = await requireAdmin();
 
     if (!access.authorized) {
@@ -42,6 +41,10 @@ type AdminSummary = {
       redirect("/sign-in");
     }
     
+    return token;
+  }
+
+  async function getSummary(token: string): Promise<AdminSummary> {
     const response = await fetch(
       `${process.env.FASTAPI_URL}/admin/summary`, {
         headers: {
@@ -58,6 +61,25 @@ type AdminSummary = {
     return response.json();
   }
   
+  async function getWebsiteVisitors(token: string): Promise<number | null> {
+    try {
+      const response = await fetch(
+        `${process.env.FASTAPI_URL}/admin/analytics/visitors`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+          cache: "no-store",
+          signal: AbortSignal.timeout(7000),
+        }
+      );
+      if (!response.ok) return null;
+
+      const { website_visitors } = await response.json();
+      return typeof website_visitors === "number" ? website_visitors : null;
+    } catch {
+      return null;
+    }
+  }
+
   function StatCard({
     label,
     value,
@@ -74,7 +96,11 @@ type AdminSummary = {
   }
   
   export default async function AdminPage() {
-    const summary = await getSummary();
+    const token = await getAdminToken();
+    const [summary, visitors] = await Promise.all([
+      getSummary(token),
+      getWebsiteVisitors(token),
+    ]);
   
     return (
       <div className="space-y-8">
@@ -87,7 +113,10 @@ type AdminSummary = {
   
         <section className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
           <StatCard label="New Orders" value={summary.new_orders} />
-          <StatCard label="New Inquiries" value={summary.new_inquiries} />
+          <StatCard
+            label="Website Visitors · Last 7 Completed Days"
+            value={visitors?.toLocaleString("en-US") ?? "Unavailable"}
+          />
           <StatCard label="Unfulfilled Orders" value={summary.awaiting_fulfillment} />
           <StatCard label="Unprocessed Inquiries" value={summary.unprocessed_inquiries} />
         </section>
