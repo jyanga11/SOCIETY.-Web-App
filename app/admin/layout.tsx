@@ -25,8 +25,7 @@ export default async function AdminLayout({
   return (
     <div className="relative z-50 min-h-screen bg-neutral-50 text-neutral-900 md:flex">
       <aside className="w-full border-b bg-white p-6 md:min-h-screen md:w-60 md:border-b-0 md:border-r">
-        <h1 className="text-xl font-bold">SOCIETY.</h1>
-        <p className="mt-1 text-sm text-neutral-500">Admin</p>
+        <h1 className="text-xl font-arts-crafts-regular">SOCIETY.</h1>
 
         <nav className="mt-8 flex gap-5 md:flex-col md:gap-3">
           <Link href="/admin">Overview</Link>
