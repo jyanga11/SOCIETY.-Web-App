@@ -60,11 +60,16 @@ type AdminSummary = {
     return response.json();
   }
   
-  async function getAnalyticsCount(
+  type SocialFollowers = {
+    facebook_follows_gained: number | null;
+    youtube_subscribers_gained: number | null;
+    total_new_followers: number | null;
+  };
+
+  async function getAnalytics<T>(
     token: string,
-    path: "visitors" | "youtube-subscribers",
-    field: "website_visitors" | "youtube_subscribers_gained",
-  ): Promise<number | null> {
+    path: "visitors" | "social-followers",
+  ): Promise<T | null> {
     try {
       const response = await fetch(
         `${process.env.FASTAPI_URL}/admin/analytics/${path}`,
@@ -76,34 +81,40 @@ type AdminSummary = {
       );
       if (!response.ok) return null;
 
-      const data = await response.json();
-      return typeof data?.[field] === "number" ? data[field] : null;
+      return await response.json();
     } catch {
       return null;
     }
   }
 
+  function formatCount(value: number | null | undefined): string {
+    return typeof value === "number" ? value.toLocaleString("en-US") : "Unavailable";
+  }
+
   function StatCard({
     label,
     value,
+    detail,
   }: {
     label: string;
     value: string | number;
+    detail?: string;
   }) {
     return (
       <div className="rounded-xl border bg-white p-5">
         <p className="text-sm text-neutral-500">{label}</p>
         <p className="mt-2 text-3xl font-semibold">{value}</p>
+        {detail && <p className="mt-2 text-sm text-neutral-500">{detail}</p>}
       </div>
     );
   }
   
   export default async function AdminPage() {
     const token = await getAdminToken();
-    const [summary, visitors, subscribers] = await Promise.all([
+    const [summary, visitors, followers] = await Promise.all([
       getSummary(token),
-      getAnalyticsCount(token, "visitors", "website_visitors"),
-      getAnalyticsCount(token, "youtube-subscribers", "youtube_subscribers_gained"),
+      getAnalytics<{ website_visitors: number | null }>(token, "visitors"),
+      getAnalytics<SocialFollowers>(token, "social-followers"),
     ]);
   
     return (
@@ -117,12 +128,13 @@ type AdminSummary = {
   
         <section className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
           <StatCard
-            label="New Subscribers"
-            value={subscribers?.toLocaleString("en-US") ?? "Unavailable"}
+            label="New Followers · Last 30 Completed Days"
+            value={formatCount(followers?.total_new_followers)}
+            detail={`Facebook ${formatCount(followers?.facebook_follows_gained)} · YouTube ${formatCount(followers?.youtube_subscribers_gained)}`}
           />
           <StatCard
             label="Website Visitors"
-            value={visitors?.toLocaleString("en-US") ?? "Unavailable"}
+            value={formatCount(visitors?.website_visitors)}
           />
           <StatCard label="Unfulfilled Orders" value={summary.awaiting_fulfillment} />
           <StatCard label="Unprocessed Inquiries" value={summary.unprocessed_inquiries} />
