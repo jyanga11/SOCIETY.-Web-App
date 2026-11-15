@@ -5,7 +5,6 @@ import { auth } from "@clerk/nextjs/server";
 
 type AdminSummary = {
     active_drops: number;
-    new_orders: number;
     service_revenue: ServiceRevenue[];
     product_revenue: ServiceRevenue[];
     revenue_over_time: RevenueTimeline;
@@ -61,10 +60,14 @@ type AdminSummary = {
     return response.json();
   }
   
-  async function getWebsiteVisitors(token: string): Promise<number | null> {
+  async function getAnalyticsCount(
+    token: string,
+    path: "visitors" | "youtube-subscribers",
+    field: "website_visitors" | "youtube_subscribers_gained",
+  ): Promise<number | null> {
     try {
       const response = await fetch(
-        `${process.env.FASTAPI_URL}/admin/analytics/visitors`,
+        `${process.env.FASTAPI_URL}/admin/analytics/${path}`,
         {
           headers: { Authorization: `Bearer ${token}` },
           cache: "no-store",
@@ -73,8 +76,8 @@ type AdminSummary = {
       );
       if (!response.ok) return null;
 
-      const { website_visitors } = await response.json();
-      return typeof website_visitors === "number" ? website_visitors : null;
+      const data = await response.json();
+      return typeof data?.[field] === "number" ? data[field] : null;
     } catch {
       return null;
     }
@@ -97,21 +100,28 @@ type AdminSummary = {
   
   export default async function AdminPage() {
     const token = await getAdminToken();
-    const [summary, visitors] = await Promise.all([
+    const [summary, visitors, subscribers] = await Promise.all([
       getSummary(token),
-      getWebsiteVisitors(token),
+      getAnalyticsCount(token, "visitors", "website_visitors"),
+      getAnalyticsCount(token, "youtube-subscribers", "youtube_subscribers_gained"),
     ]);
   
     return (
       <div className="space-y-8">
         <header>
-          <h1 className="text-3xl font-arts-crafts-regular">Overview</h1>
+          <h1 className="text-3xl font-semibold">Overview</h1>
+          <p className="mt-2 text-neutral-500">
+            Your business at a glance.
+          </p>
         </header>
   
         <section className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
-          <StatCard label="New Orders" value={summary.new_orders} />
           <StatCard
-            label="Website Visitors"
+            label="New Subscribers · YouTube · Last 7 Completed Days"
+            value={subscribers?.toLocaleString("en-US") ?? "Unavailable"}
+          />
+          <StatCard
+            label="Website Visitors · Last 7 Completed Days"
             value={visitors?.toLocaleString("en-US") ?? "Unavailable"}
           />
           <StatCard label="Unfulfilled Orders" value={summary.awaiting_fulfillment} />
