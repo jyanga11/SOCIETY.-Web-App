@@ -117,11 +117,11 @@ type AdminSummary = {
   
         <section className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
           <StatCard
-            label="New Subscribers · YouTube · Last 7 Completed Days"
+            label="New Subscribers"
             value={subscribers?.toLocaleString("en-US") ?? "Unavailable"}
           />
           <StatCard
-            label="Website Visitors · Last 7 Completed Days"
+            label="Website Visitors"
             value={visitors?.toLocaleString("en-US") ?? "Unavailable"}
           />
           <StatCard label="Unfulfilled Orders" value={summary.awaiting_fulfillment} />
