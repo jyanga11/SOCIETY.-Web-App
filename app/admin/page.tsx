@@ -123,17 +123,14 @@ type AdminSummary = {
     return (
       <div className="space-y-8">
         <header>
-          <h1 className="text-3xl font-semibold">Overview</h1>
-          <p className="mt-2 text-neutral-500">
-            Your business at a glance.
-          </p>
+          <h1 className="text-3xl font-arts-crafts-regular">Overview</h1>
         </header>
   
         <section className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
           <StatCard
-            label="New Followers · Last 30 Completed Days"
+            label="New Followers"
             value={formatCount(followers?.total_new_followers)}
-            detail={`Facebook ${formatCount(followers?.facebook_follows_gained)} · Instagram ${formatCount(followers?.instagram_follows_gained)} · YouTube ${formatCount(followers?.youtube_subscribers_gained)} · Newsletter ${formatCount(followers?.newsletter_subscribers_gained)} · TikTok ${formatCount(followers?.tiktok_follows_gained)}`}
+            /*detail={`Facebook ${formatCount(followers?.facebook_follows_gained)} · Instagram ${formatCount(followers?.instagram_follows_gained)} · YouTube ${formatCount(followers?.youtube_subscribers_gained)} · Newsletter ${formatCount(followers?.newsletter_subscribers_gained)} · TikTok ${formatCount(followers?.tiktok_follows_gained)}`}*/
           />
           <StatCard
             label="Website Visitors"
