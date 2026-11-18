@@ -63,6 +63,9 @@ type AdminSummary = {
   type SocialFollowers = {
     facebook_follows_gained: number | null;
     youtube_subscribers_gained: number | null;
+    instagram_follows_gained: number | null;
+    newsletter_subscribers_gained: number | null;
+    tiktok_follows_gained: number | null;
     total_new_followers: number | null;
   };
 
@@ -130,7 +133,7 @@ type AdminSummary = {
           <StatCard
             label="New Followers · Last 30 Completed Days"
             value={formatCount(followers?.total_new_followers)}
-            detail={`Facebook ${formatCount(followers?.facebook_follows_gained)} · YouTube ${formatCount(followers?.youtube_subscribers_gained)}`}
+            detail={`Facebook ${formatCount(followers?.facebook_follows_gained)} · Instagram ${formatCount(followers?.instagram_follows_gained)} · YouTube ${formatCount(followers?.youtube_subscribers_gained)} · Newsletter ${formatCount(followers?.newsletter_subscribers_gained)} · TikTok ${formatCount(followers?.tiktok_follows_gained)}`}
           />
           <StatCard
             label="Website Visitors"
@@ -144,6 +147,13 @@ type AdminSummary = {
           rows={summary.service_revenue ?? []}
           products={summary.product_revenue ?? []}
           timeline={summary.revenue_over_time ?? {}}
+          followers={[
+            { channel: "Facebook", gained: followers?.facebook_follows_gained ?? null },
+            { channel: "Instagram", gained: followers?.instagram_follows_gained ?? null },
+            { channel: "YouTube", gained: followers?.youtube_subscribers_gained ?? null },
+            { channel: "Newsletter", gained: followers?.newsletter_subscribers_gained ?? null },
+            { channel: "TikTok", gained: followers?.tiktok_follows_gained ?? null },
+          ]}
         />
 
         <section aria-labelledby="active-drops-heading">
@@ -210,3 +220,6 @@ type AdminSummary = {
       </div>
     );
   }
+
+
+

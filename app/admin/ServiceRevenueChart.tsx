@@ -32,22 +32,34 @@ export type ServiceRevenue = {
 
 export type RevenueTimeline = Partial<Record<Range, ServiceRevenue[]>>;
 
+export type ChannelFollowers = {
+  channel: string;
+  gained: number | null;
+};
+
 const charts = [
   { title: "Revenue by Service", description: "Paid invoices, net of refunds" },
   { title: "Revenue by Product", description: "Paid product line items, before refunds" },
   { title: "Revenue over Time", description: "Order and invoice payments, net of refunds, in UTC" },
+  { title: "Followers by Channel", description: "New follows and newsletter subscribers · Last 30 completed days (Pacific)" },
 ] as const;
 
 export default function ServiceRevenueChart({
-  rows, products, timeline,
+  rows, products, timeline, followers = [],
 }: {
   rows: ServiceRevenue[];
   products: ServiceRevenue[];
   timeline: RevenueTimeline;
+  followers?: ChannelFollowers[];
 }) {
   const [range, setRange] = useState<Range>("all");
   const [chart, setChart] = useState(0);
   const overTime = chart === 2;
+  const showFollowers = chart === 3;
+  const followerData = followers.filter(
+    (row): row is ChannelFollowers & { gained: number } => row.gained !== null
+  );
+  const unavailableChannels = followers.filter((row) => row.gained === null);
   const selectedRows = overTime ? timeline[range] ?? [] : chart === 1 ? products : rows;
   const Chart = overTime ? LineChart : BarChart;
 
@@ -82,7 +94,7 @@ export default function ServiceRevenueChart({
             </button>
             <h2 id="service-revenue-heading" className="min-w-0 text-lg font-semibold">
               <select
-                aria-label="Revenue chart"
+                aria-label="Dashboard chart"
                 className="min-w-0 w-full rounded-md border bg-white px-3 py-2"
                 value={chart}
                 onChange={(event) => setChart(Number(event.target.value))}
@@ -103,7 +115,9 @@ export default function ServiceRevenueChart({
           </div>
           <p className="mt-1 text-sm text-neutral-500">{charts[chart].description}</p>
         </div>
-        <label className="flex items-center gap-2 text-sm">
+        {showFollowers ? (
+          <span className="py-2 text-sm text-neutral-500">Last 30 completed days</span>
+        ) : <label className="flex items-center gap-2 text-sm">
           Time range
           <select
             className="rounded-md border bg-white px-3 py-2"
@@ -114,14 +128,41 @@ export default function ServiceRevenueChart({
               <option key={value} value={value}>{label}</option>
             ))}
           </select>
-        </label>
+        </label>}
       </div>
 
-      {currencies.size === 0 && (
+      {showFollowers && (
+        <div className="mt-5">
+          {followerData.length > 0 ? (
+            <div className="overflow-x-auto">
+              <div style={{ minWidth: followerData.length * 115 + 64 }}>
+                <ResponsiveContainer width="100%" height={300}>
+                  <BarChart data={followerData} margin={{ right: 16 }}>
+                    <CartesianGrid vertical={false} strokeDasharray="3 3" />
+                    <XAxis dataKey="channel" interval={0} tick={{ fontSize: 12 }} />
+                    <YAxis allowDecimals={false} domain={[0, "auto"]} />
+                    <Tooltip formatter={(value: unknown): [string, string] => [
+                      Number(value).toLocaleString("en-US"), "New followers",
+                    ]} />
+                    <Bar dataKey="gained" fill="#262626" maxBarSize={42} />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+          ) : <p className="text-sm text-neutral-500">Follower data unavailable.</p>}
+          {unavailableChannels.length > 0 && (
+            <p className="mt-3 text-sm text-neutral-500">
+              Growth unavailable for {unavailableChannels.map((row) => row.channel).join(", ")}.
+            </p>
+          )}
+        </div>
+      )}
+
+      {!showFollowers && currencies.size === 0 && (
         <p className="mt-4 text-sm text-neutral-500">No revenue data in this time range.</p>
       )}
 
-      {Array.from(currencies, ([currency, group]) => {
+      {!showFollowers && Array.from(currencies, ([currency, group]) => {
         const money = new Intl.NumberFormat("en-US", { style: "currency", currency });
         const axisMoney = new Intl.NumberFormat("en-US", {
           style: "currency",
@@ -181,3 +222,6 @@ export default function ServiceRevenueChart({
     </section>
   );
 }
+
+
+
