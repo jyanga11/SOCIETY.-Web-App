@@ -32,7 +32,7 @@ type Customer = {
   service_spend: number; // minor units (cents), net of refunds
 };
 
-async function getCustomers(page: number): Promise<Customer[]> {
+async function getCustomerToken() {
   const access = await requireAdmin();
 
   if (!access.authorized) {
@@ -49,8 +49,10 @@ async function getCustomers(page: number): Promise<Customer[]> {
   if (!token) {
     redirect("/sign-in");
   }
-  
-  const offset = (page - 1) * PAGE_SIZE;
+  return token;
+}
+
+async function fetchCustomers(token: string, offset: number): Promise<Customer[]> {
   const response = await fetch(`${process.env.FASTAPI_URL}/customers?limit=${PAGE_SIZE}&offset=${offset}`, {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -84,17 +86,86 @@ function formatLocation(address: Address | null) {
   return text || address.country || "—";
 }
 
+const sortOptions = {
+  order_spend: "Total spend",
+  total_orders: "Orders",
+  first_purchase_at: "First purchase date",
+  last_purchase_at: "Last purchase date",
+};
+
+type SortField = keyof typeof sortOptions;
+
+function sortValue(customer: Customer, field: SortField) {
+  const value = customer[field];
+  if (typeof value === "number") return value;
+  const timestamp = value ? Date.parse(value) : NaN;
+  return Number.isFinite(timestamp) ? timestamp : null;
+}
+
+function normalize(text: string) {
+  return text.toLowerCase().replace(/[,\s]+/g, " ").trim();
+}
+
 export default async function CustomersPage({
   searchParams,
 }: {
-  searchParams: Promise<{ page?: string }>;
+  searchParams: Promise<{ page?: string; q?: string; sort?: string; dir?: string }>;
 }) {
-  const { page: pageParam } = await searchParams;
-  const page = Math.max(1, Number.parseInt(pageParam ?? "1", 10) || 1);
-  const customers = await getCustomers(page);
+  const params = await searchParams;
+  const query = typeof params.q === "string" ? params.q.trim() : "";
+  const term = normalize(query);
+  const field = params.sort && Object.prototype.hasOwnProperty.call(sortOptions, params.sort)
+    ? params.sort as SortField
+    : undefined;
+  const direction = params.dir === "asc" ? "asc" : "desc";
+  const requestedPage = Number(params.page);
+  let page = Number.isSafeInteger(requestedPage) && requestedPage > 0 ? requestedPage : 1;
+  const token = await getCustomerToken();
+  let customers: Customer[];
+  let hasNext: boolean;
 
+  if (term || field) {
+    const matches: Customer[] = [];
+    for (let offset = 0; ; offset += PAGE_SIZE) {
+      const batch = await fetchCustomers(token, offset);
+      for (const customer of batch) {
+        const address = customer.address;
+        const location = [address?.city, address?.state, address?.postal_code, address?.country]
+          .filter(Boolean).join(" ");
+        if (!term || [customer.email, customer.name, location].some(
+          (value) => value && normalize(value).includes(term)
+        )) matches.push(customer);
+      }
+      if (batch.length < PAGE_SIZE) break;
+    }
+    if (field) {
+      matches.sort((a, b) => {
+        const left = sortValue(a, field);
+        const right = sortValue(b, field);
+        if (left === right) return a.id - b.id;
+        if (left === null) return 1;
+        if (right === null) return -1;
+        return direction === "asc" ? left - right : right - left;
+      });
+    }
+    page = Math.min(page, Math.max(1, Math.ceil(matches.length / PAGE_SIZE)));
+    customers = matches.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+    hasNext = page * PAGE_SIZE < matches.length;
+  } else {
+    customers = await fetchCustomers(token, (page - 1) * PAGE_SIZE);
+    hasNext = customers.length === PAGE_SIZE;
+  }
   const hasPrevious = page > 1;
-  const hasNext = customers.length === PAGE_SIZE;
+
+  function pageHref(number: number) {
+    const search = new URLSearchParams({ page: String(number) });
+    if (query) search.set("q", query);
+    if (field) {
+      search.set("sort", field);
+      search.set("dir", direction);
+    }
+    return `/admin/customers?${search}`;
+  }
 
   return (
     <div className="space-y-8">
@@ -104,6 +175,32 @@ export default async function CustomersPage({
           Everyone who has paid for an order, with lifetime purchase totals.
         </p>
       </header>
+
+      <form action="/admin/customers" method="get" className="flex flex-wrap items-end gap-3">
+        <label className="flex min-w-56 flex-1 flex-col gap-1 text-sm">
+          Search customers
+          <input type="search" name="q" defaultValue={query} placeholder="Email, name, or location"
+            className="rounded-lg border px-3 py-2" />
+        </label>
+        <label className="flex flex-col gap-1 text-sm">
+          Sort by
+          <select name="sort" defaultValue={field ?? ""} className="rounded-lg border px-3 py-2">
+            <option value="">Default order</option>
+            {Object.entries(sortOptions).map(([value, label]) => (
+              <option key={value} value={value}>{label}</option>
+            ))}
+          </select>
+        </label>
+        <label className="flex flex-col gap-1 text-sm">
+          Direction
+          <select name="dir" defaultValue={direction} className="rounded-lg border px-3 py-2">
+            <option value="desc">Descending</option>
+            <option value="asc">Ascending</option>
+          </select>
+        </label>
+        <button className="rounded-lg bg-neutral-900 px-4 py-2 text-sm text-white">Apply</button>
+        {(query || field) && <Link href="/admin/customers" className="py-2 text-sm underline">Clear</Link>}
+      </form>
 
       <div className="overflow-x-auto rounded-xl border bg-white">
         <table className="w-full text-left text-sm">
@@ -163,7 +260,7 @@ export default async function CustomersPage({
             {customers.length === 0 && (
               <tr>
                 <td colSpan={7} className="p-8 text-center text-neutral-500">
-                  No customers yet.
+                  {query ? "No customers match your search." : "No customers yet."}
                 </td>
               </tr>
             )}
@@ -174,7 +271,7 @@ export default async function CustomersPage({
       {(hasPrevious || hasNext) && (
         <nav className="flex items-center justify-between text-sm">
           {hasPrevious ? (
-            <Link className="underline" href={`/admin/customers?page=${page - 1}`}>
+            <Link className="underline" href={pageHref(page - 1)}>
               ← Previous
             </Link>
           ) : (
@@ -184,7 +281,7 @@ export default async function CustomersPage({
           <span className="text-neutral-500">Page {page}</span>
 
           {hasNext ? (
-            <Link className="underline" href={`/admin/customers?page=${page + 1}`}>
+            <Link className="underline" href={pageHref(page + 1)}>
               Next →
             </Link>
           ) : (

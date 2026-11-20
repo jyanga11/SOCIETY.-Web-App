@@ -42,7 +42,19 @@ type Order = {
   items: { quantity: number }[];
 };
 
-async function getCustomer(id: string): Promise<Customer> {
+type Inquiry = {
+  id: number;
+  customer_id: number | null;
+  created_at: string;
+  service_type: string | null;
+  status: string;
+  production_status: string | null;
+  payment_status: string | null;
+  total_amount: number | null;
+  currency: string;
+};
+
+async function getAdminToken() {
   const access = await requireAdmin();
 
   if (!access.authorized) {
@@ -60,6 +72,10 @@ async function getCustomer(id: string): Promise<Customer> {
     redirect("/sign-in");
   }
 
+  return token;
+}
+
+async function getCustomer(id: string, token: string): Promise<Customer> {
   const response = await fetch(`${process.env.FASTAPI_URL}/customers/${id}`, {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -74,24 +90,7 @@ async function getCustomer(id: string): Promise<Customer> {
 }
 
 // Requires the customer_id filter on GET /orders (see backend note).
-async function getCustomerOrders(id: string): Promise<Order[]> {
-  const access = await requireAdmin();
-
-  if (!access.authorized) {
-    if (access.status === 401) {
-      redirect("/sign-in");
-    }
-
-    notFound();
-  }
-
-  const { getToken } = await auth();
-  const token = await getToken();
-
-  if (!token) {
-    redirect("/sign-in");
-  }
-
+async function getCustomerOrders(id: string, token: string): Promise<Order[]> {
   const response = await fetch(`${process.env.FASTAPI_URL}/orders?customer_id=${id}&limit=100`, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -102,6 +101,21 @@ async function getCustomerOrders(id: string): Promise<Order[]> {
   if (!response.ok) throw new Error("Could not load customer orders");
 
   return response.json();
+}
+
+async function getCustomerInquiries(id: string, token: string): Promise<Inquiry[]> {
+  const inquiries: Inquiry[] = [];
+  const limit = 100;
+  for (let offset = 0; ; offset += limit) {
+    const response = await fetch(
+      `${process.env.FASTAPI_URL}/inquiries?limit=${limit}&offset=${offset}`,
+      { headers: { Authorization: `Bearer ${token}` }, cache: "no-store" }
+    );
+    if (!response.ok) throw new Error("Could not load customer inquiries");
+    const batch: Inquiry[] = await response.json();
+    inquiries.push(...batch.filter((inquiry) => inquiry.customer_id === Number(id)));
+    if (batch.length < limit) return inquiries;
+  }
 }
 
 function formatMoney(amount: number, currency = "usd") {
@@ -139,9 +153,11 @@ export default async function CustomerDetailPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const [customer, orders] = await Promise.all([
-    getCustomer(id),
-    getCustomerOrders(id),
+  const token = await getAdminToken();
+  const [customer, orders, inquiries] = await Promise.all([
+    getCustomer(id, token),
+    getCustomerOrders(id, token),
+    getCustomerInquiries(id, token),
   ]);
 
   const address = customer.address;
@@ -165,9 +181,16 @@ export default async function CustomerDetailPage({
 
       <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <Stat label="Total orders" value={customer.total_orders} />
-        <Stat label="Total spend" value={formatMoney(customer.order_spend)} />
+        <Stat label="Total order spend" value={formatMoney(customer.order_spend)} />
         <Stat label="First purchase" value={formatDate(customer.first_purchase_at)} />
         <Stat label="Last purchase" value={formatDate(customer.last_purchase_at)} />
+      </section>
+
+      <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <Stat label="Total inquiries" value={customer.total_inquiries} />
+        <Stat label="Total inquiry spend" value={formatMoney(customer.service_spend)} />
+        <Stat label="First inquiry" value={formatDate(customer.first_inquiry_at)} />
+        <Stat label="Last inquiry" value={formatDate(customer.last_inquiry_at)} />
       </section>
 
       <section className="grid gap-4 md:grid-cols-2">
@@ -262,6 +285,51 @@ export default async function CustomerDetailPage({
                 <tr>
                   <td colSpan={7} className="p-8 text-center text-neutral-500">
                     No orders found for this customer.
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section className="space-y-3">
+        <h2 className="text-xl font-semibold">Inquiries</h2>
+        <div className="overflow-x-auto rounded-xl border bg-white">
+          <table className="w-full text-left text-sm">
+            <thead className="border-b bg-neutral-50 text-neutral-500">
+              <tr>
+                <th className="p-4">Inquiry</th>
+                <th className="p-4">Date</th>
+                <th className="p-4">Service</th>
+                <th className="p-4">Status</th>
+                <th className="p-4">Production</th>
+                <th className="p-4">Payment</th>
+                <th className="p-4">Quote</th>
+              </tr>
+            </thead>
+            <tbody>
+              {inquiries.map((inquiry) => (
+                <tr key={inquiry.id} className="border-b last:border-0">
+                  <td className="p-4 font-medium">#{inquiry.id}</td>
+                  <td className="whitespace-nowrap p-4">{formatDate(inquiry.created_at)}</td>
+                  <td className="p-4">{inquiry.service_type?.replaceAll("_", " ") || "—"}</td>
+                  <td className="p-4"><StatusBadge status={inquiry.status} /></td>
+                  <td className="p-4">
+                    {inquiry.production_status ? <StatusBadge status={inquiry.production_status} /> : "—"}
+                  </td>
+                  <td className="p-4">
+                    {inquiry.payment_status ? <StatusBadge status={inquiry.payment_status} /> : "—"}
+                  </td>
+                  <td className="whitespace-nowrap p-4">
+                    {inquiry.total_amount == null ? "—" : formatMoney(inquiry.total_amount, inquiry.currency)}
+                  </td>
+                </tr>
+              ))}
+              {inquiries.length === 0 && (
+                <tr>
+                  <td colSpan={7} className="p-8 text-center text-neutral-500">
+                    No inquiries found for this customer.
                   </td>
                 </tr>
               )}
