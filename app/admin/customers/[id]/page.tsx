@@ -179,20 +179,6 @@ export default async function CustomerDetailPage({
         )}
       </header>
 
-      <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <Stat label="Total orders" value={customer.total_orders} />
-        <Stat label="Total order spend" value={formatMoney(customer.order_spend)} />
-        <Stat label="First purchase" value={formatDate(customer.first_purchase_at)} />
-        <Stat label="Last purchase" value={formatDate(customer.last_purchase_at)} />
-      </section>
-
-      <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <Stat label="Total inquiries" value={customer.total_inquiries} />
-        <Stat label="Total inquiry spend" value={formatMoney(customer.service_spend)} />
-        <Stat label="First inquiry" value={formatDate(customer.first_inquiry_at)} />
-        <Stat label="Last inquiry" value={formatDate(customer.last_inquiry_at)} />
-      </section>
-
       <section className="grid gap-4 md:grid-cols-2">
         <div className="rounded-xl border bg-white p-5">
           <h2 className="text-sm font-medium text-neutral-500">Contact</h2>
@@ -233,6 +219,13 @@ export default async function CustomerDetailPage({
             address. Each order&apos;s ship-to address is on its own order page.
           </p>
         </div>
+      </section>
+
+      <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <Stat label="Total orders" value={customer.total_orders} />
+        <Stat label="Total order spend" value={formatMoney(customer.order_spend)} />
+        <Stat label="First purchase" value={formatDate(customer.first_purchase_at)} />
+        <Stat label="Last purchase" value={formatDate(customer.last_purchase_at)} />
       </section>
 
       <section className="space-y-3">
@@ -293,6 +286,13 @@ export default async function CustomerDetailPage({
         </div>
       </section>
 
+      <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <Stat label="Total inquiries" value={customer.total_inquiries} />
+        <Stat label="Total inquiry spend" value={formatMoney(customer.service_spend)} />
+        <Stat label="First inquiry" value={formatDate(customer.first_inquiry_at)} />
+        <Stat label="Last inquiry" value={formatDate(customer.last_inquiry_at)} />
+      </section>
+
       <section className="space-y-3">
         <h2 className="text-xl font-semibold">Inquiries</h2>
         <div className="overflow-x-auto rounded-xl border bg-white">
@@ -311,7 +311,11 @@ export default async function CustomerDetailPage({
             <tbody>
               {inquiries.map((inquiry) => (
                 <tr key={inquiry.id} className="border-b last:border-0">
-                  <td className="p-4 font-medium">#{inquiry.id}</td>
+                  <td className="p-4 font-medium">
+                    <Link href={`/admin/inquiries/${inquiry.id}`} className="underline">
+                      #{inquiry.id}
+                    </Link>
+                  </td>
                   <td className="whitespace-nowrap p-4">{formatDate(inquiry.created_at)}</td>
                   <td className="p-4">{inquiry.service_type?.replaceAll("_", " ") || "—"}</td>
                   <td className="p-4"><StatusBadge status={inquiry.status} /></td>
