@@ -109,13 +109,14 @@ function formatDate(iso: string) {
   }).format(new Date(iso));
 }
 
-type Query = { filter?: string; drop?: string; page?: string };
+type Query = { filter?: string; drop?: string; page?: string; q?: string };
 
 function href(base: Query, changes: Partial<Query>) {
   const merged = { ...base, ...changes };
   const params = new URLSearchParams();
   if (merged.filter && merged.filter !== "needs_action") params.set("filter", merged.filter);
   if (merged.drop) params.set("drop", merged.drop);
+  if (merged.q) params.set("q", merged.q);
   if (merged.page && merged.page !== "1") params.set("page", merged.page);
   const qs = params.toString();
   return `/admin/fulfillments${qs ? `?${qs}` : ""}`;
@@ -140,6 +141,7 @@ export default async function FulfillmentsPage({
   const query = await searchParams;
   const filter = query.filter ?? "needs_action"; // needs_action | all | a status
   const dropFilter = query.drop ?? "";
+  const search = query.q?.trim().toLowerCase() ?? "";
   const page = Math.max(1, Number.parseInt(query.page ?? "1", 10) || 1);
 
   const all = await getFulfillments();
@@ -163,9 +165,14 @@ export default async function FulfillmentsPage({
 
   const visible = inScope
     .filter((f) => {
-      if (filter === "all") return true;
-      if (filter === "needs_action") return needsAction(f);
-      return f.status === filter;
+      const matchesStatus = filter === "all" ||
+        (filter === "needs_action" ? needsAction(f) : f.status === filter);
+      const matchesSearch = !search || [
+        f.customer_name ?? "",
+        f.customer_email ?? "",
+        f.tracking_number ?? "",
+      ].some((value) => value.toLowerCase().includes(search));
+      return matchesStatus && matchesSearch;
     })
     // Oldest first: the longest-waiting orders go to the top.
     .sort(
@@ -218,11 +225,20 @@ export default async function FulfillmentsPage({
           })}
         </nav>
 
+        <form method="get" action="/admin/fulfillments" className="flex flex-wrap items-center gap-2 text-sm">
+          {filter !== "needs_action" && <input type="hidden" name="filter" value={filter} />}
+          {dropFilter && <input type="hidden" name="drop" value={dropFilter} />}
+          <label htmlFor="fulfillment-search" className="sr-only">Search name, email, or tracking number</label>
+          <input id="fulfillment-search" type="search" name="q" defaultValue={query.q ?? ""}
+            placeholder="Search name, email, or tracking number"
+            className="w-64 rounded-lg border bg-white px-3 py-2" />
+          <button type="submit" className="rounded-lg border bg-white px-3 py-2 hover:bg-neutral-100">Search</button>
+        </form>
+
         {hasDrops && (
           <form method="get" action="/admin/fulfillments" className="flex items-center gap-2 text-sm">
-            {filter !== "needs_action" && (
-              <input type="hidden" name="filter" value={filter} />
-            )}
+            {filter !== "needs_action" && <input type="hidden" name="filter" value={filter} />}
+            {query.q && <input type="hidden" name="q" value={query.q} />}
             <label htmlFor="drop" className="text-neutral-500">
               Drop
             </label>
@@ -369,3 +385,6 @@ export default async function FulfillmentsPage({
     </div>
   );
 }
+
+
+

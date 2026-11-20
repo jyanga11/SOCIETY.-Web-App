@@ -44,6 +44,7 @@ type Fulfillment = {
   order: {
     id: number;
     payment_status: string;
+    customer_id?: number | null;
     customer_email: string | null;
     customer: Customer | null;
     shipping_details: { name?: string | null; address?: Address | null } | null;
@@ -122,7 +123,11 @@ function trackingUrl(carrier: string | null, tracking: string | null) {
 
 export default function FulfillmentDetailPage() {
   const params = useParams<{ id: string }>();
-  const id = params.id;
+  return <FulfillmentDetail key={params.id} id={params.id} />;
+}
+
+function FulfillmentDetail({ id }: { id: string }) {
+  const [picked, setPicked] = useState<Record<number, number>>({});
   const [fulfillment, setFulfillment] = useState<Fulfillment | null>(null);
   const [carrier, setCarrier] = useState("USPS");
   const [trackingNumber, setTrackingNumber] = useState("");
@@ -160,9 +165,11 @@ export default function FulfillmentDetailPage() {
   const refunded = ["refunded", "partially_refunded"].includes(paymentStatus);
   const blocked = unpaid || refunded;
   const action = fulfillment ? NEXT_ACTION[fulfillment.status] : undefined;
+  const items = fulfillment?.order?.items ?? [];
+  const allPicked = items.length > 0 && items.every(item => picked[item.id] === item.quantity);
   const shippingReady = carrier.trim().length > 0 && trackingNumber.trim().length > 0;
   const shipDisabled = saving || blocked || fulfillment?.status === "delivered" ||
-    fulfillment?.status === "cancelled" || !shippingReady;
+    fulfillment?.status === "cancelled" || !shippingReady || !allPicked;
 
   async function update(patch: Record<string, unknown>, successMessage: string) {
     if (!fulfillment) return;
@@ -236,7 +243,9 @@ export default function FulfillmentDetailPage() {
   );
 
   const tracking = trackingUrl(fulfillment.carrier, fulfillment.tracking_number);
-  const orderEmail = fulfillment.order?.customer?.email
+  const customer = fulfillment.order?.customer;
+  const customerId = customer?.id ?? fulfillment.order?.customer_id;
+  const orderEmail = customer?.email ?? fulfillment.order?.customer_email;
   return (
     <main className="mx-auto max-w-5xl space-y-7 p-4 sm:p-6">
       <Link href="/admin/fulfillments" className="text-sm text-neutral-500 underline underline-offset-4">← All fulfillments</Link>
@@ -313,7 +322,23 @@ export default function FulfillmentDetailPage() {
           <ul className="mt-4 divide-y">
             {fulfillment.order.items.map((item, index) => (
               <li key={item.id ?? index} className="flex items-center justify-between gap-4 py-4">
-                <div className="min-w-0">
+                {["unfulfilled", "processing", "packing"].includes(fulfillment.status) && (
+                  <input type="checkbox" className="size-5 shrink-0"
+                    aria-label={`Picked ${item.quantity} × ${item.product_name} ${item.variant_name ?? ""} ${item.size ?? ""}`}
+                    disabled={saving}
+                    checked={picked[item.id] === item.quantity}
+                    onChange={(event) => {
+                      const checked = event.target.checked;
+                      setPicked(previous => {
+                        const next = { ...previous };
+                        if (checked) next[item.id] = item.quantity;
+                        else delete next[item.id];
+                        return next;
+                      });
+                    }}
+                  />
+                )}
+                <div className="min-w-0 flex-1">
                   <p className="text-base font-semibold">{item.product_name}</p>
                   <p className="mt-1 text-sm text-neutral-600">
                     {[item.variant_name, item.size ? `Size ${item.size}` : null].filter(Boolean).join(" · ") || "No variant specified"}
@@ -349,14 +374,20 @@ export default function FulfillmentDetailPage() {
           <p className="mt-4 text-sm text-amber-800">No shipping address was returned. Check the order’s Stripe Checkout Session payload.</p>
         )}
         <div className="mt-4 border-t pt-4 text-sm">
-          <span className="text-neutral-500">Customer email</span>
-          <p className="mt-1 break-all">{orderEmail || "No email on record"}</p>
+          <span className="text-neutral-500">Customer</span>
+          <p className="mt-1 break-all">
+            {customerId != null ? (
+              <Link href={`/admin/customers/${customerId}`} className="underline">
+                {[customer?.name, orderEmail].filter(Boolean).join(" · ") || `Customer #${customerId}`}
+              </Link>
+            ) : (orderEmail || "No email on record")}
+          </p>
         </div>
       </section>
 
       <section className="rounded-xl border bg-white p-5">
         <h2 className="text-lg font-semibold">Shipping</h2>
-        <p className="mt-1 text-sm text-neutral-500">Carrier and tracking are required before marking the order shipped.</p>
+        <p className="mt-1 text-sm text-neutral-500">Check every pick list item and enter the carrier and tracking number before marking this fulfillment shipped.</p>
         <div className="mt-4 grid gap-4 sm:grid-cols-2">
           <label className="block text-sm font-medium">
             Carrier
@@ -417,3 +448,6 @@ export default function FulfillmentDetailPage() {
     </main>
   );
 }
+
+
+
