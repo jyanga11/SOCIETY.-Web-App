@@ -174,6 +174,40 @@ async function getDrop(id: string): Promise<Drop> {
   return response.json();
 }
 
+type DropOrder = {
+  id: number;
+  created_at: string;
+  payment_status: string;
+  total_amount: number;
+  currency: string;
+  items: { drop_item_id: number | null }[];
+};
+
+async function getDropOrders(drop: Drop): Promise<DropOrder[]> {
+  if (!drop.items.length) return [];
+  const itemIds = new Set(drop.items.map((item) => item.id));
+  const { getToken } = await auth();
+  const token = await getToken();
+  if (!token) redirect("/sign-in");
+
+  const orders: DropOrder[] = [];
+  const limit = 100;
+  for (let offset = 0; ; offset += limit) {
+    const response = await fetch(`${API}/orders?limit=${limit}&offset=${offset}`, {
+      headers: { Authorization: `Bearer ${token}` },
+      cache: "no-store",
+    });
+    if (!response.ok) throw new Error("Failed to load orders for this drop");
+    const batch: DropOrder[] = await response.json();
+    for (const order of batch) {
+      if (order.items.some((item) => item.drop_item_id != null && itemIds.has(item.drop_item_id))) {
+        orders.push(order);
+      }
+    }
+    if (batch.length < limit) return orders;
+  }
+}
+
 async function getSummary(id: string): Promise<DropSummary> {
   const access = await requireAdmin();
 
@@ -524,6 +558,7 @@ export default async function DropDetailPage({
 
   const [drop, summary] = await Promise.all([getDrop(id), getSummary(id)]);
 
+  const orders = await getDropOrders(drop);
   const editable = isCatalogOpen(drop.status);
   const { products, error: sanityError } = editable
     ? await getSanityProducts()
@@ -639,7 +674,9 @@ export default async function DropDetailPage({
 
           <div className="text-sm text-neutral-500">
             Production: {drop.production_status}
-            {drop.trello_card_id && <> · Trello card {drop.trello_card_id}</>}
+            {drop.trello_card_id && (
+              <> · Trello card <a className="underline" href={`https://trello.com/c/${encodeURIComponent(drop.trello_card_id)}`} target="_blank" rel="noopener noreferrer">{drop.trello_card_id}</a></>
+            )}
           </div>
 
           <button
@@ -813,6 +850,38 @@ export default async function DropDetailPage({
         )}
       </section>
 
+      <section className="rounded-xl border bg-white p-6">
+        <h2 className="text-lg font-semibold">Orders</h2>
+        {orders.length ? (
+          <div className="mt-4 overflow-x-auto">
+            <table className="w-full text-left text-sm">
+              <thead className="border-b bg-neutral-100">
+                <tr>
+                  <th className="p-3">Order</th>
+                  <th className="p-3">Date</th>
+                  <th className="p-3">Payment status</th>
+                  <th className="p-3">Order total</th>
+                </tr>
+              </thead>
+              <tbody>
+                {orders.map((order) => (
+                  <tr key={order.id} className="border-b last:border-0">
+                    <td className="p-3">
+                      <a href={`/admin/orders/${order.id}`} className="font-medium underline">#{order.id}</a>
+                    </td>
+                    <td className="p-3">{formatDate(order.created_at)}</td>
+                    <td className="p-3">{order.payment_status.replaceAll("_", " ")}</td>
+                    <td className="p-3">{formatMoney(order.total_amount, order.currency)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <p className="mt-3 text-sm text-neutral-500">No orders for this drop yet.</p>
+        )}
+      </section>
+
       {(canSchedule || canCancel) && (
         <form action={changeStatus} className="flex flex-wrap gap-3">
           <input type="hidden" name="id" value={drop.id} />
@@ -843,3 +912,6 @@ export default async function DropDetailPage({
     </div>
   );
 }
+
+
+
