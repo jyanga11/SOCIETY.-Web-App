@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { requireAdmin } from "@/lib/requireAdmin";
 import { notFound, redirect } from "next/navigation";
 import { auth } from "@clerk/nextjs/server";
@@ -63,7 +64,7 @@ type Address = {
   country?: string | null;
 };
 
-async function getOrder(id: string): Promise<Order> {
+async function getOrder(id: string) {
   const access = await requireAdmin();
 
   if (!access.authorized) {
@@ -91,7 +92,20 @@ async function getOrder(id: string): Promise<Order> {
   if (response.status === 404) notFound();
   if (!response.ok) throw new Error("Could not load order");
 
-  return response.json();
+  const order: Order = await response.json();
+  const dropIds = new Map<number, number>();
+  if (order.items.some((item) => item.drop_item_id != null)) {
+    const dropsResponse = await fetch(`${process.env.FASTAPI_URL}/drops`, {
+      headers: { Authorization: `Bearer ${token}` },
+      cache: "no-store",
+    });
+    if (!dropsResponse.ok) throw new Error("Could not load drops for order items");
+    const drops: { id: number; items: { id: number }[] }[] = await dropsResponse.json();
+    for (const drop of drops) {
+      for (const item of drop.items) dropIds.set(item.id, drop.id);
+    }
+  }
+  return { order, dropIds };
 }
 
 function formatMoney(amount: number, currency: string) {
@@ -143,7 +157,12 @@ export default async function OrderDetailPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const order = await getOrder(id);
+  const { order, dropIds } = await getOrder(id);
+  const customerId = order.customer_id ?? order.customer?.id;
+  const stripeMode = order.stripe_session_id?.startsWith("cs_test_") ? "/test" : "";
+  const paymentUrl = order.stripe_payment_intent_id
+    ? `https://dashboard.stripe.com${stripeMode}/payments/${encodeURIComponent(order.stripe_payment_intent_id)}`
+    : null;
 
   const computedSubtotal = order.items.reduce(
     (sum, item) => sum + item.unit_amount * item.quantity,
@@ -193,7 +212,13 @@ export default async function OrderDetailPage({
         <section className="rounded-xl border bg-white p-6">
           <h2 className="text-lg font-semibold">Customer</h2>
           <dl className="mt-4 space-y-4">
-            <Field label="Name">{order.customer?.name || "Guest"}</Field>
+            <Field label="Name">
+              {customerId != null ? (
+                <Link className="underline" href={`/admin/customers/${customerId}`}>
+                  {order.customer?.name || "Guest"}
+                </Link>
+              ) : (order.customer?.name || "Guest")}
+            </Field>
             <Field label="Email">
               {order.customer_email ? (
                 <a href={`mailto:${order.customer_email}`} className="underline">
@@ -245,8 +270,10 @@ export default async function OrderDetailPage({
               {order.items.map((item) => (
                 <tr key={item.id} className="border-b last:border-0">
                   <td className="p-3 font-medium">
-                    {item.drop_item_id ? (
-                      <span>{item.product_name}</span>
+                    {item.drop_item_id != null && dropIds.has(item.drop_item_id) ? (
+                      <Link className="underline" href={`/admin/drops/${dropIds.get(item.drop_item_id)}`}>
+                        {item.product_name}
+                      </Link>
                     ) : (
                       item.product_name
                     )}
@@ -312,6 +339,7 @@ export default async function OrderDetailPage({
             <table className="w-full text-left text-sm">
               <thead className="border-b bg-neutral-50 text-neutral-500">
                 <tr>
+                  <th className="p-3">Fulfillment</th>
                   <th className="p-3">Status</th>
                   <th className="p-3">Carrier</th>
                   <th className="p-3">Tracking</th>
@@ -322,6 +350,9 @@ export default async function OrderDetailPage({
               <tbody>
                 {order.fulfillments.map((f) => (
                   <tr key={f.id} className="border-b last:border-0">
+                    <td className="p-3">
+                      <Link className="underline" href={`/admin/fulfillments/${f.id}`}>#{f.id}</Link>
+                    </td>
                     <td className="p-3">
                       <StatusBadge status={f.status} />
                     </td>
@@ -346,7 +377,13 @@ export default async function OrderDetailPage({
       <section className="rounded-xl border bg-white p-6">
         <h2 className="text-lg font-semibold">Stripe</h2>
         <dl className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
-          <Field label="Checkout session">{order.stripe_session_id}</Field>
+          <Field label="Checkout session">
+            {paymentUrl ? (
+              <a className="underline" href={paymentUrl} target="_blank" rel="noopener noreferrer">
+                {order.stripe_session_id}
+              </a>
+            ) : order.stripe_session_id}
+          </Field>
           <Field label="Payment intent">
             {order.stripe_payment_intent_id ?? "—"}
           </Field>
@@ -355,3 +392,6 @@ export default async function OrderDetailPage({
     </div>
   );
 }
+
+
+
