@@ -194,9 +194,22 @@ export default async function CustomerDetailPage({
             <div>
               <dt className="text-xs text-neutral-500">HubSpot</dt>
               <dd>
-                {customer.hubspot_contact_id
-                  ? `Contact ${customer.hubspot_contact_id}`
-                  : "Not synced yet"}
+                {customer.hubspot_contact_id ? (
+                  process.env.HUBSPOT_PORTAL_ID ? (
+                    <a
+                      href={`https://app.hubspot.com/contacts/${process.env.HUBSPOT_PORTAL_ID}/record/0-1/${customer.hubspot_contact_id}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline"
+                    >
+                      Contact {customer.hubspot_contact_id}
+                    </a>
+                  ) : (
+                    `Contact ${customer.hubspot_contact_id}`
+                  )
+                ) : (
+                  "Not synced yet"
+                )}
               </dd>
             </div>
           </dl>
