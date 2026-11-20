@@ -197,7 +197,7 @@ export default async function CustomerDetailPage({
                 {customer.hubspot_contact_id ? (
                   process.env.HUBSPOT_PORTAL_ID ? (
                     <a
-                      href={`https://app.hubspot.com/contacts/${process.env.HUBSPOT_PORTAL_ID}/record/0-1/${customer.hubspot_contact_id}`}
+                      href={`https://app-na2.hubspot.com/contacts/${process.env.HUBSPOT_PORTAL_ID}/record/0-1/${customer.hubspot_contact_id}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="underline"
