@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
 type AcceptStatus = "new" | "acknowledged" | "won" | "lost" | "rejected";
@@ -39,6 +40,8 @@ export default function InquiriesPage() {
   const [error, setError] = useState("");
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("all");
+  const [productionFilter, setProductionFilter] = useState("");
+  const [paymentFilter, setPaymentFilter] = useState("");
   const [selectedId, setSelectedId] = useState<number | null>(null);
   const [status, setStatus] = useState<AcceptStatus>("new");
   const [quote, setQuote] = useState("");
@@ -89,13 +92,18 @@ export default function InquiriesPage() {
     setNotice("");
   }, [selectedId, selected?.status, selected?.total_amount, selected?.invoice_description, selected?.payment_terms_days]);
 
+  const productionStatuses = [...new Set(inquiries.map((i) => i.production_status).filter(Boolean))].sort();
+  const paymentStatuses = [...new Set(inquiries.map((i) => i.payment_status).filter(Boolean))].sort();
+
   const filtered = useMemo(() => inquiries.filter((i) => {
     const matchesStatus = filter === "all" || i.status === filter;
     const term = search.trim().toLowerCase();
     const matchesSearch = !term || [i.email, i.service_type ?? "", i.description, String(i.id)]
       .some((value) => value.toLowerCase().includes(term));
-    return matchesStatus && matchesSearch;
-  }).sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()), [inquiries, search, filter]);
+    const matchesProduction = !productionFilter || i.production_status === productionFilter;
+    const matchesPayment = !paymentFilter || i.payment_status === paymentFilter;
+    return matchesStatus && matchesSearch && matchesProduction && matchesPayment;
+  }).sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()), [inquiries, search, filter, productionFilter, paymentFilter]);
 
   async function save() {
     if (!selected || saving) return;
@@ -194,9 +202,27 @@ export default function InquiriesPage() {
       <section className="overflow-hidden rounded-xl border bg-white">
         <div className="flex flex-wrap gap-3 border-b p-4">
           <input aria-label="Search inquiries" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search email, service, or ID" className="min-w-56 flex-1 rounded-lg border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-neutral-300" />
-          <select aria-label="Filter status" value={filter} onChange={(e) => setFilter(e.target.value)} className="rounded-lg border bg-white px-3 py-2 text-sm">
-            <option value="all">All statuses</option>
+          <select aria-label="Filter accept status" value={filter} onChange={(e) => setFilter(e.target.value)} className="rounded-lg border bg-white px-3 py-2 text-sm">
+            <option value="all">All accept statuses</option>
             {STATUSES.map((s) => <option key={s} value={s}>{label(s)}</option>)}
+          </select>
+          <select
+            aria-label="Filter production status"
+            value={productionFilter}
+            onChange={(e) => setProductionFilter(e.target.value)}
+            className="rounded-lg border bg-white px-3 py-2 text-sm"
+          >
+            <option value="">All production statuses</option>
+            {productionStatuses.map((s) => <option key={s} value={s}>{label(s)}</option>)}
+          </select>
+          <select
+            aria-label="Filter payment status"
+            value={paymentFilter}
+            onChange={(e) => setPaymentFilter(e.target.value)}
+            className="rounded-lg border bg-white px-3 py-2 text-sm"
+          >
+            <option value="">All payment statuses</option>
+            {paymentStatuses.map((s) => <option key={s} value={s}>{label(s)}</option>)}
           </select>
         </div>
         {error && <p role="alert" className="m-4 rounded-lg bg-red-50 p-3 text-sm text-red-700">{error}</p>}
@@ -230,7 +256,16 @@ export default function InquiriesPage() {
             <button onClick={() => setSelectedId(null)} aria-label="Close inquiry" className="rounded-lg border px-3 py-2 text-sm">Close</button>
           </div>
           <div className="mt-6 space-y-5 text-sm">
-            <div><p className="text-neutral-500">Customer</p><a className="font-medium underline" href={`mailto:${selected.email}`}>{selected.email}</a></div>
+            <div>
+              <p className="text-neutral-500">Customer</p>
+              {selected.customer_id != null ? (
+                <Link className="font-medium underline" href={`/admin/customers/${selected.customer_id}`}>
+                  {selected.email}
+                </Link>
+              ) : (
+                <a className="font-medium underline" href={`mailto:${selected.email}`}>{selected.email}</a>
+              )}
+            </div>
             <div><p className="text-neutral-500">Received</p><p>{date(selected.created_at)}</p></div>
             <div><p className="text-neutral-500">Source</p><p>{selected.source || "Not specified"}</p></div>
             <div><p className="mb-2 text-neutral-500">Project description</p><p className="whitespace-pre-wrap rounded-lg bg-neutral-50 p-4 leading-relaxed">{selected.description}</p></div>
@@ -238,6 +273,18 @@ export default function InquiriesPage() {
               <div><p className="text-neutral-500">Production</p><p className="mt-1 font-medium capitalize">{label(selected.production_status)}</p></div>
               <div><p className="text-neutral-500">Payment</p><p className="mt-1 font-medium capitalize">{label(selected.payment_status)}</p></div>
             </div>
+            {selected.trello_card_id && (
+              <div>
+                <a
+                  href={`https://trello.com/c/${encodeURIComponent(selected.trello_card_id)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block text-sm font-medium underline"
+                >
+                  View Trello card ↗
+                </a>
+              </div>
+            )}
             {selected.stripe_invoice_url && <a href={selected.stripe_invoice_url} target="_blank" rel="noopener noreferrer" className="inline-block text-sm font-medium underline">View Stripe invoice ↗</a>}
             <div className="border-t pt-6"><h3 className="mb-4 text-lg font-semibold">Manage Inquiry</h3>
               <label className="mb-2 block font-medium" htmlFor="inquiry-status">Accept Status</label>
